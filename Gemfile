@@ -36,6 +36,10 @@ gem 'bootstrap-sass'
 gem 'will_paginate'
 gem 'will_paginate-bootstrap'
 gem 'codemirror-rails'
+gem 'ratyrate'
+gem 'delayed_job'
+gem 'cancancan'
+gem 'acts-as-taggable-on'
 
 
 

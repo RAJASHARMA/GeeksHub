@@ -35,6 +35,8 @@ GEM
       minitest (~> 5.1)
       thread_safe (~> 0.3, >= 0.3.4)
       tzinfo (~> 1.1)
+    acts-as-taggable-on (5.0.0)
+      activerecord (>= 4.2.8)
     arel (6.0.4)
     autoprefixer-rails (9.5.0)
       execjs
@@ -54,6 +56,7 @@ GEM
       sassc (>= 2.0.0)
     builder (3.2.3)
     byebug (11.0.0)
+    cancancan (2.3.0)
     ckeditor (4.3.0)
       orm_adapter (~> 0.5.0)
       terrapin
@@ -71,6 +74,8 @@ GEM
     concurrent-ruby (1.1.5)
     crass (1.0.4)
     debug_inspector (0.0.3)
+    delayed_job (4.1.5)
+      activesupport (>= 3.0, < 5.3)
     devise (4.6.1)
       bcrypt (~> 3.0)
       orm_adapter (~> 0.1)
@@ -145,6 +150,7 @@ GEM
       rake (>= 0.8.7)
       thor (>= 0.18.1, < 2.0)
     rake (12.3.2)
+    ratyrate (1.2.2.alpha)
     rb-fsevent (0.10.3)
     rb-inotify (0.10.0)
       ffi (~> 1.0)
@@ -214,19 +220,23 @@ PLATFORMS
   ruby
 
 DEPENDENCIES
+  acts-as-taggable-on
   better_errors
   bootstrap
   bootstrap-sass
   byebug
+  cancancan
   ckeditor
   codemirror-rails
   coffee-rails (~> 4.1.0)
+  delayed_job
   devise
   jbuilder (~> 2.0)
   jquery-rails
   mysql2
   paperclip
   rails (= 4.2.11)
+  ratyrate
   sass-rails (~> 5.0)
   sdoc (~> 0.4.0)
   simple_form
