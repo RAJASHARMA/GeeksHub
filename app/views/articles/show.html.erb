@@ -1,19 +1,47 @@
 <p id="notice"><%= notice %></p>
 
-<p>
-  <strong>Title:</strong>
+<div class="col-md-12 col-lg-8 main-content">
+  <p>
+  
   <%= @article.title %>
 </p>
-
 <p>
-  <strong>Content:</strong>
   <%= @article.content %>
 </p>
-
 <p>
   <strong>Status:</strong>
-  <%= @article.status %>
+  <% if @article.status == false %>
+  	Pending
+  	<% else %>
+  	Approved
+  	<% end %>
 </p>
-
 <%= link_to 'Edit', edit_article_path(@article) %> |
 <%= link_to 'Back', articles_path %>
+  <div class="row mt-5">
+    <div class="col-md-12 text-center">
+      <nav aria-label="Page navigation" class="text-center">
+        <ul class="pagination">
+          <li class="page-item  active"><a class="page-link" href="#">&lt;</a></li>
+          <li class="page-item"><a class="page-link" href="#">1</a></li>
+          <li class="page-item"><a class="page-link" href="#">2</a></li>
+          <li class="page-item"><a class="page-link" href="#">3</a></li>
+          <li class="page-item"><a class="page-link" href="#">4</a></li>
+          <li class="page-item"><a class="page-link" href="#">5</a></li>
+          <li class="page-item"><a class="page-link" href="#">&gt;</a></li>
+        </ul>
+      </nav>
+    </div>
+  </div>
+</div>
+
+
+
+
+
+
+
+
+
+
+
