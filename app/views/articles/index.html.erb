@@ -1,31 +1,38 @@
-<p id="notice"><%= notice %></p>
 
-<h1>Listing Articles</h1>
-
-<table>
-  <thead>
-    <tr>
-      <th>Title</th>
-      <th>Content</th>
-      <th>Status</th>
-      <th colspan="3"></th>
-    </tr>
-  </thead>
-
-  <tbody>
+<div class="col-md-12 col-lg-8 main-content">
+  <div class="row">
     <% @articles.each do |article| %>
-      <tr>
-        <td><%= article.title %></td>
-        <td><%= article.content %></td>
-        <td><%= article.status %></td>
-        <td><%= link_to 'Show', article %></td>
-        <td><%= link_to 'Edit', edit_article_path(article) %></td>
-        <td><%= link_to 'Destroy', article, method: :delete, data: { confirm: 'Are you sure?' } %></td>
-      </tr>
+    <div class="col-md-6">
+      <a href="htmls/blog-single.html" class="blog-entry element-animate" data-animate-effect="fadeIn">
+        <%= image_tag(image_path('img_1.jpg')) %>
+        <div class="blog-content-body">
+          <div class="post-meta">
+            <span class="author mr-2"><img src="images/person_1.jpg" alt="Colorlib"> Colorlib</span>&bullet;
+            <span class="mr-2">March 15, 2018 </span> &bullet;
+            <span class="ml-2"><span class="fa fa-comments"></span> 3</span>
+          </div>
+          <h2><%= article.title %></h2>
+        </div>
+      </a>
+    </div>
     <% end %>
-  </tbody>
-</table>
+  </div>
 
-<br>
+  <div class="row mt-5">
+    <div class="col-md-12 text-center">
+      <nav aria-label="Page navigation" class="text-center">
+        <ul class="pagination">
+          <li class="page-item  active"><a class="page-link" href="#">&lt;</a></li>
+          <li class="page-item"><a class="page-link" href="#">1</a></li>
+          <li class="page-item"><a class="page-link" href="#">2</a></li>
+          <li class="page-item"><a class="page-link" href="#">3</a></li>
+          <li class="page-item"><a class="page-link" href="#">4</a></li>
+          <li class="page-item"><a class="page-link" href="#">5</a></li>
+          <li class="page-item"><a class="page-link" href="#">&gt;</a></li>
+        </ul>
+      </nav>
+    </div>
+  </div>
+</div>
 
-<%= link_to 'New Article', new_article_path %>
+                    
