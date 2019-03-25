@@ -1,41 +1,24 @@
-<p id="notice"><%= notice %></p>
+<!-- <div class="custom-notice"><%= notice %></div>
+<div class="custom-alert"><%= alert %> </div> -->
 
-<div class="col-md-12 col-lg-8 main-content">
-  <p>
+<div class="col-md-12 col-lg-8 main-content bottom10">
+ 
   
   <%= @article.title %>
-</p>
-<p>
-  <%= @article.content %>
-</p>
-<p>
+  <%= raw @article.content %>
   <strong>Status:</strong>
   <% if @article.status == false %>
   	Pending
   	<% else %>
   	Approved
   	<% end %>
-</p>
-<div style="margin-left: 70%; width: 50%; margin-top: -20%;">
+<div>
+  <br />
   <%= link_to 'Edit Article', edit_article_path(@article), class: 'btn btn-light' %> 
-<%= link_to 'Delete Article', articles_path, method: :delete, data: { confirm: 'Are you sure to delete ?'}, class: 'btn btn-danger' %> 
+<%= link_to 'Delete Article', article_path, method: :delete, data: { confirm: 'Are you sure to delete ?'}, class: 'btn btn-danger' %> 
 </div>
 
-  <!-- <div class="row mt-5">
-    <div class="col-md-12 text-center">
-      <nav aria-label="Page navigation" class="text-center">
-        <ul class="pagination">
-          <li class="page-item  active"><a class="page-link" href="#">&lt;</a></li>
-          <li class="page-item"><a class="page-link" href="#">1</a></li>
-          <li class="page-item"><a class="page-link" href="#">2</a></li>
-          <li class="page-item"><a class="page-link" href="#">3</a></li>
-          <li class="page-item"><a class="page-link" href="#">4</a></li>
-          <li class="page-item"><a class="page-link" href="#">5</a></li>
-          <li class="page-item"><a class="page-link" href="#">&gt;</a></li>
-        </ul>
-      </nav>
-    </div>
-  </div> -->
+  
 </div>
 
 

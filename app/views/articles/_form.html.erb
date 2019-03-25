@@ -3,10 +3,15 @@
   <%= f.error_notification %>
   <%= f.error_notification message: f.object.errors[:base].to_sentence if f.object.errors[:base].present? %>
 
-  <div style="margin-top: 20%;">
+  <div>
     <div class="form-group">
       <%= f.label :title, class: 'label', wrapper: false %>:
       <%= f.text_field :title, class: 'form-control', wrapper: false %>
+    </div>
+
+    <div class="form-group">
+      <%= f.label :tag_list, 'Tags ( separated By commas )', class: 'label', wrapper: false %>:
+      <%= f.text_field :tag_list, class: 'form-control', wrapper: false %>
     </div>
     
     <div class="form-group">
@@ -14,13 +19,13 @@
       <%= f.cktext_area :content, class: 'form-control' %>
     </div>
     
-    <!-- <div class="form-group">
+    <div class="form-group">
       <%= f.input :status %>  
-    </div> -->
+    </div>
     
   </div>
 
   <div class="form-group">
-    <%= f.button :submit  %>
+    <%= f.button :submit, class: 'btn btn-success'  %>
   </div>
 <% end %>

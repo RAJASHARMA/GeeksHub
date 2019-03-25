@@ -1,6 +1,7 @@
 class ArticlesController < ApplicationController
   before_action :set_article, only: [:show, :edit, :update, :destroy]
   before_action :authenticate_user!, except: [:index, :show]
+  rescue_from ActiveRecord::RecordNotFound, with: :record_not_found
 
   # GET /articles
   # GET /articles.json
@@ -29,7 +30,8 @@ class ArticlesController < ApplicationController
 
     respond_to do |format|
       if @article.save
-        format.html { redirect_to @article, notice: 'Article was successfully created.' }
+        @article.tag_list.add(tag_params)
+        format.html { redirect_to @article, :notice => 'Article Created Successfully' }
         format.json { render :show, status: :created, location: @article }
       else
         format.html { render :new }
@@ -43,7 +45,8 @@ class ArticlesController < ApplicationController
   def update
     respond_to do |format|
       if @article.update(article_params)
-        format.html { redirect_to @article, notice: 'Article was successfully updated.' }
+        @article.tag_list.add(tag_params)
+        format.html { redirect_to @article, :notice => 'Article Updated Successfully' }
         format.json { render :show, status: :ok, location: @article }
       else
         format.html { render :edit }
@@ -57,7 +60,7 @@ class ArticlesController < ApplicationController
   def destroy
     @article.destroy
     respond_to do |format|
-      format.html { redirect_to articles_url, notice: 'Article was successfully destroyed.' }
+      format.html { redirect_to articles_url, :notice => 'Article Destroyed Successfully' }
       format.json { head :no_content }
     end
   end
@@ -70,6 +73,14 @@ class ArticlesController < ApplicationController
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def article_params
-      params.require(:article).permit(:title, :content, :status)
+      params.require(:article).permit(:title, :content, :status, :tag_list)
+    end
+
+    def tag_params
+      params.require(:article).permit(:tag_list)['tags']
+    end
+
+    def record_not_found
+      render plain: "404 Not Found", status: 404
     end
 end
