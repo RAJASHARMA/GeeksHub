@@ -114,6 +114,7 @@ GEM
     mysql2 (0.5.2)
     nokogiri (1.10.1)
       mini_portile2 (~> 2.4.0)
+    openssl (2.0.9)
     orm_adapter (0.5.0)
     paperclip (6.1.0)
       activemodel (>= 4.2.0)
@@ -234,6 +235,7 @@ DEPENDENCIES
   jbuilder (~> 2.0)
   jquery-rails
   mysql2
+  openssl
   paperclip
   rails (= 4.2.11)
   ratyrate

@@ -16,9 +16,12 @@
   	Approved
   	<% end %>
 </p>
-<%= link_to 'Edit', edit_article_path(@article) %> |
-<%= link_to 'Back', articles_path %>
-  <div class="row mt-5">
+<div style="margin-left: 70%; width: 50%; margin-top: -20%;">
+  <%= link_to 'Edit Article', edit_article_path(@article), class: 'btn btn-light' %> 
+<%= link_to 'Delete Article', articles_path, method: :delete, data: { confirm: 'Are you sure to delete ?'}, class: 'btn btn-danger' %> 
+</div>
+
+  <!-- <div class="row mt-5">
     <div class="col-md-12 text-center">
       <nav aria-label="Page navigation" class="text-center">
         <ul class="pagination">
@@ -32,7 +35,7 @@
         </ul>
       </nav>
     </div>
-  </div>
+  </div> -->
 </div>
 
 
