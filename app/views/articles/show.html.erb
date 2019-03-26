@@ -3,7 +3,6 @@
 
 <div class="col-md-12 col-lg-8 main-content bottom10">
  
-  
   <%= @article.title %>
   <%= raw @article.content %>
   <strong>Status:</strong>
@@ -14,14 +13,13 @@
   	<% end %>
 <div>
   <br />
+
   <%= link_to 'Edit Article', edit_article_path(@article), class: 'btn btn-light' %> 
 <%= link_to 'Delete Article', article_path, method: :delete, data: { confirm: 'Are you sure to delete ?'}, class: 'btn btn-danger' %> 
 </div>
 
   
 </div>
-
-
 
 
 
