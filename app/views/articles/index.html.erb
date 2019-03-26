@@ -1,26 +1,29 @@
 <div class="col-md-6">
-              <h2 class="mb-4">Latest Posts</h2>
-            </div>
+    <h2 class="mb-4">Latest Posts</h2>
+</div>
 <div class="col-md-12 col-lg-8 main-content">
-  <div class="row">
-    <% @articles.each do |article| %>
-    <div class="col-md-6">
-      <a href="<%= article_path(article.id) %>" class="blog-entry element-animate" data-animate-effect="fadeIn">
-        <%= image_tag(image_path('img_1.jpg')) %>
-        <div class="blog-content-body">
-          <div class="post-meta">
-            <span class="author mr-2"><%=image_tag(image_path('img_1.jpg')) %> Colorlib</span>&bullet;
-            <span class="mr-2">March 15, 2018 </span> &bullet;
-            <span class="ml-2"><span class="fa fa-comments"></span> 3</span>
-          </div>
-          <h2><%= article.title %></h2>
+    <div class="row">
+        <% @articles.each do |article| %>
+        <div class="col-md-6">
+            <a href="<%= article_path(article.id) %>" class="blog-entry element-animate" data-animate-effect="fadeIn">
+                <%= image_tag(image_path('img_1.jpg')) %>
+                <div class="blog-content-body">
+                    <div class="post-meta">
+                        <h2><%= article.title %></h2>
+                      
+                        <span class="mr-2">Tags: <%= article.tag_list %></span> 
+                    
+                    </div>
+                
+                </div>
+            </a>
         </div>
-      </a>
+        <% end %>
     </div>
-    <% end %>
-  </div>
 
-  <div class="row mt-5">
+    <%= will_paginate @articles, renderer: BootstrapPagination::Rails, previous_label: 'Older', next_label: 'Newer' %>
+
+  <!-- <div class="row mt-5">
     <div class="col-md-12 text-center">
       <nav aria-label="Page navigation" class="text-center">
         <ul class="pagination">
@@ -34,7 +37,7 @@
         </ul>
       </nav>
     </div>
-  </div>
+  </div> -->
 </div>
 
                     

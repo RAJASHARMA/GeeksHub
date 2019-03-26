@@ -41,6 +41,7 @@ gem 'delayed_job'
 gem 'cancancan'
 gem 'acts-as-taggable-on'
 gem 'openssl'
+gem 'rolify'
 
 
 

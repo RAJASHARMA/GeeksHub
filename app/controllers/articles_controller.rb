@@ -6,7 +6,9 @@ class ArticlesController < ApplicationController
   # GET /articles
   # GET /articles.json
   def index
-    @articles = Article.where(:status => 1)
+      # byebug
+      @articles = params[:tag].present? ? Article.where(:status => 1).tagged_with(params[:tag]) : Article.where(:status => 1)
+      @articles = @articles.paginate(page: params[:page], per_page: 6)
   end
 
   # GET /articles/1
@@ -16,7 +18,7 @@ class ArticlesController < ApplicationController
 
   # GET /articles/new
   def new
-    @article = Article.new
+    @article = current_user.articles.new
   end
 
   # GET /articles/1/edit
@@ -26,7 +28,7 @@ class ArticlesController < ApplicationController
   # POST /articles
   # POST /articles.json
   def create
-    @article = Article.new(article_params)
+    @article = current_user.articles.new(article_params)
 
     respond_to do |format|
       if @article.save

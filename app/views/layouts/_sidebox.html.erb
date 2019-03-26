@@ -1,4 +1,6 @@
+
 <div class="col-md-12 col-lg-4 sidebar">
+  <% unless has_role?(:admin) %>
   <div class="sidebar-box search-form-wrap">
     <form action="#" class="search-form">
       <div class="form-group">
@@ -7,6 +9,7 @@
       </div>
     </form>
   </div>
+  <% end %>
   <!-- END sidebar-box -->
   <!-- <div class="sidebar-box">
     <div class="bio text-center">

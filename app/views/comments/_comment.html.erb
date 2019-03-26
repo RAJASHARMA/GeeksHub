@@ -1,0 +1,24 @@
+<div class="box">
+	<article class="media">
+		<div class="media-content full-width">
+			<div class="content">
+				<strong>
+					<%= comment.user.email %>
+				</strong>:&nbsp;<hr>
+				<div class="float-left">
+					<%= raw comment.content %>
+				</div>
+				<div class="float-right">
+					<% if comment.user == current_user || article.user == current_user %>
+
+						<%= link_to 'Delete', [comment.article, comment], method: :delete, class: "btn-danger btn-sm button-font", data: { confirm: "Are you sure?"} %>
+					<% end %>
+					
+				</div>
+				
+			</div>
+		</div>
+		
+	</article>
+</div>
+
