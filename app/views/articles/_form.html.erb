@@ -25,6 +25,10 @@
       <%= f.label :tag_list, 'Tags ( separated By commas )', class: 'label', wrapper: false %>:
       <%= f.text_field :tag_list, class: 'form-control', wrapper: false %>
     </div>
+    <div class="form-group">
+      <%= f.label "Thumbnail Image", class: 'label', wrapper: false %>:
+      <%= f.file_field :image %>
+    </div>
     
     <div class="form-group">
       <%= f.label :content, class: 'label', wrapper: false %>:

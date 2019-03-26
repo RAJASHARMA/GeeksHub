@@ -14,3 +14,5 @@
 //= require jquery_ujs
 //= require ckeditor/init
 //= require_tree .
+//= require jquery.raty
+//= require ratyrate

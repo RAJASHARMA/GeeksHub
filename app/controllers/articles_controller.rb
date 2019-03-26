@@ -32,6 +32,7 @@ class ArticlesController < ApplicationController
 
     respond_to do |format|
       if @article.save
+        save_picture
         @article.tag_list.add(tag_params)
         format.html { redirect_to @article, :notice => 'Article Created Successfully' }
         format.json { render :show, status: :created, location: @article }
@@ -84,5 +85,25 @@ class ArticlesController < ApplicationController
 
     def record_not_found
       render plain: "404 Not Found", status: 404
+    end
+
+    def save_picture
+      img = params[:article][:image]
+      img_name = "img_1.jpg"
+      unless img.nil?
+        img_name = img.original_filename
+      end
+      img_hash = {"name" => img_name, "imageable_id" => @article.id, "imageable_type" => 'Article'}
+      imgture = Image.create(img_hash)
+      upload
+    end
+
+    def upload
+      uploaded_io = params[:article][:image]
+      unless uploaded_io.nil?
+        File.open(Rails.root.join('app','assets','images',uploaded_io.original_filename),'wb') do |file|
+          file.write(uploaded_io.read)
+        end
+      end
     end
 end

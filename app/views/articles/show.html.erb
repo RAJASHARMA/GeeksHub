@@ -1,36 +1,32 @@
-
-
 <div class="col-md-12 col-lg-11 main-content bottom10">
- 
-  
     <div class="center heading"><%= @article.title %></div>
     <div class="left"><%= raw @article.content %></div>
     <div>Tags: <%= raw @article.tag_list.map { |t| link_to t, tag_path(t) }.join(', ') %></div>
         
-        <% if current_user == @article.user %>
-            <strong>Status:</strong>
-            <% if @article.status == false %>
-               Pending
-            <% else %>
-               Approved
-            <% end %>
-            <div>
-                <br />
-                <%= link_to 'Edit Article', edit_article_path(@article), class: 'btn btn-light' %> 
-                <%= link_to 'Delete Article', article_path, method: :delete, data: { confirm: 'Are you sure to delete ?'}, class: 'btn btn-danger' %> 
-            </div> 
-        <% end %> 
-        
-       
+    <% if current_user == @article.user %>
+        <strong>Status:</strong>
+        <% if @article.status == false %>
+           Pending
+        <% else %>
+           Approved
+        <% end %>
+        <div>
+          <br />
+          <%= link_to 'Edit Article', edit_article_path(@article), class: 'btn btn-light' %> 
+          <%= link_to 'Delete Article', article_path, method: :delete, data: { confirm: 'Are you sure to delete ?'}, class: 'btn btn-danger' %> 
+        </div> 
+    <% end %> 
 </div>
 
+<%= rating_for @article, "content" %>
 
 <div class="section comments width60">
   <div class="container">
     <h2 class="subtitle is-5">
-      <strong><%= @article.comments.count %>
-        
-      </strong> Comments
+      <strong>
+        <%= @article.comments.count %>
+      </strong> 
+      Comments
     </h2>
     <%= render @article.comments, article: @article%>
     <div class="comment-form bottom10">
@@ -40,13 +36,3 @@
     </div>
   </div>
 </div>
-
-
-
-
-
-
-
-
-
-
