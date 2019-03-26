@@ -1,33 +1,16 @@
 <!doctype html>
 <html lang="en">
   <head>
-
     <title>GeeksHub</title>
-	  <%= stylesheet_link_tag    'application', media: 'all', 'data-turbolinks-track' => true %>
-	
+	  <%= stylesheet_link_tag    'application', media: 'all' %>
+	  <%= javascript_include_tag 'application' %>
 	  <%= csrf_meta_tags %>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-
     <link href="" rel="stylesheet">
-
-    <%= stylesheet_link_tag    'https://fonts.googleapis.com/css?family=Josefin+Sans:300, 400,700|Inconsolata:400,700' %>
-    <%= stylesheet_link_tag    'bootstrap', media: 'all', 'data-turbolinks-track' => true %>
-    <%= stylesheet_link_tag    'animate', media: 'all', 'data-turbolinks-track' => true %>
-    <%= stylesheet_link_tag    'owl.carousel.min', media: 'all', 'data-turbolinks-track' => true %>
-    <%= stylesheet_link_tag    'style', media: 'all', 'data-turbolinks-track' => true %>
-
-    <%= stylesheet_link_tag    'ionicons.min', media: 'all', 'data-turbolinks-track' => true %>
-    <%= stylesheet_link_tag    'font-awesome.min', media: 'all', 'data-turbolinks-track' => true %>
-    <%= stylesheet_link_tag    'flaticon', media: 'all', 'data-turbolinks-track' => true %>
-    <%= stylesheet_link_tag    'my-style', media: 'all', 'data-turbolinks-track' => true %>
-
   </head>
   <body>
-    
-
     <div class="wrap">
-
       <%= render partial: 'layouts/header' %>
       <!-- END header -->
 
@@ -37,7 +20,6 @@
 		    <p class="custom-alert"><%= alert %></p>
       </div>
       	
-
       <section class="site-section py-sm">
         <div class="container">
           <div class="row">
@@ -46,78 +28,29 @@
           <div class="row blog-entries">
           	<%= yield %>
           	<%= render partial: 'layouts/sidebox' %>
-
           </div>
-      </div>
-  </section>
+        </div>
+      </section>
     
-    <%= render partial: 'layouts/footer' %>
-    <!-- END footer -->
-
+      <%= render partial: 'layouts/footer' %>
+      <!-- END footer -->
     </div>
     
     <!-- loader -->
     <!-- <div id="loader" class="show fullscreen"><svg class="circular" width="48px" height="48px"><circle class="path-bg" cx="24" cy="24" r="22" fill="none" stroke-width="4" stroke="#eeeeee"/><circle class="path" cx="24" cy="24" r="22" fill="none" stroke-width="4" stroke-miterlimit="10" stroke="#f4b214"/></svg></div>
- -->
+    -->
 
 
 
- 	<%= javascript_include_tag 'jquery-3.2.1.min', 'data-turbolinks-track' => true %>
- 	<%= javascript_include_tag 'jquery-migrate-3.0.0', 'data-turbolinks-track' => true %>
- 	<%= javascript_include_tag 'popper.min', 'data-turbolinks-track' => true %>
- 	<%= javascript_include_tag 'bootstrap.min', 'data-turbolinks-track' => true %>
- 	<%= javascript_include_tag 'owl.carousel.min', 'data-turbolinks-track' => true %>
- 	<%= javascript_include_tag 'jquery.waypoints.min', 'data-turbolinks-track' => true %>
- 	<%= javascript_include_tag 'jquery.stellar.min', 'data-turbolinks-track' => true %>
-    <%= javascript_include_tag 'main', 'data-turbolinks-track' => true %>
+   	<%= javascript_include_tag 'jquery-3.2.1.min' %>
+   	<%= javascript_include_tag 'jquery-migrate-3.0.0' %>
+   	<%= javascript_include_tag 'popper.min' %>
+   	<%= javascript_include_tag 'bootstrap.min' %>
+   	<%= javascript_include_tag 'owl.carousel.min' %>
+   	<%= javascript_include_tag 'jquery.waypoints.min' %>
+   	<%= javascript_include_tag 'jquery.stellar.min' %>
+    <%= javascript_include_tag 'jquery.raty.js' %>
+    <%= javascript_include_tag 'main' %>
 
   </body>
 </html>
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-<!-- <!DOCTYPE html>
-<html>
-<head>
-	<title>GeeksHub</title>
-	<%= stylesheet_link_tag    'application', media: 'all', 'data-turbolinks-track' => true %>
-	<%= javascript_include_tag 'application', 'data-turbolinks-track' => true %>
-	<%= csrf_meta_tags %>
-</head>
-<body>
-
-	<p class="notice"><%= notice %></p>
-	<p class="alert"><%= alert %></p>
-	<%= yield %>
-
-</body>
-</html>
- -->

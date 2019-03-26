@@ -2,23 +2,23 @@
 <div class="custom-alert"><%= alert %> </div> -->
 
 <div class="col-md-12 col-lg-8 main-content bottom10">
- 
-  <%= @article.title %>
-  <%= raw @article.content %>
-  <strong>Status:</strong>
-  <% if @article.status == false %>
-  	Pending
-  	<% else %>
-  	Approved
-  	<% end %>
-<div>
-  <br />
-
-  <%= link_to 'Edit Article', edit_article_path(@article), class: 'btn btn-light' %> 
-<%= link_to 'Delete Article', article_path, method: :delete, data: { confirm: 'Are you sure to delete ?'}, class: 'btn btn-danger' %> 
-</div>
-
-  
+  <%= image_tag @article.image.name, alt: "Missing Image!" %>
+  <p><%= @article.title %></p>
+  <%= rating_for @article, "content" %>
+  <p><%= raw @article.content %></p>
+  <p>
+    <strong>Status:</strong>
+    <% if @article.status == false %>
+    	Pending
+    <% else %>
+    	Approved
+    <% end %>
+  </p>
+  <div>
+    <br />
+    <%= link_to 'Edit Article', edit_article_path(@article), class: 'btn btn-light' %> 
+    <%= link_to 'Delete Article', article_path, method: :delete, data: { confirm: 'Are you sure to delete ?'}, class: 'btn btn-danger' %> 
+  </div>
 </div>
 
 
