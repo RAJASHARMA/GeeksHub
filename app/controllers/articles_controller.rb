@@ -97,15 +97,15 @@ class ArticlesController < ApplicationController
       end
       img_hash = {"name" => img_name, "imageable_id" => @article.id, "imageable_type" => 'Article'}
       imgture = Image.create(img_hash)
-      upload
+      # upload
     end
 
-    def upload
-      uploaded_io = params[:article][:image]
-      unless uploaded_io.nil?
-        File.open(Rails.root.join('public','articles','images',uploaded_io.original_filename),'wb') do |file|
-          file.write(uploaded_io.read)
-        end
-      end
-    end
+    # def upload
+    #   uploaded_io = params[:article][:image]
+    #   unless uploaded_io.nil?
+    #     File.open(Rails.root.join('public','articles','images',uploaded_io.original_filename),'wb') do |file|
+    #       file.write(uploaded_io.read)
+    #     end
+    #   end
+    # end
 end

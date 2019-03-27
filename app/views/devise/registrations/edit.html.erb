@@ -1,54 +1,77 @@
 <div class="width60">
   <div class="new-article">Edit <%= resource_name.to_s.humanize %></div>
 
-<%= form_for(resource, :as => resource_name, :url => registration_path(resource_name), html: { method: :put }) do |f| %>
+<%= form_for(resource, :as => resource_name, :url => registration_path(resource_name), html: { method: :patch }) do |f| %>
   
+  <% if resource.errors.any? %>
+    <div id="error_explanation" class="alert" style="text-align: center; color: red;">
+      <h2><%= pluralize(resource.errors.count, "error") %> Prohibited this Profile from being saved:</h2>
+
+      <ul>
+        <% resource.errors.full_messages.each do |msg| %>
+          <li><%= msg %></li>
+          <% end %>
+      </ul>
+    </div>
+  <% end %>
 
   <div class="form-inputs">
+    
     <div class="form-group">
       <%= f.label :name, class: 'label' %>
-      <%= f.text_field :name, required: true, autofocus: true, class: 'form-control' %>
+      <%= f.text_field :name, required: false, autofocus: true, class: 'form-control' %>
+    </div>
+
+    <div class="form-group">
+      <%= f.label :public_email, class: 'label' %>
+      <%= f.email_field :email, required: false,
+                    hint: "leave it blank if you don't want to add it",
+                    class: 'form-control' %>
     </div>
     <div class="form-group">
-      <%= f.label :email, class: 'label' %>
-      <%= f.text_field :email, required: true, autofocus: false, class: 'form-control' %>
+        <%= f.label :location, class: 'label' %>
+        <%= f.text_field :location,
+                  hint: "leave it blank if you don't want to add it",
+                  required: false,
+                  class: 'form-control' %>
     </div>
-    
 
-    <% if devise_mapping.confirmable? && resource.pending_reconfirmation? %>
-      <p>Currently waiting confirmation for: <%= resource.unconfirmed_email %></p>
-    <% end %>
-
-    
-
-
-  <div class="form-group">
-      <%= f.label :new_password, class: 'label' %>
-      <%= f.text_field :password,
-                hint: "leave it blank if you don't want to change it",
-                required: false,
-                input_html: { autocomplete: "new-password" }, class: 'form-control' %>
-  </div>
-
-  <div class="form-group">
-      <%= f.label :confirm_password, class: 'label' %>
-      <%= f.text_field :password_confirmation,
-                required: false,
-                input_html: { autocomplete: "new-password" }, class: 'form-control' %>
-  </div>    
-    
     <div class="form-group">
-        <%= f.label :current_password, class: 'label' %>
-        <%= f.text_field :current_password,
+        <%= f.label :country, class: 'label' %>
+        <%= f.text_field :country,
+                  hint: "leave it blank if you don't want to add it",
+                  required: false,
+                  class: 'form-control' %>
+    </div>    
+      
+      <div class="form-group">
+          <%= f.label :profession, class: 'label' %>
+          <%= f.text_field :profession,
+                  hint: "leave it blank if you don't want to add it",
+                  required: false,
+                  class: 'form-control' %>    
+      </div>
+
+      <div class="form-group">
+          <%= f.label :organization, class: 'label' %>
+          <%= f.text_field :organization,
+                  hint: "leave it blank if you don't want to add it",
+                  required: false,
+                  class: 'form-control' %>    
+      </div>
+      
+    </div>
+
+    <div class="form-group">
+        <%= f.label :password, class: 'label' %>
+        <%= f.password_field :current_password,
                 hint: "we need your current password to confirm your changes",
                 required: true,
                 input_html: { autocomplete: "current-password" }, class: 'form-control' %>    
     </div>
-    
-  </div>
 
-  <div class="form-group">
-      <%= f.submit "Update", class: 'btn btn-success  ' %>
+    <div class="form-group">
+      <%= f.submit "Submit", class: 'btn btn-success  ' %>
     </div>
     
 <% end %>
