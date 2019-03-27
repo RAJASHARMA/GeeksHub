@@ -1,22 +1,23 @@
 <div class="col-md-12 col-lg-11 main-content bottom10">
-    <div class="center heading"><%= @article.title %></div>
-    <div class="left"><%= raw @article.content %></div>
-    <div>Tags: <%= raw @article.tag_list.map { |t| link_to t, tag_path(t) }.join(', ') %></div>
-        
-    <% if current_user == @article.user || current_user.has_role?(:admin) %>
-        <strong>Status:</strong>
-        <% if @article.status == false %>
-           Pending
-        <% else %>
-           Approved
-        <% end %>
-        <div>
-          <br />
-          <%= link_to 'Edit Article', edit_article_path(@article), class: 'btn btn-light' %> 
-          <%= link_to 'Delete Article', article_path, method: :delete, data: { confirm: 'Are you sure to delete ?'}, class: 'btn btn-danger' %> 
-        </div> 
-    <% end %> 
-    <%= rating_for @article, "content" %>
+  <div class="center heading"><%= @article.title %></div>
+  <div class="left"><%= raw @article.content %></div>
+  <div>Tags: <%= raw @article.tag_list.map { |t| link_to t, tag_path(t) }.join(', ') %></div>
+      <% unless current_user.nil? %>
+        <% if current_user == @article.user || current_user.has_role?(:admin) %>
+          <strong>Status:</strong>
+          <% if @article.status == false %>
+             Pending
+          <% else %>
+             Approved
+          <% end %>
+          <div>
+            <br />
+            <%= link_to 'Edit Article', edit_article_path(@article), class: 'btn btn-light' %> 
+            <%= link_to 'Delete Article', article_path, method: :delete, data: { confirm: 'Are you sure to delete ?'}, class: 'btn btn-danger' %> 
+          </div> 
+        <% end %> 
+      <% end %>
+  <%= rating_for @article, "content" %>
 </div>
 
 <div class="section comments width60">

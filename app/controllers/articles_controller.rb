@@ -34,9 +34,6 @@ class ArticlesController < ApplicationController
     respond_to do |format|
       if @article.save
         save_picture
-        # @article.tag_list.add(tag_params)
-        # current_user.tag(@article, :with => tag_params, :on => :tags)
-        # byebug    
         format.html { redirect_to @article, :notice => 'Article Created Successfully' }
         format.json { render :show, status: :created, location: @article }
       else
@@ -52,8 +49,6 @@ class ArticlesController < ApplicationController
     respond_to do |format|
       if @article.update(article_params)
         save_picture
-        # @article.tag_list.add(tag_params)
-        current_user.tag(@article, :with => tag_params, :on => :tags)
         format.html { redirect_to @article, :notice => 'Article Updated Successfully' }
         format.json { render :show, status: :ok, location: @article }
       else
@@ -108,7 +103,7 @@ class ArticlesController < ApplicationController
     def upload
       uploaded_io = params[:article][:image]
       unless uploaded_io.nil?
-        File.open(Rails.root.join('app','assets','images',uploaded_io.original_filename),'wb') do |file|
+        File.open(Rails.root.join('public','articles','images',uploaded_io.original_filename),'wb') do |file|
           file.write(uploaded_io.read)
         end
       end
