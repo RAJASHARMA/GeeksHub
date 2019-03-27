@@ -7,8 +7,9 @@ class ArticlesController < ApplicationController
   # GET /articles.json
   def index
       # byebug
-      @articles = params[:tag].present? ? Article.where(:status => 1).tagged_with(params[:tag]) : Article.where(:status => 1)
+      @articles = params[:tag].present? ? Article.tagged_with(params[:tag]) : Article.all
       @articles = @articles.paginate(page: params[:page], per_page: 6)
+      # byebug
   end
 
   # GET /articles/1
@@ -33,7 +34,9 @@ class ArticlesController < ApplicationController
     respond_to do |format|
       if @article.save
         save_picture
-        @article.tag_list.add(tag_params)
+        # @article.tag_list.add(tag_params)
+        # current_user.tag(@article, :with => tag_params, :on => :tags)
+        # byebug    
         format.html { redirect_to @article, :notice => 'Article Created Successfully' }
         format.json { render :show, status: :created, location: @article }
       else
@@ -48,7 +51,9 @@ class ArticlesController < ApplicationController
   def update
     respond_to do |format|
       if @article.update(article_params)
-        @article.tag_list.add(tag_params)
+        save_picture
+        # @article.tag_list.add(tag_params)
+        current_user.tag(@article, :with => tag_params, :on => :tags)
         format.html { redirect_to @article, :notice => 'Article Updated Successfully' }
         format.json { render :show, status: :ok, location: @article }
       else
@@ -80,7 +85,9 @@ class ArticlesController < ApplicationController
     end
 
     def tag_params
-      params.require(:article).permit(:tag_list)['tags']
+      # byebug
+      params[:article]['tag_list']
+
     end
 
     def record_not_found
@@ -89,7 +96,7 @@ class ArticlesController < ApplicationController
 
     def save_picture
       img = params[:article][:image]
-      img_name = "img_1.jpg"
+      img_name = "article.jpg"
       unless img.nil?
         img_name = img.original_filename
       end

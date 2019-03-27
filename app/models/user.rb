@@ -10,12 +10,13 @@ class User < ActiveRecord::Base
 
   rolify
   ratyrate_rater
-  acts_as_tagger
+  # acts_as_tagger
 
   after_create :default_role
 
   private
   def default_role
-    self.roles << Role.where(:name => 'User').first
+  	# byebug
+  	self.add_role 'user'
   end
 end

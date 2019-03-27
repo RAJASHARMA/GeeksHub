@@ -3,7 +3,7 @@
     <div class="left"><%= raw @article.content %></div>
     <div>Tags: <%= raw @article.tag_list.map { |t| link_to t, tag_path(t) }.join(', ') %></div>
         
-    <% if current_user == @article.user %>
+    <% if current_user == @article.user || current_user.has_role?(:admin) %>
         <strong>Status:</strong>
         <% if @article.status == false %>
            Pending
@@ -16,9 +16,8 @@
           <%= link_to 'Delete Article', article_path, method: :delete, data: { confirm: 'Are you sure to delete ?'}, class: 'btn btn-danger' %> 
         </div> 
     <% end %> 
+    <%= rating_for @article, "content" %>
 </div>
-
-<%= rating_for @article, "content" %>
 
 <div class="section comments width60">
   <div class="container">

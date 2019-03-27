@@ -6,7 +6,7 @@ class Article < ActiveRecord::Base
 	validates :title, presence: true, length: { in: 3..20 }, :uniqueness => {alert: "Already Exixts" }
 	validates :content, presence: true 
 	
-	acts_as_taggable_on :tags
+	acts_as_taggable
 	ratyrate_rateable "content"
 	resourcify
 end

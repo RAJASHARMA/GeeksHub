@@ -1,5 +1,6 @@
 .new-article{font-family: times new roman; font-weight: bold; font-size: 25px;}
 .bottom10{margin-bottom: 10%;}
+.top20{margin-top: 20%;}
 .width60{width: 60%; font-family: times new roman;}
 .custom-alert{color: red; text-align: center}
 .custom-notice{color: green; text-align: center;}
@@ -8,3 +9,5 @@
 .full-width{width: 100%;}
 .button-font{font-size: 15px; font-family: times new roman;}
 .rsize{resize: none;}
+.not-found{margin-left: 45%; margin-top: 10%; color: red; font-family: times new roman;}
+.button{background-color: grey; color: white;}

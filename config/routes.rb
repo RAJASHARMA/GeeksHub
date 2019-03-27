@@ -1,4 +1,5 @@
 Rails.application.routes.draw do
+
   root "articles#index"
   post '/rate' => 'rater#create', :as => 'rate'
   mount Ckeditor::Engine => '/ckeditor'
@@ -6,9 +7,10 @@ Rails.application.routes.draw do
   resources :articles do
     resources :comments
   end
-  devise_for :users 
+  # devise_for :users 
 
-  devise_scope :user do
-    delete '/users/sign_out' => 'devise/sessions#destroy'
+  devise_for :users  do
+	get '/users' => 'devise/registrations#create'
   end
+	  
 end
