@@ -85,7 +85,7 @@
   <div class="sidebar-box">
     <h3 class="heading">Tags</h3>
     <ul class="tags">
-      <%= raw ActsAsTaggableOn::Tag.all.map { |t| link_to t, tag_path(t.name) }.join(' | ') %>
+      <%= raw ActsAsTaggableOn::Tag.all.map { |t| link_to t, tag_path(t.name  ) }.join(' | ') %>
         
       <!-- <li><a href="#">Travel</a></li>
       <li><a href="#">Adventure</a></li>
