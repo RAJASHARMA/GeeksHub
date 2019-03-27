@@ -1,23 +1,25 @@
 <div class="col-md-12 col-lg-11 main-content bottom10">
+  <%= rating_for @article, "content",disabled: true, imdb_avg: true %>
   <div class="center heading"><%= @article.title %></div>
   <div class="left"><%= raw @article.content %></div>
   <div>Tags: <%= raw @article.tag_list.map { |t| link_to t, tag_path(t) }.join(', ') %></div>
-      <% unless current_user.nil? %>
-        <% if current_user == @article.user || current_user.has_role?(:admin) %>
-          <strong>Status:</strong>
-          <% if @article.status == false %>
-             Pending
-          <% else %>
-             Approved
-          <% end %>
-          <div>
-            <br />
-            <%= link_to 'Edit Article', edit_article_path(@article), class: 'btn btn-light' %> 
-            <%= link_to 'Delete Article', article_path, method: :delete, data: { confirm: 'Are you sure to delete ?'}, class: 'btn btn-danger' %> 
-          </div> 
-        <% end %> 
+  <% unless current_user.nil? %>
+    <% if current_user == @article.user || current_user.has_role?(:admin) %>
+      <strong>Status:</strong>
+      <% if @article.status == false %>
+         Pending
+      <% else %>
+         Approved
       <% end %>
-  <%= rating_for @article, "content" %>
+      <div>
+        <br/>
+        <%= link_to 'Edit Article', edit_article_path(@article), class: 'btn btn-light' %> 
+        <%= link_to 'Delete Article', article_path, method: :delete, data: { confirm: 'Are you sure to delete ?'}, class: 'btn btn-danger' %> 
+      </div> 
+    <% end %> 
+  <% end %>
+  Your Rating:<%= rating_for @article, "content", disable_after_rate: true %>
+  <br/>
 </div>
 
 <div class="section comments width60">
