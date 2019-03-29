@@ -1,24 +1,31 @@
-<div class="box">
-	<article class="media">
-		<div class="media-content full-width">
-			<div class="content">
-				<strong>
-					<%= comment.user.email %>
-				</strong>:&nbsp;<hr>
-				<div class="float-left">
-					<%= raw comment.content %>
-				</div>
-				<div class="float-right">
-					<% if comment.user == current_user || article.user == current_user %>
-
-						<%= link_to 'Delete', [comment.article, comment], method: :delete, class: "btn-danger btn-sm button-font", data: { confirm: "Are you sure?"} %>
-					<% end %>
-					
-				</div>
-				
-			</div>
-		</div>
+<li class="comment-list">
+	<small>By <%= comment.user.email %> | <%= time_ago_in_words(comment.created_at) %> ago </small><br/>
+  	<%= raw comment.content %><br/>
+  	<%= link_to "Reply", "$('.commentform').toggle()" %>
+  	<%= link_to 'Reply', :data_toggle => "commentform", :href => "#commentform" %>
+	<% if comment.user == current_user || @article.user == current_user%> |
+		<%= link_to 'Delete', comment_path('comment_id' => comment.id, 'article_id' => @article.id), method: :delete, data: { confirm: 'Are you sure to delete this comment ?'} %>
 		
-	</article>
-</div>
+	<% end %><br/>
 
+  	<!-- toggleable comment section START -->
+  	<div id="comment-form" class="commentform">
+  		<%= form_for [comment, Comment.new] do |f| %>
+	  		<div>
+	  			<div class="form-inputs form-group">
+		      		<% reply_to_user = "Replay to " + comment.user.email %>
+					<%= f.text_area :content, :placeholder => reply_to_user, wrapper: false, class: 'form-control rsize' %>
+				</div>
+				<div class="form-group">
+					<%= f.submit :Post, class: "btn btn-success" %>	
+				</div>
+	  		</div>
+		<% end %>
+  	</div>
+	<!-- toggleable comment section END -->
+
+  	<ul>
+  		<%= render partial: 'comments/comment', collection: comment.comments %>
+  	</ul>
+
+</li>

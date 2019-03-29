@@ -26,14 +26,16 @@
   <div class="container">
     <h2 class="subtitle is-5">
       <strong>
-        <%= @article.comments.count %>
+        <%= $total_comments = @article.comments.count %>
+        
       </strong> 
       Comments
     </h2>
-    <%= render @article.comments, article: @article%>
+    <%# render @article.comments, article: @article%>
+    <%= render(partial: 'comments/comment', collection: @article.comments) %>
     <div class="comment-form bottom10">
       <hr />
-      <h3 class="subtitle is-3">Leave a reply</h3>
+      <h3 class="subtitle is-3">Post a comments</h3>
       <%= render 'comments/form', article: @article %>
     </div>
   </div>

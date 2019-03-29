@@ -3,19 +3,17 @@
 	<% if comment.errors.any? %>
 		<div id="error_explanation" class="alert" style="text-align: center; color: red;">
 			<h2><%= pluralize(comment.errors.count, "error") %> Prohibited this comment from being saved:</h2>
-
 			<ul>
 				<% comment.errors.full_messages.each do |msg| %>
 					<li><%= msg %></li>
-					<% end %>
+				<% end %>
 			</ul>
 		</div>
 	<% end %>
 	
 	<div class="form-inputs">
 		<div class="form-group">
-			<%= f.label :comment, class: 'label' %>
-			<%= f.cktext_area :content, wrapper: false, class: 'form-control rsize' %>
+			<%= f.text_area :content, wrapper: false, class: 'form-control rsize' %>
 		</div>
 	</div>
 	<div class="form-group">

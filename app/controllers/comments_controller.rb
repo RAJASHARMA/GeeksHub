@@ -2,26 +2,38 @@ class CommentsController < ApplicationController
 
   # http_basic_authenticate_with name:"susantas", passwor: "mindfire", only: :destroy
 
-  before_action :find_article, only: [:create,:destroy]
+  # before_action :find_article, only: [:create,:destroy]
   before_action :authenticate_user!
+  before_action :find_commentable, except: [:destroy]
+  before_action :find_deleteable_comment
+
+  def new
+    @comment = Comment.new
+  end
+
   def create
-    @comment = @article.comments.new(find_comment)
+    @comment = @commentable.comments.new(find_comment)
 
     if @comment.valid?
       @comment.user_id = current_user.id
       if @comment.save
-        redirect_to article_path(@article)
+        redirect_to :back #article_path(@article)
       else
         render nothing: true
       end
     else
-      redirect_to article_path(@article), :alert => 'Comment must be within 2-200 characters.'
+      redirect_to :back, :alert => 'Comment must be within 2-300 characters.'
     end
   end
 
+
+
   def destroy
     # @article = article.find(params[:article_id])
-    @comment = @article.comments.find(params[:id])
+
+    # @comment = @commentable.comments.find(params[:id])
+    # @comment.destroy
+
     @comment.destroy
     redirect_to article_path(@article)
   end
@@ -36,9 +48,18 @@ class CommentsController < ApplicationController
       params.require(:comment).permit(:content)
     end
 
+    def find_commentable
+      # byebug
+      @commentable = Comment.find_by_id(params[:comment_id]) if params[:comment_id]
+      @commentable = Article.find_by_id(params[:article_id]) if params[:article_id]
+    end
+
+    def find_deleteable_comment
+      @comment = Comment.find_by_id(params[:comment_id])
+      @article = Article.find_by_id(params[:article_id])
+    end
+
 end
-
-
 
 
 

@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20190326072036) do
+ActiveRecord::Schema.define(version: 20190328062652) do
 
   create_table "articles", force: :cascade do |t|
     t.string   "title",      limit: 255
@@ -48,11 +48,13 @@ ActiveRecord::Schema.define(version: 20190326072036) do
   add_index "ckeditor_assets", ["type"], name: "index_ckeditor_assets_on_type", using: :btree
 
   create_table "comments", force: :cascade do |t|
-    t.text     "content",    limit: 65535
-    t.integer  "article_id", limit: 4
-    t.integer  "user_id",    limit: 4
-    t.datetime "created_at",               null: false
-    t.datetime "updated_at",               null: false
+    t.text     "content",          limit: 65535
+    t.integer  "article_id",       limit: 4
+    t.integer  "user_id",          limit: 4
+    t.datetime "created_at",                     null: false
+    t.datetime "updated_at",                     null: false
+    t.integer  "commentable_id",   limit: 4
+    t.string   "commentable_type", limit: 255
   end
 
   add_index "comments", ["article_id"], name: "index_comments_on_article_id", using: :btree
