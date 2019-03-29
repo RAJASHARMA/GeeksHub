@@ -1,7 +1,7 @@
 <li class="comment-list">
 	<small>By <%= comment.user.email %> | <%= time_ago_in_words(comment.created_at) %> ago </small><br/>
   	<%= raw comment.content %><br/>
-  	<%= link_to "Reply", "$('.commentform').toggle()" %>
+  	<%# link_to "Reply", "$('.commentform').toggle()" %>
   	<%= link_to 'Reply', :data_toggle => "commentform", :href => "#commentform" %>
 	<% if comment.user == current_user || @article.user == current_user%> |
 		<%= link_to 'Delete', comment_path('comment_id' => comment.id, 'article_id' => @article.id), method: :delete, data: { confirm: 'Are you sure to delete this comment ?'} %>
