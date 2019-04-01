@@ -13,7 +13,7 @@
                       <a href="<%= article_path(article.id) %>" class="blog-entry element-animate" data-animate-effect="fadeIn">
                         <div class="float-right-star" style="float: right;"><%= rating_for article, "content",disabled: true, imdb_avg: true %></div>
                         <% if article.image.present? %>
-                          <%=image_tag article.image.name %>
+                          <%=image_tag "/articles/images/#{article.image.name}" %>
                         <% else %>
                           <%=image_tag(image_path('img_1.jpg')) %>
                         <% end %>
