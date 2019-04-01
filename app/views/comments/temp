@@ -1,3 +1,0 @@
-<% unless comment.comments.nil? %>
-      <%= render partial: 'comments/comment', collection: comment.comments %>
-    <% end %>

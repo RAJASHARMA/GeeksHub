@@ -1,28 +1,31 @@
-<li class="comment-list">
+<li class="comment-list" %>
+	<% comment.user.name ? comment_user = comment.user.name : comment_user = comment.user.email  %>
+
 	<small>By <%= comment.user.email %> | <%= time_ago_in_words(comment.created_at) %> ago </small><br/>
   	<%= raw comment.content %><br/>
-  	<%# link_to "Reply", "$('.commentform').toggle()" %>
-  	<%= link_to 'Reply', :data_toggle => "commentform", :href => "#commentform" %>
+  	<!-- <a type="button" href="#"  data-toggle="collapse" data-target="#demo">Reply</a> -->
+  	<a class="" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Reply</a>
 	<% if comment.user == current_user || @article.user == current_user%> |
-		<%= link_to 'Delete', comment_path('comment_id' => comment.id, 'article_id' => @article.id), method: :delete, data: { confirm: 'Are you sure to delete this comment ?'} %>
-		
+		<%= link_to 'Delete', comment_path('comment_id' => comment.id, 'article_id' => @article.id), method: :delete, data: { confirm: 'Are you sure to delete this comment ?'} %>	
 	<% end %><br/>
-
-  	<!-- toggleable comment section START -->
-  	<div id="comment-form" class="commentform">
+	
+  	<!-- ................. toggleable comment section START........................ -->
+  	<div class="dropdown-menu  col-md-6 no-border" aria-labelledby="navbarDropdown" style="border: none;">
+	<!-- <div id="demo" class="collapse"> -->
   		<%= form_for [comment, Comment.new] do |f| %>
 	  		<div>
 	  			<div class="form-inputs form-group">
-		      		<% reply_to_user = "Replay to " + comment.user.email %>
-					<%= f.text_area :content, :placeholder => reply_to_user, wrapper: false, class: 'form-control rsize' %>
+	  				
+					<%= f.text_area :content, :placeholder => "Replay to.. " + comment_user, wrapper: false, class: 'form-control rsize' %>
 				</div>
 				<div class="form-group">
 					<%= f.submit :Post, class: "btn btn-success" %>	
+					<a class="" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="false" aria-expanded="false">Cancel</a>
 				</div>
 	  		</div>
 		<% end %>
   	</div>
-	<!-- toggleable comment section END -->
+	<!-- ...................toggleable comment section END.......................... -->
 
   	<ul>
   		<%= render partial: 'comments/comment', collection: comment.comments %>
