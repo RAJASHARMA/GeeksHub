@@ -12,8 +12,16 @@ Rails.application.routes.draw do
   end
   # devise_for :users 
 
+  # namespace :admin do
+  # 	root 'articles#index'
+  # 	resources :articles
+  # 	resources :users
+
+  # end
+
   devise_for :users  do
 	get '/users' => 'devise/registrations#create'
+	
   end
 	  
 end
