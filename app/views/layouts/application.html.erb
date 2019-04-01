@@ -3,30 +3,36 @@
   <head>
     <title>GeeksHub</title>
 
-	  <%= stylesheet_link_tag    'application', media: 'all' %>
-	  <%= javascript_include_tag 'application' %>
-	  <%= csrf_meta_tags %>
+    <%= stylesheet_link_tag    'application', media: 'all' %>
+    <%= javascript_include_tag 'application' %>
+    <%= csrf_meta_tags %>
     
   </head>
   <body>
-    <div class="wrap">
-      <%= render partial: 'layouts/header' %>
+    <div class="">
+      <div class="jumbotron">
+        <%= render partial: 'layouts/header' %>  
+      </div>
+      
       <!-- END header -->
 
       <!-- END section -->
       <div>
-      	<p class="custom-notice"><%= notice %></p>
-		    <p class="custom-alert"><%= alert %></p>
+        <p class="custom-notice"><%= notice %></p>
+        <p class="custom-alert"><%= alert %></p>
       </div>
-      	
+        
       <section class="site-section py-sm">
-        <div class="container">
+        <div class="container-fluid left3">
           <div class="row">
             
           </div>
           <div class="row blog-entries">
-          	<%= yield %>
-          	<%= render partial: 'layouts/sidebox' %>
+            <div class="col-md-8 yield-div">
+              <%= yield %>  
+            </div>
+            
+            <%= render partial: 'layouts/sidebox' %>
           </div>
         </div>
       </section>
@@ -36,21 +42,21 @@
     </div>
     
     <!-- loader -->
-     <div id="loader" class="show fullscreen">
+     <!-- <div id="loader" class="show fullscreen">
         <svg class="circular" width="48px" height="48px">
             <circle class="path-bg" cx="24" cy="24" r="22" fill="none" stroke-width="4" stroke="#eeeeee"/>
             <circle class="path" cx="24" cy="24" r="22" fill="none" stroke-width="4" stroke-miterlimit="10" stroke="#f4b214"/>
         </svg>
      </div>
  
-
-   	<%= javascript_include_tag 'jquery-3.2.1.min' %>
-   	<%= javascript_include_tag 'jquery-migrate-3.0.0' %>
-   	<%= javascript_include_tag 'popper.min' %>
-   	<%= javascript_include_tag 'bootstrap.min' %>
-   	<%= javascript_include_tag 'owl.carousel.min' %>
-   	<%= javascript_include_tag 'jquery.waypoints.min' %>
-   	<%= javascript_include_tag 'jquery.stellar.min' %>
+ -->
+    <%= javascript_include_tag 'jquery-3.2.1.min' %>
+    <%= javascript_include_tag 'jquery-migrate-3.0.0' %>
+    <%= javascript_include_tag 'popper.min' %>
+    <%= javascript_include_tag 'bootstrap.min' %>
+    <%= javascript_include_tag 'owl.carousel.min' %>
+    <%= javascript_include_tag 'jquery.waypoints.min' %>
+    <%= javascript_include_tag 'jquery.stellar.min' %>
     <%= javascript_include_tag 'jquery.raty.js' %>
     <%= javascript_include_tag 'main' %>
 

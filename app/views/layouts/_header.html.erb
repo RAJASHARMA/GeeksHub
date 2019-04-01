@@ -6,16 +6,36 @@
             
            
             <div class="collapse navbar-collapse" id="navbarMenu">
-              <ul class="navbar-nav mx-auto">
+              <ul class="navbar-nav ">
                 
                 
 
-                <li class="nav-item dropdown">
+                <!-- <li class="nav-item dropdown">
                   <a class="nav-link dropdown-toggle" href="category.html" id="dropdown05" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Tags</a>
                   <div class="dropdown-menu" aria-labelledby="dropdown05">
                     <% ActsAsTaggableOn::Tag.all.each do |tag| %>
                       <%= link_to tag.name, tag_path(tag.name), class: 'dropdown-item' %>
                     <% end %>
+                  </div>
+
+                </li> -->
+                <li class="nav-item">
+                  <%= link_to 'Home', root_path, class: 'nav-link' %>
+                </li>
+                <li class="nav-item">
+                  <%= link_to 'Create Article', new_article_path, class: 'nav-link' %>
+                </li>
+      
+                <li class="nav-item dropdown">
+                  <a class="nav-link dropdown-toggle" href="category.html" id="dropdown05" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">SOCIAL</a>
+                  <div class="dropdown-menu" aria-labelledby="dropdown05">
+                    <a class="dropdown-item" href="">Twitter</a>
+                    <a class="dropdown-item" href="">Facebook</a>
+                    <a class="dropdown-item" href="">Instagram</a>
+                    <a class="dropdown-item" href="">Vimeo</a>
+                    <a class="dropdown-item" href="">Youtube</a>
+                    <a class="dropdown-item" href="">Snapshot</a>  
+                    
                   </div>
 
                 </li>

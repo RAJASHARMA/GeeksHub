@@ -1,6 +1,6 @@
 .new-article{font-family: times new roman; font-weight: bold; font-size: 25px;}
 .bottom10{margin-bottom: 10%;}
-.top20{margin-top: 20%;}
+.top10{margin-top: 10%; }
 .width60{width: 60%; font-family: times new roman;}
 .custom-alert{color: red; text-align: center}
 .custom-notice{color: green; text-align: center;}
@@ -11,3 +11,7 @@
 .rsize{resize: none;}
 .not-found{margin-left: 45%; margin-top: 10%; color: red; font-family: times new roman;}
 .button{background-color: grey; color: white;}
+.img-size{height: 234px; width: 100%; }
+.text35{font-size: 35px;}
+.yield-div{border-radius: 2%; box-shadow: black; height: auto; padding: 3%; background-color: white; border: solid lightgrey 1px;}
+.left3{margin-left: 3%;}
