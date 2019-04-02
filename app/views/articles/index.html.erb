@@ -1,8 +1,8 @@
-<div class="col-md-8">
-    <h2 class="mb-4">Latest Posts</h2>
-</div>
 
 <div class="col-md-12 col-lg-12 main-content">
+    <div class="row">
+        <%= render '/articles/shared/actions' %>
+    </div>
     <div class="row">
         <% if @articles.empty? %>
           <div class="not-found">
@@ -33,7 +33,6 @@
     <div class="top10">
       <%= will_paginate @articles, renderer: BootstrapPagination::Rails, previous_label: 'New', next_label: 'Old' %>
     </div>
-    
-</div>
+  </div>
 
                     

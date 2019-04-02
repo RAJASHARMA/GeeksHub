@@ -1,21 +1,24 @@
 class ArticlesController < ApplicationController
+  include ArticlesHelper
   before_action :set_article, only: [:show, :edit, :update, :destroy]
   before_action :authenticate_user!, except: [:index, :show]
+  after_action :article_pagination, only: [:index, :user_articles]
   rescue_from ActiveRecord::RecordNotFound, with: :record_not_found
 
   # GET /articles
   # GET /articles.json
   def index
-      # byebug
-      @articles = params[:tag].present? ? Article.tagged_with(params[:tag]) : Article.all
-      @articles = @articles.paginate(page: params[:page], per_page: 6)
-      # byebug
+      @articles = params[:tag].present? ? Article.where(:status => 1).tagged_with(params[:tag]).order(created_at: :DESC) : Article.where(:status => 1).order(created_at: :DESC)
+      article_pagination
+      @ability = Ability.new(current_user)
   end
 
   # GET /articles/1
   # GET /articles/1.json
   def show
+    @ability = Ability.new(current_user)
   end
+
 
   # GET /articles/new
   def new
@@ -34,6 +37,7 @@ class ArticlesController < ApplicationController
     respond_to do |format|
       if @article.save
         save_picture
+        # upload
         format.html { redirect_to @article, :notice => 'Article Created Successfully' }
         format.json { render :show, status: :created, location: @article }
       else
@@ -48,7 +52,7 @@ class ArticlesController < ApplicationController
   def update
     respond_to do |format|
       if @article.update(article_params)
-        save_picture
+        update_picture
         format.html { redirect_to @article, :notice => 'Article Updated Successfully' }
         format.json { render :show, status: :ok, location: @article }
       else
@@ -68,6 +72,18 @@ class ArticlesController < ApplicationController
     end
   end
 
+  def user_articles
+   
+    if params[:val]
+      @articles = current_user.articles.where(:status => params[:val]).order(created_at: :DESC)
+    else 
+      @articles = current_user.articles.order(created_at: :DESC)
+    end
+    article_pagination
+    render 'index'
+  end
+
+
   private
     # Use callbacks to share common setup or constraints between actions.
     def set_article
@@ -80,7 +96,6 @@ class ArticlesController < ApplicationController
     end
 
     def tag_params
-      # byebug
       params[:article]['tag_list']
 
     end
@@ -89,23 +104,7 @@ class ArticlesController < ApplicationController
       render plain: "404 Not Found", status: 404
     end
 
-    def save_picture
-      img = params[:article][:image]
-      img_name = "article.jpg"
-      unless img.nil?
-        img_name = img.original_filename
-      end
-      img_hash = {"name" => img_name, "imageable_id" => @article.id, "imageable_type" => 'Article'}
-      imgture = Image.create(img_hash)
-      # upload
+    def article_pagination
+      @articles = @articles.paginate(page: params[:page], per_page: 6)
     end
-
-    # def upload
-    #   uploaded_io = params[:article][:image]
-    #   unless uploaded_io.nil?
-    #     File.open(Rails.root.join('public','articles','images',uploaded_io.original_filename),'wb') do |file|
-    #       file.write(uploaded_io.read)
-    #     end
-    #   end
-    # end
 end

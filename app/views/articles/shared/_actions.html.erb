@@ -1,0 +1,31 @@
+<div class="col-md-12">
+	<% if action_name == 'index' %>
+		<div class="col-md-8 float-left">
+			<h2>Latest Articles</h2>
+		</div>
+	<% elsif action_name == 'user_articles' %>
+		<div class="col-md-8 float-left">
+			<h2>My Articles</h2>
+		</div>
+		<div class="col-md-4 float-right">
+			<ul class="navbar-nav ml-auto float-right">
+		        <li class="nav-item dropdown">
+		            <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+		            Status
+		            </a>
+		            <div class="dropdown-menu dropdown-menu" aria-labelledby="navbarDropdown">
+			            <%= link_to 'All', articles_user_articles_path, class: 'dropdown-item' %>
+			            <%= link_to 'Approved', articles_user_articles_path(:val => 1), class: 'dropdown-item' %>
+			            <%= link_to 'Pending', articles_user_articles_path(:val => 0), class: 'dropdown-item' %>
+		            </div>
+		        </li>
+	    	</ul>				
+		</div>	
+	<% else %>
+		<div class="col-md-8 float-left">
+			<h2>Articles</h2>
+		</div>
+	<% end %>
+</div>
+
+<!-- comment_path('comment_id' => comment.id, 'article_id' => @article.id) -->

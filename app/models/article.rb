@@ -9,4 +9,6 @@ class Article < ActiveRecord::Base
 	acts_as_taggable
 	ratyrate_rateable "content"
 	resourcify
+
+	# 
 end

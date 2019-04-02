@@ -2,7 +2,12 @@
 	<% comment.user.name ? comment_user = comment.user.name : comment_user = comment.user.email  %>
 
 	<small>By <%= comment.user.email %> | <%= time_ago_in_words(comment.created_at) %> ago </small><br/>
-  	<%= raw comment.content %><br/>
+  	<div>
+		<span class="comment-font">
+			<%= raw comment.content %>
+		</span>  		
+	</div>
+  	<br/>
   	<!-- <a type="button" href="#"  data-toggle="collapse" data-target="#demo">Reply</a> -->
   	<a class="" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Reply</a>
 	<% if comment.user == current_user || @article.user == current_user%> |
