@@ -3,6 +3,7 @@ class User < ActiveRecord::Base
 
   has_many :articles, dependent: :destroy
   has_many :comments, dependent: :destroy
+  has_one :image, :as => :imageable, dependent: :destroy
   
   devise :database_authenticatable, :registerable,
          :recoverable, :rememberable, :validatable, :trackable,  :confirmable

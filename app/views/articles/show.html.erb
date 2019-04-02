@@ -37,7 +37,7 @@
       Comments
     </h2>
     <%# render @article.comments, article: @article%>
-    <%= render(partial: 'comments/comment', collection: @article.comments) %>
+    <ul  class="comment-list"><%= render(partial: 'comments/comment', collection: @article.comments) %></ul>
     <div class="comment-form bottom10">
       <!-- <hr/> -->
       <h3 class="subtitle is-3">Post a comments</h3>

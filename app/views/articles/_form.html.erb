@@ -1,38 +1,28 @@
 
 <%= form_for(@article) do |f| %>
   
-
-  <% if @article.errors.any? %>
-    <div id="error_explanation" class="alert" style="text-align: center; color: red;">
-      <h2><%= pluralize(@article.errors.count, "error") %> Prohibited this Article from being saved:</h2>
-
-      <ul>
-        <% @article.errors.full_messages.each do |msg| %>
-          <li><%= msg %></li>
-          <% end %>
-      </ul>
-    </div>
-  <% end %>
-
-
   <div>
     <div class="form-group">
-      <%= f.label :title, class: 'label', wrapper: false %>:
+      <%= f.label :title, class: 'label', wrapper: false %>
       <%= f.text_field :title, class: 'form-control', wrapper: false %>
+      <p class='error'><%= show_errors(@article, :title) %></p>
     </div>
 
     <div class="form-group">
-      <%= f.label :tag_list, 'Tags ( separated By commas )', class: 'label', wrapper: false %>:
+      <%= f.label :tag_list, 'Tags ( separated By commas )', class: 'label', wrapper: false %>
       <%= f.text_field :tag_list, class: 'form-control', wrapper: false %>
+      <p class='error'><%= show_errors(@article, :tag_list) %></p>
     </div>
     <div class="form-group">
-      <%= f.label "Thumbnail Image", class: 'label', wrapper: false %>:
+      <%= f.label "Thumbnail Image", class: 'label', wrapper: false %>
       <%= f.file_field :image %>
+      <p class='error'><%= show_errors(@article, :image) %></p>
     </div>
     
     <div class="form-group">
-      <%= f.label :content, class: 'label', wrapper: false %>:
+      <%= f.label :content, class: 'label', wrapper: false %>
       <%= f.cktext_area :content, class: 'form-control' %>
+      <p class='error'><%= show_errors(@article, :content) %></p>
     </div>
     
     <div class="form-group">

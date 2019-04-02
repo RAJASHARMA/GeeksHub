@@ -19,3 +19,6 @@
 .side-div{width: 35%;}
 .padding3{padding: 3%; border-radius: 2%;}
 .comment-font{font-family: times new roman; color: black;}
+.error{color: red; margin-top: 0px; font-size: 12px;}
+.field_with_errors .form-control{border: red solid 1px; color: red;}
+.comment-list{margin-bottom: 0px;}
