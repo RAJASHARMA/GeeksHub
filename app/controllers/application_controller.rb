@@ -1,14 +1,13 @@
 class ApplicationController < ActionController::Base
-  # Prevent CSRF attacks by raising an exception.
-  # For APIs, you may want to use :null_session instead.
-  protect_from_forgery with: :exception
-  before_action :configure_permitted_parameters, if: :devise_controller?
 
-  protected
+    protect_from_forgery with: :exception
+    before_action :configure_permitted_parameters, if: :devise_controller?
 
-  def configure_permitted_parameters
-    devise_parameter_sanitizer.permit(:sign_up, keys: [:name])
-    devise_parameter_sanitizer.permit(:account_edit, keys: [:public_email, :location, :country, :proffession, :organization, :password, :confirm_password, :current_password])
-  end
-
+    protected
+    
+    def configure_permitted_parameters
+         devise_parameter_sanitizer.permit(:sign_up) { |u| u.permit(:name, :email, :password)}
+         devise_parameter_sanitizer.permit(:account_update) { |u| u.permit(:name, :public_email, :location, :country, :profession, :organization, :password, :password_confirmation, :current_password)}
+    end
+  
 end

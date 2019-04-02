@@ -7,7 +7,7 @@
 		<div class="col-md-8 float-left">
 			<h2>My Articles</h2>
 		</div>
-		<div class="col-md-4 float-right">
+		<!-- <div class="col-md-4 float-right">
 			<ul class="navbar-nav ml-auto float-right">
 		        <li class="nav-item dropdown">
 		            <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
@@ -20,7 +20,17 @@
 		            </div>
 		        </li>
 	    	</ul>				
-		</div>	
+		</div> -->	
+		<div class="btn-group float-right">
+		  <button class="btn btn-secondary btn-sm dropdown-toggle" type="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+		    Status
+		  </button>
+		  <div class="dropdown-menu">
+		    <%= link_to 'All', articles_user_articles_path, class: 'dropdown-item' %>
+            <%= link_to 'Approved', articles_user_articles_path(:val => 1), class: 'dropdown-item' %>
+            <%= link_to 'Pending', articles_user_articles_path(:val => 0), class: 'dropdown-item' %>
+		  </div>
+		</div>
 	<% else %>
 		<div class="col-md-8 float-left">
 			<h2>Articles</h2>
