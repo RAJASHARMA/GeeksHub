@@ -36,7 +36,7 @@ class ArticlesController < ApplicationController
 
     respond_to do |format|
       if @article.save
-        save_picture
+        update_picture
         # upload
         format.html { redirect_to @article, :notice => 'Article Created Successfully' }
         format.json { render :show, status: :created, location: @article }

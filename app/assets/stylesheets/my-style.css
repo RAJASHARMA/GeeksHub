@@ -1,3 +1,4 @@
+.geeks-hub-font{color: green; font-weight: bold; font-size: 30px;}
 .new-article{font-family: times new roman; font-weight: bold; font-size: 30px;}
 .bottom10{margin-bottom: 10%;}
 .top10{margin-top: 10%; }
@@ -13,9 +14,12 @@
 .button{background-color: grey; color: white;}
 .img-size{height: 234px; width: 100%; }
 .text35{font-size: 35px;}
-.yield-div{width: 65%; border-radius: 2%; box-shadow: black; height: auto; padding: 3%; background-color: white; border: solid lightgrey 1px;}
+.yield-div{width: 65%; box-shadow: black; height: auto; padding: 3%; background-color: white; border: solid lightgrey 1px;}
 .left3{margin-left: 3%;}
 .sidebox-left{margin-left: -5%; }
 .side-div{width: 35%;}
 .padding3{padding: 3%; border-radius: 2%;}
 .comment-font{font-family: times new roman; color: black;}
+.header-menu{margin-top: -2%; height: 70px;}
+.menu-font{font-size: 17px; font-family: times new roman;}
+.head-article{font-size: 25px; color: darkgreen; }

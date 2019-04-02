@@ -1,4 +1,4 @@
-<div class="col-md-12 col-lg-11 main-content bottom10">
+<div class="col-md-12 col-lg-11 main-content bottom10 menu-font">
   <%= rating_for @article, "content",disabled: true, imdb_avg: true %>
   <div class="center heading new-article"><%= @article.title %></div>
   <% if @article.image.present? %>
@@ -6,7 +6,7 @@
       <%= image_tag "/articles/images/#{@article.image.name}", class: 'img-size' %>
     </div>
   <% end %>
-  <div class="left"><%= raw @article.content %></div>
+  <div class="left top10"><%= raw @article.content %></div>
   <div>Tags: <%= raw @article.tag_list.map { |t| link_to t, tag_path(t) }.join(', ') %></div>
   <% unless current_user.nil? %>
     <% if current_user == @article.user || current_user.has_role?(:admin) %>
