@@ -35,6 +35,7 @@ gem 'bootstrap'
 gem 'bootstrap-sass'
 gem 'will_paginate'
 gem 'will_paginate-bootstrap'
+gem 'will_paginate-bootstrap4'
 gem 'codemirror-rails'
 gem 'ratyrate'
 gem 'delayed_job'
@@ -42,7 +43,6 @@ gem 'cancancan'
 gem 'acts-as-taggable-on'
 gem 'openssl'
 gem 'rolify'
-
 
 
 # Use ActiveModel has_secure_password

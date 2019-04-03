@@ -7,6 +7,7 @@ class ArticlesController < ApplicationController
 
   def index
     @articles = params[:tag].present? ? Article.where(:status => 1).tagged_with(params[:tag]).order(created_at: :DESC) : Article.where(:status => 1).order(created_at: :DESC)
+    @tag = params[:tag]
     article_pagination
     @ability = Ability.new(current_user)
   end

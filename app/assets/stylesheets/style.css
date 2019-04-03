@@ -16,7 +16,7 @@ a {
 
 h1, h2, h3, h4, h5 {
   color: #000;
-  font-family: "Josefin Sans", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji"; }
+  font-family: josefin sans,-apple-system,BlinkMacSystemFont,segoe ui,Roboto,helvetica neue,Arial,sans-serif,apple color emoji,segoe ui emoji,segoe ui symbol,noto color emoji; }
 
 .wrap {
   max-width: 1250px;
@@ -485,7 +485,8 @@ header {
   .blog-entries .blog-entry .blog-content-body {
     padding: 20px;
     border: 1px solid #efefef;
-    border-top: none; }
+    border-top: none;
+    height: 125px; }
   .blog-entries .blog-entry img {
     max-width: 100%; }
   .blog-entries .blog-entry h2 {

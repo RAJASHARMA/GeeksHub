@@ -1,7 +1,12 @@
 <div class="col-md-12">
 	<% if action_name == 'index' %>
-		<div class="col-md-8 float-left">
-			<span class="head-article">Latest Articles</span>
+		<div class="col-md-12 float-left">
+			
+			<% if @tag.present? %>
+				<span class="head-article">Search Results for " <%= @tag %> "</span>
+			<% else %>
+				<span class="head-article">Latest Articles</span>	
+			<% end %>
 		</div>
 	<% elsif action_name == 'user_articles' %>
 		<div class="col-md-8 float-left">
