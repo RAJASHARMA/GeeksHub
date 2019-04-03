@@ -1,6 +1,5 @@
 
 <%= form_for(@article) do |f| %>
-  
   <div>
     <div class="form-group">
       <%= f.label :title, class: 'label', wrapper: false %>
@@ -13,6 +12,7 @@
       <%= f.text_field :tag_list, class: 'form-control', wrapper: false %>
       <p class='error'><%= show_errors(@article, :tag_list) %></p>
     </div>
+    
     <div class="form-group">
       <%= f.label "Thumbnail Image", class: 'label', wrapper: false %>
       <%= f.file_field :image %>
@@ -27,8 +27,7 @@
     
     <div class="form-group">
       <%= f.check_box :status, class: 'checkbox'%>&nbsp;Status
-    </div>
-    
+    </div>  
   </div>
 
   <div class="form-group">

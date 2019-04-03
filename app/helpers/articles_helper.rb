@@ -2,20 +2,23 @@ module ArticlesHelper
 	
 	def save_picture
 		img = params[:article][:image]
-	  unless img.nil?
-	    img_name = img.original_filename
-	    Image.create(:name => img_name, :imageable_id => @article.id, :imageable_type => 'Article')
-	    upload(img)
-	  end
+		unless img.nil?
+		    Image.create(:name => img.original_filename, :imageable_id => @article.id, :imageable_type => 'Article')
+		    upload(img)
+		end
 	end
 
 	def update_picture
 		img = params[:article][:image]
-	  unless img.nil?
-	  	article = Article.find_by_id(params[:id])
-	  	article.image.update(:name => img.original_filename)
-	  	upload(img)
-	  end
+	  	unless img.nil?
+		  	article = Article.find_by_id(params[:id])
+		  	if article.image.nil?
+		  		Image.create(:name => img.original_filename, :imageable_id => @article.id, :imageable_type => 'Article')
+		    else
+		  		article.image.update(:name => img.original_filename)
+		  	end
+		  	upload(img)
+	  	end
 	end
 
 	def upload(img)

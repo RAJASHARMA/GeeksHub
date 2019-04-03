@@ -28,7 +28,6 @@ class User < ActiveRecord::Base
       if user.has_role?(:user)
         user.add_role(:moderator)
       end
-      
     end
   end
 

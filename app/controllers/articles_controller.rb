@@ -5,39 +5,29 @@ class ArticlesController < ApplicationController
   after_action :article_pagination, only: [:index, :user_articles]
   rescue_from ActiveRecord::RecordNotFound, with: :record_not_found
 
-  # GET /articles
-  # GET /articles.json
   def index
       @articles = params[:tag].present? ? Article.where(:status => 1).tagged_with(params[:tag]).order(created_at: :DESC) : Article.where(:status => 1).order(created_at: :DESC)
       article_pagination
       @ability = Ability.new(current_user)
   end
 
-  # GET /articles/1
-  # GET /articles/1.json
   def show
     @ability = Ability.new(current_user)
   end
 
-
-  # GET /articles/new
   def new
     @article = current_user.articles.new
   end
 
-  # GET /articles/1/edit
   def edit
   end
 
-  # POST /articles
-  # POST /articles.json
   def create
     @article = current_user.articles.new(article_params)
 
     respond_to do |format|
       if @article.save
-        save_picture
-        # upload
+        update_picture
         format.html { redirect_to @article, :notice => 'Article Created Successfully' }
         format.json { render :show, status: :created, location: @article }
       else
@@ -47,8 +37,6 @@ class ArticlesController < ApplicationController
     end
   end
 
-  # PATCH/PUT /articles/1
-  # PATCH/PUT /articles/1.json
   def update
     respond_to do |format|
       if @article.update(article_params)
@@ -62,8 +50,6 @@ class ArticlesController < ApplicationController
     end
   end
 
-  # DELETE /articles/1
-  # DELETE /articles/1.json
   def destroy
     @article.destroy
     respond_to do |format|
@@ -73,7 +59,6 @@ class ArticlesController < ApplicationController
   end
 
   def user_articles
-   
     if params[:val]
       @articles = current_user.articles.where(:status => params[:val]).order(created_at: :DESC)
     else 
@@ -85,19 +70,16 @@ class ArticlesController < ApplicationController
 
 
   private
-    # Use callbacks to share common setup or constraints between actions.
     def set_article
       @article = Article.find(params[:id])
     end
 
-    # Never trust parameters from the scary internet, only allow the white list through.
     def article_params
       params.require(:article).permit(:title, :content, :status, :tag_list)
     end
 
     def tag_params
       params[:article]['tag_list']
-
     end
 
     def record_not_found

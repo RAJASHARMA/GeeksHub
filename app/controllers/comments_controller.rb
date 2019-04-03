@@ -1,6 +1,4 @@
 class CommentsController < ApplicationController
-
-  # before_action :find_article, only: [:create,:destroy]
   before_action :authenticate_user!
   before_action :find_commentable, except: [:destroy]
   before_action :find_deleteable_comment
@@ -11,7 +9,6 @@ class CommentsController < ApplicationController
 
   def create
     @comment = @commentable.comments.new(find_comment)
-
     if @comment.valid?
       @comment.user_id = current_user.id
       if @comment.save
@@ -23,8 +20,6 @@ class CommentsController < ApplicationController
       redirect_to :back, :alert => 'Comment must be within 2-300 characters.'
     end
   end
-
-
 
   def destroy
     @comment.destroy
