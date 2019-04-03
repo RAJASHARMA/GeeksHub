@@ -6,9 +6,9 @@ class ArticlesController < ApplicationController
   rescue_from ActiveRecord::RecordNotFound, with: :record_not_found
 
   def index
-      @articles = params[:tag].present? ? Article.where(:status => 1).tagged_with(params[:tag]).order(created_at: :DESC) : Article.where(:status => 1).order(created_at: :DESC)
-      article_pagination
-      @ability = Ability.new(current_user)
+    @articles = params[:tag].present? ? Article.where(:status => 1).tagged_with(params[:tag]).order(created_at: :DESC) : Article.where(:status => 1).order(created_at: :DESC)
+    article_pagination
+    @ability = Ability.new(current_user)
   end
 
   def show
@@ -27,7 +27,7 @@ class ArticlesController < ApplicationController
 
     respond_to do |format|
       if @article.save
-        update_picture
+        save_picture
         format.html { redirect_to @article, :notice => 'Article Created Successfully' }
         format.json { render :show, status: :created, location: @article }
       else
