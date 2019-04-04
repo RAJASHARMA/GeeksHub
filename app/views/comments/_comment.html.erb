@@ -1,4 +1,4 @@
-<li style="border: red solid 1px; margin-bottom: 0px;">
+<li style="margin-bottom: 0px;">
 	<% comment_user = comment.user.name ?  comment.user.name : comment.user.email  %>
 
 	<small>By <%= comment_user %> | <%= time_ago_in_words(comment.created_at) %> ago </small><br/>

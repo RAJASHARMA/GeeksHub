@@ -1,6 +1,6 @@
 .geeks-hub-font{color: green; font-weight: bold; font-size: 30px;}
 .article-title-font{font-family: monospace; font-size: 2.6rem;}
-.content-font{font-family:inconsolata,SFMono-Regular,Menlo,Monaco,Consolas,liberation mono,courier new,monospace;}
+.content-font{font-family:times new roman}
 .comment-font{font-family: times new roman; color: black;}
 .menu-font{font-size: 17px; font-family: times new roman;}
 
@@ -32,3 +32,7 @@
 .field_with_errors .form-control{border: red solid 1px; color: red;}
 .head-article{font-size: 25px; color: darkgreen; }
 .wrap-text{word-wrap: break-word;}
+.tags{line-height: 35px;}
+.tag{ background-color: lightgrey; padding: 5px; color: green; border-radius: 4px;}
+.tag:hover{ background-color: grey; color: white;}
+.raty-cancel{display: none;}

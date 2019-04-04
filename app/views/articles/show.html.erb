@@ -33,18 +33,21 @@
   <% end %>
   <div class="row float-right"><%= rating_for @article, "content", disable_after_rate: true %></div><br>
   <div class="text-center heading article-title-font"><%= @article.title %></div>
-  <div><%= raw @article.tag_list.map { |t| link_to t, tag_path(t) }.join(', ') %></div>
+  <div>
+    <ul class="tags">Tags:
+      <%= raw @article.tag_list.map { |t| link_to t, tag_path(t), class: "tag"}.join(' ') %>
+    </ul>
+  </div>
 
-  <div class="top10 content-font"><%= raw @article.content %></div>
+  <div class="top10 content-font"><%= raw @article.content %></div>  
+  
+  <br/>
 </div>
 <div class="section comments">
   <div class="container">
-    <span>Comments:</span>
-    <hr>
-    <h2 class="subtitle is-5">
-      <strong><%= $total_comments = @article.comments.count %></strong> 
-      Comments
-    </h2>
+
+      <h2 class="subtitle is-5">
+      <strong><%= $total_comments = @article.comments.count %> Comments</strong> 
     <hr>
     <%# render @article.comments, article: @article%>
     <ul  class="comment-list"><%= render(partial: 'comments/comment', collection: @article.comments) %></ul>
