@@ -10,4 +10,5 @@ class Article < ActiveRecord::Base
 	ratyrate_rateable "content"
 	resourcify
 
+	
 end

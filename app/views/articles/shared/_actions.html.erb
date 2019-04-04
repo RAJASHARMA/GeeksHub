@@ -1,9 +1,9 @@
 <div class="col-md-12">
 	<% if action_name == 'index' %>
 		<div class="col-md-12 float-left">
-			
-			<% if @tag.present? %>
-				<span class="head-article">Search Results for " <%= @tag %> "</span>
+			<% search_key = @tag.present? ? @tag : (@search.present? ? @search : nil) %>
+			<% if search_key %>
+				<span class="head-article">Search Results for " <%= search_key %> "</span>
 			<% else %>
 				<span class="head-article">Latest Articles</span>	
 			<% end %>

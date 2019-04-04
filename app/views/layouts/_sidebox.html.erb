@@ -1,13 +1,15 @@
 
 <div class="col-md-12 sidebar padding2">
-  <% unless has_role?(:admin) %>
+  <% #unless has_role?(:admin) %>
     <div class="sidebar-box search-form-wrap">
-      <form action="#" class="search-form">
-        <div class="form-group">
-          <span class="icon fa fa-search"></span>
-          <input type="text" class="form-control" id="s" placeholder="Type a keyword and hit enter">
+      <%= form_tag articles_path, method: 'get', class: "search-form" do %> 
+        <div class="form-group row">
+            <%= text_field_tag :search, params[:search], class: 'form-control col-md-10', placeholder: 'Type a keyword and hit enter' %>  
+            <%= button_tag(type: 'submit', class: 'col-md-2') do %>
+              <span class="fa fa-search"></span> 
+            <% end %>
         </div>
-      </form>
+      <% #end %>
     </div>
   <% end %>
   <!-- END sidebar-box -->

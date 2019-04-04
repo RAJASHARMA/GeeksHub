@@ -6,8 +6,15 @@ class ArticlesController < ApplicationController
   rescue_from ActiveRecord::RecordNotFound, with: :record_not_found
 
   def index
-    @articles = params[:tag].present? ? Article.where(:status => 1).tagged_with(params[:tag]).order(created_at: :DESC) : Article.where(:status => 1).order(created_at: :DESC)
-    @tag = params[:tag]
+    if params[:tag]
+      @articles = Article.where(status: 1).tagged_with(params[:tag]).order(created_at: :DESC)
+      @tag = params[:tag]
+    elsif params[:search]
+      @articles = search_articles(params[:search])
+      @search = params[:search]
+    else
+      @articles =  Article.where(status: 1).order(created_at: :DESC)  
+    end
     article_pagination
     @ability = Ability.new(current_user)
   end
@@ -90,4 +97,7 @@ class ArticlesController < ApplicationController
     def article_pagination
       @articles = @articles.paginate(page: params[:page], per_page: 6)
     end
+
+    
 end
+

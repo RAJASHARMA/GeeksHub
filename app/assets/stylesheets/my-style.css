@@ -1,29 +1,34 @@
 .geeks-hub-font{color: green; font-weight: bold; font-size: 30px;}
-.new-article{font-family: monospace; font-size: 2.6rem;}
+.article-title-font{font-family: monospace; font-size: 2.6rem;}
+.content-font{font-family:inconsolata,SFMono-Regular,Menlo,Monaco,Consolas,liberation mono,courier new,monospace;}
+.comment-font{font-family: times new roman; color: black;}
+.menu-font{font-size: 17px; font-family: times new roman;}
+
+.button-font{font-size: 15px; font-family: times new roman;}
+.not-found{margin-left: 45%; margin-top: 10%; color: red; font-family: times new roman;}
+
 .bottom10{margin-bottom: 10%;}
 .top10{margin-top: 10%; }
-.width60{width: 60%; font-family: times new roman;}
+.sidebox-left{margin-left: -5%; }
+.comment-list{margin-bottom: 0px;}
+.header-menu{margin-top: -2%; height: 70px;}
+.error{color: red; margin-top: 0px; font-size: 12px;}
+.left3{margin-left: 3%;}
+
+.icon-size{font-size: 25px;}
+
+
+.width60{width: 60%;}
 .custom-alert{color: red; text-align: center}
 .custom-notice{color: green; text-align: center;}
-.left{margin-left: 10%;}
-.center{text-align: center;}
 .full-width{width: 100%;}
-.button-font{font-size: 15px; font-family: times new roman;}
 .rsize{resize: none; width: 100%}
-.not-found{margin-left: 45%; margin-top: 10%; color: red; font-family: times new roman;}
 .button{background-color: grey; color: white;}
 .img-size{height: 350px; width: 100%; }
 .text35{font-size: 35px;}
 .yield-div{width: 65%; box-shadow: black; height: auto; padding: 3%; background-color: white; border: solid lightgrey 1px;}
-.left3{margin-left: 3%;}
-.sidebox-left{margin-left: -5%; }
 .side-div{width: 35%;}
 .padding3{padding: 3%; border-radius: 2%;}
-.comment-font{font-family: times new roman; color: black;}
-.error{color: red; margin-top: 0px; font-size: 12px;}
 .field_with_errors .form-control{border: red solid 1px; color: red;}
-.comment-list{margin-bottom: 0px;}
-.header-menu{margin-top: -2%; height: 70px;}
-.menu-font{font-size: 17px; font-family: times new roman;}
 .head-article{font-size: 25px; color: darkgreen; }
 .wrap-text{word-wrap: break-word;}
