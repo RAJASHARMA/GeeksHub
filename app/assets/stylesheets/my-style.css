@@ -27,3 +27,6 @@
 .menu-font{font-size: 17px; font-family: times new roman;}
 .head-article{font-size: 25px; color: darkgreen; }
 .wrap-text{word-wrap: break-word;}
+.tag{ background-color: lightgrey; padding: 5px; color: green; border-radius: 4px; }
+.tag:hover{ background-color: grey; color: white;}
+.raty-cancel{display: none;}

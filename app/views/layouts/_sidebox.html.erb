@@ -32,41 +32,26 @@
   <!-- END sidebar-box -->  
   <div class="sidebar-box col-md-12 padding3">
     <h3 class="heading">Popular Posts</h3>
+
     <div class="post-entry-sidebar">
       <ul>
-        <li>
-          <a href="">
-            <%= image_tag(image_path('img_2.jpg')) %>
-            <div class="text">
-              <h4>How to Find the Video Games of Your Youth</h4>
-              <div class="post-meta">
-                <span class="mr-2">March 15, 2018 </span>
+        <% @popular_articles.each do |article| %> 
+          <li>
+            <a href="<%=article_path(article)%>">
+              <% if article.image.present? %>
+                <%= image_tag "/articles/images/#{article.image.name}" %>
+              <% else %>
+                <%= image_tag(image_path('img_2.jpg')) %>
+              <% end %>
+              <div class="text">
+                <h4><%= article.title %></h4>
+                <div class="post-meta">
+                  <span class="mr-2"><%= article.user.name? ? article.user.name : article.user.email.split('@')[0] %></span>
+                </div>
               </div>
-            </div>
-          </a>
-        </li>
-        <li>
-          <a href="">
-            <%= image_tag(image_path('img_4.jpg')) %>
-            <div class="text">
-              <h4>How to Find the Video Games of Your Youth</h4>
-              <div class="post-meta">
-                <span class="mr-2">March 15, 2018 </span>
-              </div>
-            </div>
-          </a>
-        </li>
-        <li>
-          <a href="">
-            <%= image_tag(image_path('img_12.jpg')) %>
-            <div class="text">
-              <h4>How to Find the Video Games of Your Youth</h4>
-              <div class="post-meta">
-                <span class="mr-2">March 15, 2018 </span>
-              </div>
-            </div>
-          </a>
-        </li>
+            </a>
+          </li>
+        <% end %>
       </ul>
     </div>
   </div>
@@ -74,7 +59,7 @@
   <div class="sidebar-box padding3">
     <h3 class="heading">Tags</h3>
     <ul class="tags">
-      <%= raw ActsAsTaggableOn::Tag.all.map { |t| link_to t, tag_path(t.name) }.join(' | ') %>
+      <%= raw ActsAsTaggableOn::Tag.all.map { |t| link_to t, tag_path(t.name), :class => "tag"}.join(' ') %>
     </ul>
   </div>
 </div>

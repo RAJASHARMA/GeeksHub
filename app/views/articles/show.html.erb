@@ -21,7 +21,12 @@
   <div class="center heading new-article"><%= @article.title %></div>
   
   <div class="left top10"><%= raw @article.content %></div>
-  <div>Tags: <%= raw @article.tag_list.map { |t| link_to t, tag_path(t) }.join(', ') %></div>
+  <div>
+    <ul class="tags">Tags:
+      <%= raw @article.tag_list.map { |t| link_to t, tag_path(t), :class => "tag"}.join(' ') %>
+    </ul>
+  </div>
+  
   <% unless current_user.nil? %>
     <% if current_user == @article.user || current_user.has_role?(:admin) %>
       <strong>Status:</strong>
@@ -37,14 +42,13 @@
       </div> 
     <% end %> 
   <% end %>
-  Your Rating:<%= rating_for @article, "content", disable_after_rate: true %>
+  Your Rating:<%= rating_for @article, "content", disable: true, readonly: true %>
   <br/>
 </div>
 <hr>
 <div class="section comments">
   <div class="container">
-    <h2 class="subtitle is-5">
-      <strong><%= $total_comments = @article.comments.count %></strong> 
+    <h2 class="subtitle is-5"> 
       Comments
     </h2>
     <%# render @article.comments, article: @article%>
