@@ -4,18 +4,14 @@ class User < ActiveRecord::Base
   has_many :articles, dependent: :destroy
   has_many :comments, dependent: :destroy
   has_one :image, :as => :imageable, dependent: :destroy
+  has_one :profile, dependent: :destroy
   
   devise :database_authenticatable, :registerable,
          :recoverable, :rememberable, :validatable, :trackable,  :confirmable
   
-  validates :name, presence: true, numericality: false, length: { in: 3..20 }, on: :create
   validates :email, presence: true, uniqueness: true, format: { with: URI::MailTo::EMAIL_REGEXP }, on: :create
   validates :password, presence:true, length: {minimum: 8}, confirmation: true, on: :create
   
-  validates :name, numericality: false, length: { in: 3..20 }, on: :update
-  validates :public_email, format: { with: URI::MailTo::EMAIL_REGEXP, on: :update }
-  # validates :password, length: { minimum: 8}, require: false, confirmation: true, on: :update
-
   rolify
   ratyrate_rater
 

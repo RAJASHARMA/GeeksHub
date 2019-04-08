@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20190328062652) do
+ActiveRecord::Schema.define(version: 20190408045243) do
 
   create_table "articles", force: :cascade do |t|
     t.string   "title",      limit: 255
@@ -75,6 +75,21 @@ ActiveRecord::Schema.define(version: 20190328062652) do
     t.datetime "created_at"
     t.datetime "updated_at"
   end
+
+  create_table "profiles", force: :cascade do |t|
+    t.string   "name",         limit: 255
+    t.string   "public_email", limit: 255
+    t.string   "location",     limit: 255
+    t.string   "country",      limit: 255
+    t.string   "profession",   limit: 255
+    t.string   "organization", limit: 255
+    t.integer  "user_id",      limit: 4
+    t.datetime "created_at",                 null: false
+    t.datetime "updated_at",                 null: false
+    t.text     "bio",          limit: 65535
+  end
+
+  add_index "profiles", ["user_id"], name: "index_profiles_on_user_id", using: :btree
 
   create_table "rates", force: :cascade do |t|
     t.integer  "rater_id",      limit: 4
@@ -154,12 +169,6 @@ ActiveRecord::Schema.define(version: 20190328062652) do
     t.datetime "confirmed_at"
     t.datetime "confirmation_sent_at"
     t.string   "unconfirmed_email",      limit: 255
-    t.string   "name",                   limit: 255
-    t.string   "public_email",           limit: 255
-    t.string   "location",               limit: 255
-    t.string   "country",                limit: 255
-    t.string   "profession",             limit: 255
-    t.string   "organization",           limit: 255
     t.datetime "created_at",                                      null: false
     t.datetime "updated_at",                                      null: false
   end
@@ -177,4 +186,5 @@ ActiveRecord::Schema.define(version: 20190328062652) do
   add_foreign_key "articles", "users"
   add_foreign_key "comments", "articles"
   add_foreign_key "comments", "users"
+  add_foreign_key "profiles", "users"
 end

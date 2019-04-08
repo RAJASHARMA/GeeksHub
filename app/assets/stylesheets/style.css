@@ -1180,19 +1180,19 @@ textarea.form-control {
 .post-entry-sidebar ul {
   padding: 0;
   margin: 0; }
-  .post-entry-sidebar ul li {
-    list-style: none;
-    padding: 0 0 20px 0;
-    margin: 0 0 20px 0; }
-    .post-entry-sidebar ul li a {
-      display: table; }
-      .post-entry-sidebar ul li a img {
-        width: 90px; }
-      .post-entry-sidebar ul li a img, .post-entry-sidebar ul li a .text {
-        display: table-cell;
-        vertical-align: middle; }
-      .post-entry-sidebar ul li a .text h4 {
-        font-size: 18px; }
+.post-entry-sidebar ul li {
+  list-style: none;
+  padding: 0 0 20px 0;
+  /*margin: 0 0 20px 0;*/ }
+.post-entry-sidebar ul li a {
+  display: table; }
+.post-entry-sidebar ul li a img {
+  width: 90px; }
+.post-entry-sidebar ul li a img, .post-entry-sidebar ul li a .text {
+  display: table-cell;
+  vertical-align: middle; }
+.post-entry-sidebar ul li a .text h4 {
+  font-size: 18px; }
 
 .search-form-wrap {
   margin-bottom: 5em;

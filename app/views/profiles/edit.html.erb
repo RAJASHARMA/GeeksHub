@@ -1,0 +1,86 @@
+<div class="col-md-11">
+	<div class="article-title-font">Edit Profile</div>
+
+	<%= form_for profile = current_user.profile do |f| %>
+		<div class="form-group">
+			<%= f.label :profile_picture, class: 'label' %><br>
+			<% unless profile.image.nil? %>
+				<%= image_tag "/profiles/images/#{profile.image.name}", height: '180', width: '200' %>
+			<% end %>
+			<%= f.file_field :image, required: false, autofocus: true, class: 'form-control fa fa-pencil-square-o text-info icon-size', style: 'width: 8%; border:none; vertical-align: bottom' %>
+			<p class='error'><%= show_errors(profile , :image) %></p>
+		</div>
+		<div class="form-inputs">
+			<div class="form-group">
+				<%= f.label :name, class: 'label' %>
+				<%= f.text_field :name, required: false, autofocus: true, class: 'form-control' %>
+				<p class='error'><%= show_errors(profile , :name) %></p>
+			</div>
+
+			<div class="form-group">
+				<%= f.label :public_email, class: 'label' %>
+				<%= f.text_field :public_email, required: false,
+				hint: "leave it blank if you don't want to add it",
+				class: 'form-control' %>
+				<p class='error'><%= show_errors(profile , :public_email) %></p>
+			</div>
+
+			<div class="form-group">
+				<%= f.label :location, class: 'label' %>
+				<%= f.text_field :location,
+				hint: "leave it blank if you don't want to add it",
+				required: false,
+				class: 'form-control' %>
+				<p class='error'><%= show_errors(profile , :location) %></p>
+			</div>
+
+			<div class="form-group">
+				<%= f.label :country, class: 'label' %>
+				<%= f.text_field :country,
+				hint: "leave it blank if you don't want to add it",
+				required: false,
+				class: 'form-control' %>
+				<p class='error'><%= show_errors(profile , :country) %></p>
+			</div> 
+
+			<div class="form-group">
+				<%= f.label :profession, class: 'label' %>
+				<%= f.text_field :profession,
+				hint: "leave it blank if you don't want to add it",
+				required: false,
+				class: 'form-control' %> 
+				<p class='error'><%= show_errors(profile , :profession) %></p>
+			</div>
+
+			<div class="form-group">
+				<%= f.label :organization, class: 'label' %>
+				<%= f.text_field :organization,
+				hint: "leave it blank if you don't want to add it",
+				required: false,
+				class: 'form-control' %> 
+				<p class='error'><%= show_errors(profile , :organization) %></p> 
+			</div>
+
+			<div class="form-group">
+				<%= f.label :write_about_yourself, class: 'label' %>
+				<%= f.cktext_area :bio,
+				hint: "leave it blank if you don't want to add it",
+				required: false,
+				class: 'form-control' %> 
+				<p class='error'><%= show_errors(profile , :bio) %></p> 
+			</div>
+		</div>
+
+		<div class="form-group">
+			<%= f.submit "Submit", class: 'btn btn-success ' %>
+		</div>
+
+	<% end %>
+
+	<div>Unhappy? <%= link_to "Cancel my account", registration_path(current_user), data: { confirm: "Are you sure?" }, method: :delete %></div>
+	<div>
+		<%= link_to 'Change Password', edit_registration_path(current_user) %> |
+		<%= link_to "Back", :back %> 
+	</div>
+
+</div>

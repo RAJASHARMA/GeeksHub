@@ -1,8 +1,8 @@
 <div class="col-md-12 col-lg-12 main-content bottom10 menu-font">
-  <div class="row">
+  <div class="row" >
     <% unless current_user.nil? %>
       <% if current_user == @article.user || current_user.has_role?(:admin) %>
-        <div class="col-md-10">
+        <div class="col-md-7">
           <srrong>Status: </srrong>
           <% if @article.status == false %>
             <span class="text-warning"><i class="fa fa-clock-o"></i>&nbsp;Pending</span>
@@ -10,14 +10,16 @@
             <span class="text-success"><i class="fa fa-check"></i>&nbsp;Approved</span>
           <% end %>
         </div>
-        <div class="col-md-2 float-right">
+        <div class="col-md-5 float-right">
           <div class="row">
           <div class="col-md-6">
             <span class="icon-size"><%= link_to ' ', edit_article_path(@article), class: 'fa fa-pencil-square-o text-info' %> </span>
+            <span class="text-info user-content">Edit Article</span>
           </div>
           
           <div class="col-md-6">
             <span class="icon-size"><%= link_to ' ', article_path, method: :delete, data: { confirm: 'Are you sure to delete ?'}, class: 'fa fa-trash-o text-danger' %> </span>
+            <span class="text-danger user-content">Delete Article</span>
           </div>
           </div>
         </div>        
@@ -31,7 +33,11 @@
       <%= image_tag "/articles/images/#{@article.image.name}", class: 'img-size' %>
     </div>
   <% end %>
-  <div class="row float-right"><%= rating_for @article, "content", disable_after_rate: true %></div><br>
+  <% if !(@article.user == current_user) %>
+    <div class="row float-right"><%= rating_for @article, "content", disable_after_rate: true %></div><br>
+  <% else %>
+    <div class="row float-right"><%= rating_for @article, 'content', disable: true %></div>
+  <% end %>
   <div class="text-center heading article-title-font"><%= @article.title %></div>
   <div>
     <ul class="tags">Tags:

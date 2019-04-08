@@ -1,6 +1,5 @@
 <li style="margin-bottom: 0px;">
-	<% comment_user = comment.user.name ?  comment.user.name : comment.user.email  %>
-
+	<% comment_user = comment.user.profile.name.present? ?  comment.user.profile.name : comment.user.email  %>
 	<small>By <%= comment_user %> | <%= time_ago_in_words(comment.created_at) %> ago </small><br/>
   	<div>
 		<span class="comment-font">
@@ -11,7 +10,7 @@
   	<!-- <a type="button" href="#"  data-toggle="collapse" data-target="#demo">Reply</a> -->
   	<small>  	
 	  	<a class="" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Reply</a>
-		<% if comment.user == current_user || @article.user == current_user%> |
+		<% if comment.user == current_user || @article.user == current_user %> |
 			<%= link_to 'Delete', comment_path('comment_id' => comment.id, 'article_id' => @article.id), method: :delete, data: { confirm: 'Are you sure to delete this comment ?'} %>	
 		<% end %><br/>
 		
