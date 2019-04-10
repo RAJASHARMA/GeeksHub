@@ -18,6 +18,7 @@
 .icon-size{font-size: 35px;}
 .icon2{font-size: 35px; width: 7%; border: none; vertical-align: bottom; position: inherit; margin-left: -8%; z-index: 1; opacity: 1; background-color: white;}
 .dashboard{font-family: monospace; font-size: 30px; color: darkslateblue;}
+.users-font{font-size: 15px; font-family: times new roman; padding: 2px; font-weight: bold; color: black;}
 
 .width60{width: 60%;}
 .custom-alert{color: red; text-align: center}

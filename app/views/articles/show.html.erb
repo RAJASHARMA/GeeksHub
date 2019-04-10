@@ -1,26 +1,33 @@
 <div class="col-md-12 col-lg-12 main-content bottom10 menu-font">
   <div class="row" >
     <% unless current_user.nil? %>
-      <% if current_user == @article.user || current_user.has_role?(:admin) %>
+      <% if current_user == @article.user || current_user.admin? %>
         <div class="col-md-7">
           <srrong>Status: </srrong>
-          <% if @article.status == false %>
-            <span class="text-warning"><i class="fa fa-clock-o"></i>&nbsp;Pending</span>
+          <% if @article.pending? %>
+            <span class="text-danger"><i class="fa fa-clock-o"></i>&nbsp;<%= @article.status.humanize %></span>
+          <% elsif @article.moderator_approved? %>
+            <span class="text-warning"><i class="fa fa-check"></i>&nbsp;<%= @article.status.humanize %></span>
           <% else %>
-            <span class="text-success"><i class="fa fa-check"></i>&nbsp;Approved</span>
+            <span class="text-success"><i class="fa fa-check"></i>&nbsp;<%= @article.status.humanize %></span>
           <% end %>
+          
         </div>
         <div class="col-md-5 float-right">
           <div class="row">
-          <div class="col-md-6">
-            <span class="icon-size"><%= link_to ' ', edit_article_path(@article), class: 'fa fa-pencil-square-o text-info' %> </span>
-            <span class="text-info user-content">Edit Article</span>
-          </div>
-          
-          <div class="col-md-6">
-            <span class="icon-size"><%= link_to ' ', article_path, method: :delete, data: { confirm: 'Are you sure to delete ?'}, class: 'fa fa-trash-o text-danger' %> </span>
-            <span class="text-danger user-content">Delete Article</span>
-          </div>
+            
+              <div class="col-md-6">
+                <% if current_user == @article.user %>
+                <span class="icon-size"><%= link_to ' ', edit_article_path(@article), class: 'fa fa-pencil-square-o text-info' %> </span>
+                <span class="text-info user-content">Edit Article</span>
+                <% end %>
+              </div>
+            
+            
+            <div class="col-md-6">
+              <span class="icon-size"><%= link_to '', article_path, method: :delete, data: { confirm: 'Are you sure to delete ?'}, class: 'fa fa-trash-o text-danger' %> </span>
+              <span class="text-danger user-content">Delete Article</span>
+            </div>
           </div>
         </div>        
       <% end %> 

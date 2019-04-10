@@ -12,22 +12,16 @@ class User < ActiveRecord::Base
   validates :email, presence: true, uniqueness: true, format: { with: URI::MailTo::EMAIL_REGEXP }, on: :create
   validates :password, presence:true, length: {minimum: 8}, confirmation: true, on: :create
   
-  rolify
+  enum role: [:admin, :moderator, :user]
+
   ratyrate_rater
 
   after_create :default_role
 
-  def self.rank_up(user,role)
-    if current_user.has_role?(:admin)
-      if user.has_role?(:user)
-        user.add_role(:moderator)
-      end
-    end
-  end
-
   private
+  
   def default_role
-    self.add_role ('user')
+    self.user!
   end
 
 end

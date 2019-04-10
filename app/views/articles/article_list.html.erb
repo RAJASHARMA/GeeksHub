@@ -1,0 +1,66 @@
+<div class="col-md-12">
+	<div class="float-left">
+		<span class="head-article">
+			<% if @status.nil? %>
+				All Articles
+			<% else %>
+				<%= @status.humanize %> Articles
+			<% end %>
+		</span>
+	</div>
+	<div class="float-right">
+		<div class="btn-group float-right">
+		  <button class="btn btn-secondary btn-sm dropdown-toggle" type="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+		    Filter
+		  </button>
+		  <div class="dropdown-menu">
+		    <%= link_to 'All', articles_article_list_path, class: 'dropdown-item' %>
+            <%= link_to 'Pending', articles_article_list_path(:status => 0), class: 'dropdown-item' %>
+            <%= link_to 'Moderator Approved', articles_article_list_path(:status => 1), class: 'dropdown-item' %>
+            <%= link_to 'Approved', articles_article_list_path(:status => 2), class: 'dropdown-item' %>
+		  </div>
+		</div>
+	</div>
+</div>
+<div class="clearfix top10"></div>
+<div class="col-md-12">
+	<% @articles.each do |article|%>
+			<div class="users-font card">
+		   		<div class="card-header users-font">
+			  		<%= article.title %>&nbsp;(<%= article.status.humanize %>)
+			  		<div class="float-right col-md-4 text-right">
+			  			<% unless article.approved? %>
+				  			<% if article.moderator_approved? %>
+			            		<span class="col-md-6 user-detail-head"><%= link_to '', articles_approve_article_path(:id => article.id, :status => 1), class: 'fa fa-check text-warning' %> </span>
+					        <% else %>
+					        	<span class="col-md-6 user-detail-head"><%= link_to '', articles_approve_article_path(:id => article.id, :status => 0), class: 'fa fa-check text-success' %> </span>
+				            <% end %>
+			            <% end %>
+			            
+				      	<span class="col-md-6 user-detail-head"><%= link_to '', articles_approve_article_path(article), method: :delete, data: { confirm: 'Are You Sure To Delete This Article ?'}, class: 'fa fa-trash text-danger' %> </span> 
+					</div>
+		  		</div>
+	  			<a href="<%= article_path(article.id) %>" target="blank">
+					<div class="card-body">
+				    	<% if article.image.nil? %>
+				    		<%= image_tag(image_path('avatar.png'), height: '100') %>
+				    	<% else %>
+				    		<%= image_tag "/articles/images/#{article.image.name}", height: '100' %>
+				    	<% end %>
+					    <div class="card-text float-right">
+					    	<% if article.tag_list.present? %>
+				              	<ul class="tags">Tags:
+				                	<%= raw article.tag_list.map { |t| %>
+				                    <span class="tag"><%= t %></span><% }.join(' ') %>
+				              	</ul>
+			             	<% end %>
+			          	</div>
+				  	</div>
+			  	</a>  
+		   	</div><br>
+	<% end %>
+</div>
+
+<div class="top10">
+      <%= will_paginate @articles, renderer: WillPaginate::ActionView::BootstrapLinkRenderer %>
+</div>

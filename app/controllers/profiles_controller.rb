@@ -1,10 +1,17 @@
 class ProfilesController < ApplicationController
   include ProfilesHelper
-	before_action :set_profile, only: [:show, :update, :destroy]
+	before_action :set_profile, only: [:edit, :show, :update, :destroy]
 
 
 	def index
-		@profiles = Profile.all
+    if params[:val].present?
+      @users = User.where(role: params[:val])
+      @role = @users.first.role
+    else
+      @users = User.all
+      @role = 'user'
+    end
+    @users = @users.paginate(page: params[:page], per_page: 3)
 	end
 
 	def show
@@ -30,10 +37,7 @@ class ProfilesController < ApplicationController
 	private
 
   def set_profile
-    @profile = Profile.find_by_id(params[:id])
-    if @profile.nil?
-      @profile = Profile.find_by_user_id(params[:id])
-    end
+      @profile = Profile.find_by_id(params[:id])
   end
 
   def profile_params

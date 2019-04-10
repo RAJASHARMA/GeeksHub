@@ -27,7 +27,8 @@
                 <h2>Author</h2>
                 <!-- <h3><%= @author.profile.name %></h3> -->
                 <p> <%= @author.profile.public_email %></p>
-                <p><%= link_to 'Read my bio', profile_path(@author), class: "btn btn-primary btn-sm rounded" %></p>
+                <%# byebug %>
+                <p><%= link_to 'Read my bio', profile_path(@author.profile.id), class: "btn btn-primary btn-sm rounded" %></p>
                 <p class="social">
                   <a href="#" class="p-2"><span class="fa fa-facebook"></span></a>
                   <a href="#" class="p-2"><span class="fa fa-twitter"></span></a>

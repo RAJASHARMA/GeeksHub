@@ -5,10 +5,17 @@ class Article < ActiveRecord::Base
 
 	validates :title, presence: true, length: { in: 3..20 }, :uniqueness => {alert: "Already Exixts" }
 	validates :content, presence: true 
+
+	enum status: [:pending, :moderator_approved, :approved]
 	
 	acts_as_taggable
 	ratyrate_rateable "content"
-	resourcify
 
+	after_create :default_status
+
+	private
 	
+	def default_status
+		self.pending!
+	end
 end

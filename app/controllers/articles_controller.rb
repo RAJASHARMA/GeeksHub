@@ -8,20 +8,18 @@ class ArticlesController < ApplicationController
 
     def index
         if params[:tag]
-            @articles = Article.where(status: 1).tagged_with(params[:tag]).order(created_at: :DESC)
+            @articles = Article.where(status: 2).tagged_with(params[:tag]).order(created_at: :DESC)
             @tag = params[:tag]
         elsif params[:search]
             @articles = search_articles(params[:search])
             @search = params[:search]
         else
-            @articles =  Article.where(status: 1).order(created_at: :DESC)  
+            @articles =  Article.where(status: 2).order(created_at: :DESC)  
         end
         article_pagination
-        @ability = Ability.new(current_user)
     end
 
     def show
-        @ability = Ability.new(current_user)
         @author = @article.user
     end
 
@@ -78,6 +76,27 @@ class ArticlesController < ApplicationController
         render 'index'
     end
 
+    def article_list
+        if params[:status].present?
+            @articles = Article.where(status: params[:status])
+            @status = @articles.first.status
+        else
+            @articles = Article.all
+            @status = 'all'
+        end
+        article_pagination
+    end
+
+    def approve_article
+        article = Article.find(params[:id])
+        if current_user.admin?
+            article.approved!
+        elsif current_user.moderator?
+            article.moderator_approved!
+        end
+        redirect_to articles_article_list_path
+        # render :action => "article_list"
+    end
 
     private
 
@@ -98,7 +117,7 @@ class ArticlesController < ApplicationController
     end
 
     def article_pagination
-        @articles = @articles.paginate(page: params[:page], per_page: 6)
+        @articles = @articles.paginate(page: params[:page], per_page: 10)
     end
 
 end

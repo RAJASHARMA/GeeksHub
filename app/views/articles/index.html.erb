@@ -24,7 +24,7 @@
                       <% if article.tag_list.present? %>
                       <ul class="tags">
                         <%= raw article.tag_list.map { |t| %>
-                            <span class="tag"><%= t %></span>           <% }.join(' ') %>
+                            <span class="tag"><%= t %></span><% }.join(' ') %>
                       </ul>
                         <!-- <span class="mr-2">Tags: <%= raw article.tag_list.join(' | ') %></span> --> 
                       <% end %>

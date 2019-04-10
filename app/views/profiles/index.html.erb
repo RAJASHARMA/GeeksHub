@@ -1,0 +1,54 @@
+<div class="col-md-12">
+	<div class="float-left">
+		<span class="head-article">
+			<%= @role.pluralize.humanize %> List
+		</span>
+	</div>
+	<div class="float-right">
+		<div class="btn-group float-right">
+		  <button class="btn btn-secondary btn-sm dropdown-toggle" type="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+		    Filter
+		  </button>
+		  <div class="dropdown-menu">
+		    <%= link_to 'All', profiles_path, class: 'dropdown-item' %>
+            <%= link_to 'Moderators', profiles_path(:val => 1), class: 'dropdown-item' %>
+            <%= link_to 'Users', profiles_path(:val => 2), class: 'dropdown-item' %>
+		  </div>
+		</div>
+	</div>
+</div>
+<div class="clearfix top10"></div>
+<div class="col-md-12">
+	<% @users.each do |user|%>
+		<div class="users-font card">
+			<% if user.profile.nil? %>
+		  		<div class=" users-font card-header">
+			  		<%= user.email %>
+		  		</div>
+				<div class="card-body">
+				    <%= image_tag(image_path('avatar.png'), height: '30') %>
+				    <p class="card-text"><%= user.created_at %></p>
+				    <!-- <a href="#" class="btn btn-primary">Go somewhere</a> -->
+			  	</div>
+		  	<% else %>
+		   		<div class="card-header users-font">
+			  		<%= user.profile.name %>
+		  		</div>
+				<div class="card-body">
+			    	<% if user.profile.image.nil? %>
+			    		<%= image_tag(image_path('avatar.png'), height: '30') %>
+			    	<% else %>
+			    		<%= image_tag "/profiles/images/#{user.profile.image.name}", height: '30' %>
+			    	<% end %>
+				    <%= user.profile.public_email %>
+				    <p class="card-text"><%= user.created_at %></p>
+				    <!-- <a href="#" class="btn btn-primary">Go somewhere</a> -->
+			  	</div>
+		   	<% end %>
+	   	</div><br>
+	<% end %>	
+</div>
+
+<div class="top10">
+      <%= will_paginate @users, renderer: WillPaginate::ActionView::BootstrapLinkRenderer %>
+</div>
