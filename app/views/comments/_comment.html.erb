@@ -1,40 +1,33 @@
-<li style="margin-bottom: 0px;">
-	<% comment_user = comment.user.profile.name.present? ?  comment.user.profile.name : comment.user.email  %>
-	<small>By <%= comment_user %> | <%= time_ago_in_words(comment.created_at) %> ago </small><br/>
-  	<div>
-		<span class="comment-font">
-			<%= raw comment.content %>
-		</span>  		
-	</div>
-  	
-  	<!-- <a type="button" href="#"  data-toggle="collapse" data-target="#demo">Reply</a> -->
-  	<small>  	
-	  	<a class="" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Reply</a>
-		<% if comment.user == current_user || @article.user == current_user %> |
-			<%= link_to 'Delete', comment_path('comment_id' => comment.id, 'article_id' => @article.id), method: :delete, data: { confirm: 'Are you sure to delete this comment ?'} %>	
-		<% end %><br/>
-		
-	  	<!-- ................. toggleable comment section START........................ -->
-	  	<div class="dropdown-menu  col-md-6 no-border" aria-labelledby="navbarDropdown" style="border: none;">
-		<!-- <div id="demo" class="collapse"> -->
-	  		<%= form_for [comment, Comment.new] do |f| %>
-		  		<div>
-		  			<div class="form-inputs form-group">
-						<%= f.text_area :content, :placeholder => "Replay to.. " + comment_user, wrapper: false, class: 'form-control rsize' %>
-					</div>
-					<div class="form-group">
-						<%= f.submit :Post, class: "btn btn-success" %>	
-						<a class="" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="false" aria-expanded="false">Cancel</a>
-					</div>
-		  		</div>
-			<% end %>
-	  	</div>
-	  	<!-- ...................toggleable comment section END.......................... -->
-  	</small>
-	
+<div class="comment-div"> 
 
-  	<ul>
-  		<%= render partial: 'comments/comment', collection: comment.comments %>
-  	</ul>
-
-</li>
+ 	By 
+ 	<% unless comment.user.nil? %>
+	 	<b><%=comment.user.email %> |
+	   	<%= time_ago_in_words(comment.created_at) %> ago </b>
+   	<% end %>
+ 	
+ 
+ 	<div class="comment-content">
+	  	<%= comment.content %>
+ 	</div>
+ 	<div class="comment-reply">
+ 		<% if comment.ancestry.nil? %>
+	  		<a class="fa fa-reply text-info" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Reply</a>
+	  	<% end %>
+	  	<% if current_user == @article.user || current_user == comment.user %> |
+	  		<%= link_to "Delete", article_comment_path(@article, comment), :data => {:confirm => 'Delete Message?'}, method: :delete, class: "fa fa-trash-o text-danger" %> 
+	  		<% byebug %>
+	  	<% end %>
+	  	<% unless comment.id.nil? %>
+	  	 	<div class="dropdown-menu  col-md-7 reply-form" aria-labelledby="navbarDropdown" >
+		  		<%= form_for [@article, comment.children.build] do |f| %> 
+			    <%= f.text_area :content,:placeholder => "Replay to.. ", class: "comment-field col-md-12" %>
+			    <%= f.hidden_field :parent_id %>   
+			    <%= f.submit "Reply", class: "fa fa-reply btn btn-success btn-sm " %>
+			    <a class="fa fa-cancel btn btn-info btn-sm" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="false" aria-expanded="false">Cancel</a>
+		  		<% end %>
+		  	</div>         
+		<% end %>	
+ 	</div>
+ 
+</div>

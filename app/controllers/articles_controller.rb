@@ -2,7 +2,6 @@ class ArticlesController < ApplicationController
     include ArticlesHelper
     before_action :set_article, only: [:show, :edit, :update, :destroy]
     before_action :authenticate_user!, except: [:index, :show]
-    
     after_action :article_pagination, only: [:index, :user_articles]
     rescue_from ActiveRecord::RecordNotFound, with: :record_not_found
 
@@ -20,6 +19,7 @@ class ArticlesController < ApplicationController
     end
 
     def show
+        @comment = @article.comments.new
         @author = @article.user
     end
 
@@ -95,30 +95,29 @@ class ArticlesController < ApplicationController
             article.moderator_approved!
         end
         redirect_to articles_article_list_path
-        # render :action => "article_list"
     end
 
     private
 
-    def set_article
-        @article = Article.find(params[:id])
-    end
+        def set_article
+            @article = Article.find(params[:id])
+        end
 
-    def article_params
-        params.require(:article).permit(:title, :content, :status, :tag_list)
-    end
+        def article_params
+            params.require(:article).permit(:title, :content, :status, :tag_list)
+        end
 
-    def tag_params
-        params[:article]['tag_list']
-    end
+        def tag_params
+            params[:article]['tag_list']
+        end
 
-    def record_not_found
-        render partial: 'layouts/not_found', status: 404
-    end
+        def record_not_found
+            render partial: 'layouts/not_found', status: 404
+        end
 
-    def article_pagination
-        @articles = @articles.paginate(page: params[:page], per_page: 10)
-    end
+        def article_pagination
+            @articles = @articles.paginate(page: params[:page], per_page: 10)
+        end
 
 end
 

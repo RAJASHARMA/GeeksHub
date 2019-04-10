@@ -1,12 +1,11 @@
 .geeks-hub-font{color: green; font-weight: bold; font-size: 30px;}
 .article-title-font{font-family: monospace; font-size: 2.6rem;}
-.content-font{font-family:times new roman}
-.comment-font{font-family: times new roman; color: black;}
+.comment-font{font-family: times new roman; color: black; font-size: 15px;}
 .menu-font{font-size: 17px; font-family: times new roman;}
 
 .button-font{font-size: 15px; font-family: times new roman;}
 .not-found{margin-left: 45%; margin-top: 10%; color: red; font-family: times new roman;}
-
+.bottom0{margin-bottom: 0px;}
 .bottom10{margin-bottom: 10%;}
 .top10{margin-top: 10%; }
 .sidebox-left{margin-left: -5%; }
@@ -36,10 +35,12 @@
 .wrap-text{word-wrap: break-word;}
 .tags{line-height: 35px;}
 .tag{ background-color: lightgrey; padding: 5px; color: green; border-radius: 4px;}
-.tag:hover{ background-color: green; color: white;}
+.tag:hover{ background-color: grey; color: white;}
 .raty-cancel{display: none;}
-
-
+small {	font-size: 14px;}
+.nested-comments{margin-left: 40px;}
+.comment-field{background-color: #fcfcfc; height: 120px;}
+.signup-link:hover{text-decoration: underline;}
 .user-edit{font-size: 17px;vertical-align: baseline;margin-top: 20px;margin-left: -30px;}
 .user-font{font-family: times-new-roman;}
 .user-name{font-size: 30px; font-weight: bold; color: black; font-variant: small-caps;}
@@ -180,5 +181,3 @@ Licensed under MIT
       width: 20%; 
   }
 }
-
-

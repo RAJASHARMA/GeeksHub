@@ -55,8 +55,10 @@ ActiveRecord::Schema.define(version: 20190409073935) do
     t.datetime "updated_at",                     null: false
     t.integer  "commentable_id",   limit: 4
     t.string   "commentable_type", limit: 255
+    t.string   "ancestry",         limit: 255
   end
 
+  add_index "comments", ["ancestry"], name: "index_comments_on_ancestry", using: :btree
   add_index "comments", ["article_id"], name: "index_comments_on_article_id", using: :btree
   add_index "comments", ["user_id"], name: "index_comments_on_user_id", using: :btree
 
@@ -158,6 +160,12 @@ ActiveRecord::Schema.define(version: 20190409073935) do
     t.datetime "confirmed_at"
     t.datetime "confirmation_sent_at"
     t.string   "unconfirmed_email",      limit: 255
+    t.string   "name",                   limit: 255
+    t.string   "public_email",           limit: 255
+    t.string   "location",               limit: 255
+    t.string   "country",                limit: 255
+    t.string   "profession",             limit: 255
+    t.string   "organization",           limit: 255
     t.datetime "created_at",                                      null: false
     t.datetime "updated_at",                                      null: false
     t.integer  "role",                   limit: 4
