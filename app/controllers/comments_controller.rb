@@ -1,52 +1,116 @@
 class CommentsController < ApplicationController
   before_action :authenticate_user!
-  before_action :find_commentable, except: [:destroy]
-  before_action :find_deleteable_comment
+  before_action :find_article
+
 
   def new
-    @comment = Comment.new
+    @comment = @article.comments.new(:parent_id => params[:parent_id])
   end
 
+
   def create
-    @comment = @commentable.comments.new(find_comment)
-    if @comment.valid?
-      @comment.user_id = current_user.id
-      if @comment.save
-        redirect_to :back
-      else
-        render nothing: true
-      end
+    @comment = @article.comments.new comment_params
+    if @comment.save
+      redirect_to article_url(@comment.article_id) 
     else
-      redirect_to :back, :alert => 'Comment must be within 2-300 characters.'
+      render 'new'
     end
   end
 
   def destroy
-    @comment.destroy
-    redirect_to article_path(@article)
+    @comment = Comment.find(params[:id]).destroy
+    redirect_to article_url(@article)
   end
 
   private
-    
+
+    def comment_params
+      params.require(:comment).permit(:content, :parent_id).merge(user_id: current_user.id)
+    end
+
     def find_article
-      @article = Article.find(params[:article_id]) 
+      @article = Article.find(params[:article_id])
     end
-
-    def find_comment
-      params.require(:comment).permit(:content)
-    end
-
-    def find_commentable
-      @commentable = Comment.find_by_id(params[:comment_id]) if params[:comment_id]
-      @commentable = Article.find_by_id(params[:article_id]) if params[:article_id]
-    end
-
-    def find_deleteable_comment
-      @comment = Comment.find_by_id(params[:comment_id])
-      @article = Article.find_by_id(params[:article_id])
-    end
-
 end
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+#   def new
+#     @comment = Comment.new
+#   end
+
+#   def create
+#     @comment = @commentable.comments.new(find_comment)
+#     if @comment.valid?
+#       @comment.parent_id = params[:comment_id] if params[:controller] == "comments"
+#       @comment.article_id = get_article_id 
+#       @comment.user_id = current_user.id
+#       if @comment.save
+#         redirect_to :back
+#       else
+#         render nothing: true
+#       end
+#     else
+#       redirect_to :back, :alert => 'Comment must be within 2-300 characters.'
+#     end
+#   end
+
+#   def destroy
+#     @comment.destroy
+#     redirect_to article_path(@article)
+#   end
+
+#   private
+
+#     def get_article_id
+#       params[:comment][:article_id] ? params[:comment][:article_id] : params[:article_id]
+#     end
+    
+#     def find_article
+#       @article = Article.find(params[:article_id]) 
+#     end
+
+#     def find_comment
+#       params.require(:comment).permit(:content)
+#     end
+
+#     def find_commentable
+#       @commentable = Comment.find_by_id(params[:comment_id]) if params[:comment_id]
+#       @commentable = Article.find_by_id(params[:article_id]) if params[:article_id]
+#     end
+
+#     def find_deleteable_comment
+#       @comment = Comment.find_by_id(params[:comment_id])
+#       @article = Article.find_by_id(params[:article_id])
+#     end
+
+# end
 
 
 

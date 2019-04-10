@@ -7,12 +7,9 @@ Rails.application.routes.draw do
   get 'tags/:tag', to: 'articles#index', as: :tag
   resources :articles do
     resources :comments
-
   end
   
-  resources :comments do
-    resources :comments
-  end
+  
 
 
   devise_for :users  do

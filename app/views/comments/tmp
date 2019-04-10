@@ -1,0 +1,41 @@
+
+<!-- <li style="margin-bottom: 0px;">
+	<% comment_user = comment.user.name ?  comment.user.name : comment.user.email  %>
+	<small><b>By <%= comment_user %> | <%= time_ago_in_words(comment.created_at) %> ago </b></small><br/>
+  	<div>
+		<span class="comment-font bottom0">
+			<%= raw comment.content %>
+		</span>  		
+	</div>
+  	
+  	<small style="font-size: 14px;">
+  		<% if comment.parent_id.nil? %> 	
+	  		<a class="fa fa-reply text-info" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Reply</a> |
+	  	<% end %>
+		<% if comment.user == current_user || @article.user == current_user %>
+			<%= link_to 'Delete', comment_path('comment_id' => comment.id, 'article_id' => @article.id), method: :delete, data: { confirm: 'Are you sure to delete this comment ?'}, class: "fa fa-trash-o text-danger" %>	
+		<% end %><br/>
+
+	  	<div class="dropdown-menu  col-md-6 reply-form" aria-labelledby="navbarDropdown" >
+		
+	  		<%= form_for [comment.children.create] do |f| %>
+		  		<div>
+		  			<%= f.hidden_field :article_id, :value => @article.id %>
+		  			<div class="form-inputs form-group">
+						<%= f.text_area :content, :placeholder => "Replay to.. " + comment_user, wrapper: false, class: 'form-control rsize' %>
+					</div>
+					<div class="form-group">
+						<%= f.submit :Post, class: "fa fa-reply btn btn-success btn-sm" %>	
+						<a class="fa fa-cancel btn btn-info btn-sm" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="false" aria-expanded="false">Cancel</a>
+					</div>
+		  		</div>
+			<% end %>
+	  	</div>
+  	</small>
+	
+
+  	<ul>
+  		<%= render partial: 'comments/comment', collection: comment.subtree(:to_depth => 1) %>
+  	</ul>
+
+</li> -->

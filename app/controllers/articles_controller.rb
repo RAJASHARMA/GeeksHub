@@ -2,7 +2,6 @@ class ArticlesController < ApplicationController
   include ArticlesHelper
   before_action :set_article, only: [:show, :edit, :update, :destroy]
   before_action :authenticate_user!, except: [:index, :show]
-  before_action :popular_articles
   after_action :article_pagination, only: [:index, :user_articles]
   rescue_from ActiveRecord::RecordNotFound, with: :record_not_found
 
@@ -21,7 +20,7 @@ class ArticlesController < ApplicationController
   end
 
   def show
-    @ability = Ability.new(current_user)
+    @comment = @article.comments.new
   end
 
   def new
@@ -79,9 +78,7 @@ class ArticlesController < ApplicationController
 
 
   private
-    def popular_articles
-      @popular_articles  = Article.joins(:content_average).order('rating_caches.avg DESC').limit(5)
-    end
+    
 
     def set_article
       @article = Article.find(params[:id])

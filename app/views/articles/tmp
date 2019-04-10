@@ -1,0 +1,15 @@
+<!-- <div class="section comments">
+  <div class="container">
+
+      <h2 class="subtitle is-5">
+      <strong><%= Comment.where(article_id: @article.id).count %> Comments</strong> 
+    <hr>
+    <ul  class="comment-list"><%= render(partial: 'comments/comment', collection: @article.comments) %></ul>
+    <div class="comment-form bottom10">
+      <h3 class="subtitle is-3">Post a comments</h3>
+      <%= render 'comments/form', article: @article %>
+    </div>
+  </div>
+</div>
+
+ -->

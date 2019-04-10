@@ -44,6 +44,7 @@ gem 'acts-as-taggable-on'
 gem 'openssl'
 gem 'rolify'
 gem 'where-or'
+gem 'ancestry'
 
 
 # Use ActiveModel has_secure_password

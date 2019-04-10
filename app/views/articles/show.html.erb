@@ -43,19 +43,20 @@
   
   <br/>
 </div>
-<div class="section comments">
-  <div class="container">
 
-      <h2 class="subtitle is-5">
-      <strong><%= $total_comments = @article.comments.count %> Comments</strong> 
-    <hr>
-    <%# render @article.comments, article: @article%>
-    <ul  class="comment-list"><%= render(partial: 'comments/comment', collection: @article.comments) %></ul>
-    <div class="comment-form bottom10">
-      <!-- <hr/> -->
-      <h3 class="subtitle is-3">Post a comments</h3>
-      <%= render 'comments/form', article: @article %>
-    </div>
-  </div>
+<div class= "comment-section comment-font">
+  <% if current_user %>
+    <h5>Comment on Article</h5>
+    <%= form_for [@article, @comment] do |f| %> 
+      <%= f.text_area :content, class: "comment-field col-md-12" %>
+      <%= f.hidden_field :parent_id %> 
+      <%= f.submit "Join Discussion", class: "btn btn-info btn-sm " %>      
+    <% end %>
+  <% else %>
+    <%= link_to "SignUp/LogIn to Comment..", new_user_session_path, class: "text-danger signup-link" %>
+  <% end %>
+  <hr/>
+
+  <h5> (<%= @article.comments.count %>) Comments </h5>
+  <%= nested_comments @article.comments.arrange(:order => :created_at) %>
 </div>
-

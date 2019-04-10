@@ -16,3 +16,9 @@
 .comment-list {
   list-style-image: url('/assets/images/avatar-372-456324.png');
 }
+
+.reply-form {
+	border: none;
+	padding: 10px;
+	background-color: lightgrey;
+}
