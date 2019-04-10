@@ -1,7 +1,11 @@
 <div class="col-md-12">
 	<div class="float-left">
 		<span class="head-article">
-			<%= @role.pluralize.humanize %> List
+			<% if @role.nil? %>
+				Users
+			<% else %>
+				<%= @role.pluralize.humanize %> 
+			<% end %> List
 		</span>
 	</div>
 	<div class="float-right">
@@ -21,30 +25,28 @@
 <div class="col-md-12">
 	<% @users.each do |user|%>
 		<div class="users-font card">
-			<% if user.profile.nil? %>
-		  		<div class=" users-font card-header">
-			  		<%= user.email %>
-		  		</div>
-				<div class="card-body">
-				    <%= image_tag(image_path('avatar.png'), height: '30') %>
-				    <p class="card-text"><%= user.created_at %></p>
-				    <!-- <a href="#" class="btn btn-primary">Go somewhere</a> -->
-			  	</div>
-		  	<% else %>
-		   		<div class="card-header users-font">
-			  		<%= user.profile.name %>
-		  		</div>
-				<div class="card-body">
-			    	<% if user.profile.image.nil? %>
-			    		<%= image_tag(image_path('avatar.png'), height: '30') %>
-			    	<% else %>
-			    		<%= image_tag "/profiles/images/#{user.profile.image.name}", height: '30' %>
-			    	<% end %>
-				    <%= user.profile.public_email %>
-				    <p class="card-text"><%= user.created_at %></p>
-				    <!-- <a href="#" class="btn btn-primary">Go somewhere</a> -->
-			  	</div>
-		   	<% end %>
+	  		<div class=" users-font card-header col-md-12">
+	  			<div></div>
+		  		<%= link_to user.email, profile_path(user.profile.id), target: '_blank' %> (<%= user.role.humanize %>)
+		  		<% if user.user? %>
+		  			<div class="float-right"><%= link_to '', profiles_rank_path(:id => user.id), class: 'fa fa-hand-o-up user-detail-head text-success col-md-2' %></div>
+		  			
+		  		<% elsif user.moderator? %>
+		  			<div class="float-right"><%= link_to '', profiles_rank_path(:id => user.id), class: 'fa fa-hand-o-down user-detail-head text-danger col-md-2' %></div>
+		  			
+		  		<% end %>
+		  			
+	  		</div>
+			<div class="card-body">
+		    	<% if user.profile.image.nil? %>
+		    		<%= image_tag(image_path('avatar.png'), height: '30') %>
+		    	<% else %>
+		    		<%= image_tag "/profiles/images/#{user.profile.image.name}", height: '30' %>
+		    	<% end %>
+			    <%= user.profile.public_email %>
+			    <p class="card-text">Posted <%= user.articles.count %> articles</p>
+			    <!-- <a href="#" class="btn btn-primary">Go somewhere</a> -->
+		  	</div>
 	   	</div><br>
 	<% end %>	
 </div>

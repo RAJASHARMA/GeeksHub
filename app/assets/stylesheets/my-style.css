@@ -35,9 +35,9 @@
 .wrap-text{word-wrap: break-word;}
 .tags{line-height: 35px;}
 .tag{ background-color: lightgrey; padding: 5px; color: green; border-radius: 4px;}
-.tag:hover{ background-color: grey; color: white;}
+.tag:hover{ background-color: green; color: white;}
 .raty-cancel{display: none;}
-small {	font-size: 14px;}
+.small {	font-size: 14px;}
 .nested-comments{margin-left: 40px;}
 .comment-field{background-color: #fcfcfc; height: 120px;}
 .signup-link:hover{text-decoration: underline;}
@@ -48,6 +48,10 @@ small {	font-size: 14px;}
 .user-content{font-size: 14px;}
 .user-detail-head{font-size: 25px;}
 .user-detail-label{font-size: 15px; font-weight: bold;}
+
+
+.clearfix{margin-top: 1%; margin-bottom: 1%;}
+
 
 /* ==========================================================================
    Author's custom styles

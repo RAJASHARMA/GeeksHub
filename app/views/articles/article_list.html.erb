@@ -18,46 +18,56 @@
             <%= link_to 'Pending', articles_article_list_path(:status => 0), class: 'dropdown-item' %>
             <%= link_to 'Moderator Approved', articles_article_list_path(:status => 1), class: 'dropdown-item' %>
             <%= link_to 'Approved', articles_article_list_path(:status => 2), class: 'dropdown-item' %>
+            <%= link_to 'Declined', articles_article_list_path(:status => 3), class: 'dropdown-item' %>
 		  </div>
 		</div>
 	</div>
 </div>
 <div class="clearfix top10"></div>
 <div class="col-md-12">
-	<% @articles.each do |article|%>
-			<div class="users-font card">
-		   		<div class="card-header users-font">
-			  		<%= article.title %>&nbsp;(<%= article.status.humanize %>)
-			  		<div class="float-right col-md-4 text-right">
-			  			<% unless article.approved? %>
-				  			<% if article.moderator_approved? %>
-			            		<span class="col-md-4 user-detail-head"><%= link_to '', articles_modify_status_path(:id => article, :status => 1), class: 'fa fa-check text-warning' %> </span>
-					        <% else %>
-					        	<span class="col-md-4 user-detail-head"><%= link_to '', articles_modify_status_path(:id => article, :status => 0), class: 'fa fa-check text-success' %> </span>
-				            <% end %>
+	<% if @articles.empty? %>
+        <div>
+          <h2 class="text-danger text-center">No Articles Found</h2>
+        </div>
+      <% else %>
+		<% @articles.each do |article|%>
+				<div class="users-font card">
+			   		<div class="card-header users-font">
+				  		<%= article.title %>&nbsp;(<%= article.status.humanize %>)
+				  		<div class="float-right col-md-4 text-right">
+				  			<% unless article.approved? %>
+					  			<% if article.moderator_approved? %>
+				            		<span class="col-md-4 user-detail-head"><%= link_to '', articles_modify_status_path(:id => article, :status => 1), class: 'fa fa-check text-info' %> </span>
+						        <% else %>
+						        	<span class="col-md-4 user-detail-head"><%= link_to '', articles_modify_status_path(:id => article, :status => 0), class: 'fa fa-check text-success' %> </span>
+					            <% end %>
 
-			            <% end %>
-			           	<span class="col-md-4 user-detail-head"><%= link_to '', article_path(article), method: :delete, data: { confirm: 'Are You Sure To Delete This Article ?'}, class: 'fa fa-trash text-danger' %> </span> 
-					</div>
-		  		</div>
-	  			<a href="<%= article_path(article.id) %>" target="blank">
-					<div class="card-body">
-				    	<% if article.image.nil? %>
-				    		<%= image_tag(image_path('avatar.png'), height: '100') %>
-				    	<% else %>
-				    		<%= image_tag "/articles/images/#{article.image.name}", height: '100' %>
-				    	<% end %>
-					    <div class="card-text float-right">
-					    	<% if article.tag_list.present? %>
-				              	<ul class="tags">Tags:
-				                	<%= raw article.tag_list.map { |t| %>
-				                    <span class="tag"><%= t %></span><% }.join(' ') %>
-				              	</ul>
-			             	<% end %>
-			          	</div>
-				  	</div>
-			  	</a>  
-		   	</div><br>
+				            <% end %>
+				            <% unless article.decline? %>
+				            	<span class="col-md-4 user-detail-head"><%= link_to '', articles_modify_status_path(:id => article, :status => 3), class: 'fa fa-ban text-warning' %> </span>
+				            <% end %>
+				           	<span class="col-md-4 user-detail-head"><%= link_to '', article_path(article), method: :delete, data: { confirm: 'Are You Sure To Delete This Article ?'}, class: 'fa fa-trash text-danger' %> </span> 
+						</div>
+			  		</div>
+		  			<a href="<%= article_path(article.id) %>" target="blank">
+						<div class="card-body">
+					    	<% if article.image.nil? %>
+					    		<%= image_tag(image_path('avatar.png'), height: '100') %>
+					    	<% else %>
+					    		<%= image_tag "/articles/images/#{article.image.name}", height: '100' %>
+					    	<% end %>
+						    <div class="card-text float-right">
+						    	<% if article.tag_list.present? %>
+					              	<ul class="tags">Tags:
+					                	<%= raw article.tag_list.map { |t| %>
+					                    <span class="tag"><%= t %></span><% }.join(' ') %>
+					              	</ul>
+				             	<% end %>
+				          	</div>
+					  	</div>
+				  	</a>  
+			   	</div><br>
+		<% end %>
 	<% end %>
 </div>
 

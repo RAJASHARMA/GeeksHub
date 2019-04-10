@@ -15,10 +15,7 @@ class ProfilesController < ApplicationController
 	end
 
 	def show
-    if current_user.profile.nil?
-        @profile = Profile.create(user_id: current_user.id)
-        @profile.save
-    end
+    
 	end
 
 	def edit
@@ -33,6 +30,16 @@ class ProfilesController < ApplicationController
         render :edit
     	end
 	end
+
+  def rank
+    user = User.find_by_id(params[:id])
+    if user.user?
+      user.moderator!
+    elsif user.moderator?
+      user.user!
+    end
+    redirect_to profiles_path
+  end
 
 	private
 

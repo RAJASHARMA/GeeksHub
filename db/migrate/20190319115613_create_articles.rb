@@ -3,7 +3,6 @@ class CreateArticles < ActiveRecord::Migration
     create_table :articles do |t|
       t.string :title
       t.text :content
-      t.boolean :status
       t.references :user, index: true, foreign_key: true
 
       t.timestamps null: false

@@ -1,6 +1,6 @@
 body {
   background: #ccc url("../images/photography.png") repeat;
-  font-family: "Inconsolata", SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", "Courier New", monospace;
+  /*font-family: "Inconsolata", SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", "Courier New", monospace;*/
   font-weight: 300;
   font-size: 18px;
   line-height: 1.9;
@@ -16,8 +16,8 @@ a {
 
 h1, h2, h3, h4, h5 {
   color: #000;
-  font-family: josefin sans,-apple-system,BlinkMacSystemFont,segoe ui,Roboto,helvetica neue,Arial,sans-serif,apple color emoji,segoe ui emoji,segoe ui symbol,noto color emoji; }
-
+  /*font-family: josefin sans,-apple-system,BlinkMacSystemFont,segoe ui,Roboto,helvetica neue,Arial,sans-serif,apple color emoji,segoe ui emoji,segoe ui symbol,noto color emoji; }*/
+}
 .wrap {
   max-width: 1250px;
   margin: 0 auto;

@@ -16,12 +16,16 @@ class User < ActiveRecord::Base
 
   ratyrate_rater
 
-  after_create :default_role
+  after_create :default_role, :create_profile
 
   private
   
   def default_role
     self.user!
+  end
+
+  def create_profile
+    Profile.create(user: self)
   end
 
 end

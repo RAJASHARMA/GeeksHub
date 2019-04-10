@@ -79,7 +79,9 @@ class ArticlesController < ApplicationController
     def article_list
         if params[:status].present?
             @articles = Article.where(status: params[:status])
-            @status = @articles.first.status
+            unless @articles.empty?
+                @status = @articles.first.status
+            end
         else
             @articles = Article.all
             @status = 'all'
@@ -89,12 +91,17 @@ class ArticlesController < ApplicationController
 
     def modify_status
         article = Article.find(params[:id])
-        if current_user.admin?
-            article.approved!
-        elsif current_user.moderator?
-            article.moderator_approved!
+        if current_user.admin? || current_user.moderator?
+            if params[:status]
+                article.decline!
+            else
+                if current_user.admin?
+                    article.approved!
+                elsif current_user.moderator?
+                    article.moderator_approved!
+                end
+            end
         end
-        article_list
         redirect_to articles_article_list_path
     end
 
