@@ -18,58 +18,6 @@
 
     <div class="form-inputs">
       <div class="form-group">
-        <%= f.label :name, class: 'label' %>
-        <%= f.text_field :name, required: false, autofocus: true, class: 'form-control' %>
-        <p class='error'><%= show_errors(resource , :name) %></p>
-      </div>
-
-      <div class="form-group">
-        <%= f.label :public_email, class: 'label' %>
-        <%= f.text_field :public_email, required: false,
-                      hint: "leave it blank if you don't want to add it",
-                      class: 'form-control' %>
-        <p class='error'><%= show_errors(resource , :public_email) %></p>
-      </div>
-
-      <div class="form-group">
-          <%= f.label :location, class: 'label' %>
-          <%= f.text_field :location,
-                    hint: "leave it blank if you don't want to add it",
-                    required: false,
-                    class: 'form-control' %>
-          <p class='error'><%= show_errors(resource , :location) %></p>
-      </div>
-
-      <div class="form-group">
-          <%= f.label :country, class: 'label' %>
-          <%= f.text_field :country,
-                    hint: "leave it blank if you don't want to add it",
-                    required: false,
-                    class: 'form-control' %>
-          <p class='error'><%= show_errors(resource , :country) %></p>
-      </div>   
-       
-      <div class="form-group">
-          <%= f.label :profession, class: 'label' %>
-          <%= f.text_field :profession,
-                  hint: "leave it blank if you don't want to add it",
-                  required: false,
-                  class: 'form-control' %>    
-          <p class='error'><%= show_errors(resource , :profession) %></p>
-      </div>
-
-      <div class="form-group" id="text">
-          <%= f.label :organization, class: 'label' %>
-          <%= f.text_field :organization,
-                  hint: "leave it blank if you don't want to add it",
-                  required: false,
-                  class: 'form-control' %>  
-        <p class='error'><%= show_errors(resource , :organization) %></p>  
-      </div>
-    </div>
-
-    <div id="pwd-change" class="collapse">
-        <div class="form-group">
             <%= f.label :new_password, class: 'label' %>
             <%= f.password_field :password,
                     hint: "we need your current password to confirm your changes",
@@ -86,9 +34,7 @@
                     class: 'form-control' %>  
             <p class='error'><%= show_errors(resource , :password_confirmation) %></p>  
         </div>
-    </div>
-
-      <div class="form-group">
+        <div class="form-group">
           <%= f.label :current_password, class: 'label' %>
           <%= f.password_field :current_password,
                   hint: "we need your current password to confirm your changes",
@@ -96,9 +42,13 @@
                   input_html: { autocomplete: "current-password" }, class: 'form-control' %>
           <p class='error'><%= show_errors(resource , :current_password) %></p>    
       </div>
+    </div>
 
+    <!-- <div id="pwd-change" class="collapse">
+        
+    </div> -->
       <div class="form-group">
-        <%= f.submit "Submit", class: 'btn btn-success  ' %>
+        <%= f.submit "Change Password", class: 'btn btn-success  ' %>
       </div>
       
   <% end %>

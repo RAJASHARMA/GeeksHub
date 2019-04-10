@@ -13,23 +13,32 @@
     </div>
   <% end %>
   <!-- END sidebar-box -->
-  <% unless @article.nil? %>
-    <div class="sidebar-box top10">
-      <div class="bio text-center">
-        <%= image_tag(image_path('person_2.jpg')) %>
-        <div class="bio-body">
-          <h2><%= @article.user.name %></h2>
-          <p> <%=@article.user.public_email %></p>
-          <p><a href="#" class="btn btn-primary btn-sm rounded">Read my bio</a></p>
-          <p class="social">
-            <a href="#" class="p-2"><span class="fa fa-facebook"></span></a>
-            <a href="#" class="p-2"><span class="fa fa-twitter"></span></a>
-            <a href="#" class="p-2"><span class="fa fa-instagram"></span></a>
-            <a href="#" class="p-2"><span class="fa fa-youtube-play"></span></a>
-          </p>
+  <% if action_name == 'show' %>
+    <% unless @article.nil? %>
+      <% unless @author.profile.nil? %>
+        <div class="sidebar-box top10">
+          <div class="bio text-center">
+            <% if @author.profile.image.present? %>
+              <%= image_tag "/profiles/images/#{@author.profile.image.name}" %>
+            <% else %>
+              <%= image_tag(image_path('avatar.png')) %>
+            <% end %>
+            <div class="bio-body">
+                <h2>Author</h2>
+                <!-- <h3><%= @author.profile.name %></h3> -->
+                <p> <%= @author.profile.public_email %></p>
+                <p><%= link_to 'Read my bio', profile_path(@author), class: "btn btn-primary btn-sm rounded" %></p>
+                <p class="social">
+                  <a href="#" class="p-2"><span class="fa fa-facebook"></span></a>
+                  <a href="#" class="p-2"><span class="fa fa-twitter"></span></a>
+                  <a href="#" class="p-2"><span class="fa fa-instagram"></span></a>
+                  <a href="#" class="p-2"><span class="fa fa-youtube-play"></span></a>
+                </p>
+            </div>
+          </div>
         </div>
-      </div>
-    </div>
+      <% end %>
+    <% end %>
   <% end %>
   <!-- END sidebar-box -->  
   <div class="sidebar-box col-md-12 padding3">
@@ -48,7 +57,7 @@
               <div class="text">
                 <h4><%= article.title %></h4>
                 <div class="post-meta">
-                  <span class="mr-2"><%= article.user.name? ? article.user.name : article.user.email.split('@')[0] %></span>
+                  <span class="mr-2"><%= article.user.email.split('@')[0] %></span>
                 </div>
               </div>
             </a>

@@ -1,0 +1,87 @@
+<div class="col-md-12 col-lg-12 main-content user-font">
+  <div>
+    <span class="dashboard">Dashboard</span>
+  </div>
+  <hr>
+  <% if @profile %>
+    <div class="container-fluid">
+      <div class="row">
+        <div class="fb-profile row">
+            <img align="left" class="fb-image-lg" src="http://lorempixel.com/850/280/nightlife/5/" alt="Profile image example"/>
+            <% if @profile.image.nil? %>
+              <img align="left" class="fb-image-profile thumbnail" src="http://lorempixel.com/180/180/people/10/" alt="Profile image example"/>
+              <% else %>
+                <%= image_tag "/profiles/images/#{@profile.image.name}", class: 'fb-image-profile thumbnail' %>
+              <% end %>
+            <div class="fb-profile-text user-name col-md-4">
+                <%= @profile.name %> 
+            </div>
+              <% if current_user == @author || @profile == current_user.profile %>
+                <div class="col-md-4 row">
+                    <div>
+                      <a href="<%= edit_profile_path(current_user) %>">
+                        <span class="icon-size fa fa-pencil-square-o text-info"></span>
+                      <span class="text-info">Edit Profile</span>  
+                      </a>
+                    </div>
+                </div>
+              <% end %>
+        </div>
+      </div>
+    </div> <!-- /container fluid-->  
+    <div class="container row">
+      <div class="col-sm-8">
+
+          <div data-spy="scroll" class="tabbable-panel">
+            <div class="tabbable-line">
+              <span class="user-bio-head">Bio</span>
+              <div class="tab-content">
+                <div class="tab-pane active " id="tab_default_1">
+                  <div class="user-content">
+                    <%= raw @profile.bio %>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+      
+      </div>
+      <div class="col-sm-4">
+        <div class="panel panel-default">
+          <div class="menu_title user-detail-head">
+           Profile Details
+          </div>
+          <div class="panel-body">
+            <div class="row">
+              <div class="col-lg-12 user-">
+                <div class="form-group">
+                    <label class="user-detail-label">Public Email :</label>
+                    <span class="user-content"><%= @profile.public_email%></span>
+                </div>
+                <div class="form-group">
+                    <label class="user-detail-label">Profession :</label>
+                    <span class="user-content"><%= @profile.profession %></span>
+                </div>
+                <div class="form-group">
+                    <label class="user-detail-label">Organiation :</label>
+                    <span class="user-content"><%= @profile.organization %></span>
+                </div>
+                <div class="form-group">
+                    <label class="user-detail-label">Location :</label>
+                    <span class="user-content"><%= @profile.location %></span>
+                </div>
+                <div class="form-group">
+                    <label class="user-detail-label">Country :</label>
+                    <span class="user-content"><%= @profile.country %></span>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  <% else %>
+    <%= link_to 'Go to Dashboard', profile_path(current_user.profile), class: 'btn btn-info'  %>
+  <% end %>
+</div>
+

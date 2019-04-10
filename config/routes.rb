@@ -9,12 +9,10 @@ Rails.application.routes.draw do
     resources :comments
   end
   
-  
-
+  resources :profiles
 
   devise_for :users  do
 	 get '/users' => 'devise/registrations#create'
-	
   end
 	  
 end

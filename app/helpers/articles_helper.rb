@@ -28,7 +28,7 @@ module ArticlesHelper
 	end
 
 	def search_articles(keyword)
-      articles = Article.where(status: 1).tagged_with("%#{keyword}%")
+      articles = Article.where(status: 1).tagged_with(keyword)
       if articles.empty?
         articles = Article.where(status: 1).where("title LIKE ?", "%#{keyword}%")
       end

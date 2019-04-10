@@ -19,11 +19,19 @@
                 <% end %>
                 <div class="blog-content-body" style="height: 125px;">
                   <div class="post-meta">
-                    <span class="author mr-2"><%=image_tag(image_path('img_1.jpg')) %> <%= article.user.email %></span><div class="row float-right"><%= rating_for article, "content", disable_after_rate: true, disable: true %></div><br>
-                    <div class="wrap-text text-truncate"><h2><%= article.title %></h2></div>
-                    <% if article.tag_list.present? %>
-                      <span class="mr-2">Tags: <%= raw article.tag_list.join(' | ') %></span> 
-                    <% end %>
+                    <span class="author mr-2"><%=image_tag(image_path('avatar.png')) %> <%= article.user.email %></span>
+                    <div class="row float-right"><%= rating_for article, "content", disable_after_rate: true, disable: true %></div>
+                    <br>
+                    <div class="wrap-text text-truncate">
+                      <h2><%= article.title %></h2>
+                      <% if article.tag_list.present? %>
+                        <ul class="tags">
+                          <%= raw article.tag_list.map { |t| %>
+                              <span class="tag"><%= t %></span>           <% }.join(' ') %>
+                        </ul>
+                        <!-- <span class="mr-2">Tags: <%= raw article.tag_list.join(' | ') %></span> --> 
+                      <% end %>
+                    </div>
                   </div>
                 </div>
               </a>

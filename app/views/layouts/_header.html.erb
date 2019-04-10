@@ -14,13 +14,12 @@
 		    </li>
 		    <ul class="navbar-nav ml-auto">
 		      <% if user_signed_in? %>
-		      	<% _user_name = current_user.name ?  current_user.name : current_user.email.split('@')[0]  %>
 		        <li class="nav-item dropdown float-right">
 		          <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-		            <%= _user_name + '(' +current_user.roles.pluck(:name).join(",") +')' %>
+		            <%= current_user.email.split('@')[0] + '(' +current_user.roles.pluck(:name).join(",") +')' %>
 		          </a>
 		          <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdown">
-		            <%= link_to 'Edit Profile', edit_user_registration_path, class: 'dropdown-item' %>
+		            <%= link_to 'Dashboard', profile_path(current_user), class: 'dropdown-item' %>
 		            <div class="dropdown-divider"></div>
 		            <%= link_to 'My Articles', articles_user_articles_path, class: 'dropdown-item' %>
 		            <%= link_to 'Sign out', destroy_user_session_path, method: :delete, class: 'dropdown-item' %>
