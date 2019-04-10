@@ -12,11 +12,10 @@
  	</div>
  	<div class="comment-reply">
  		<% if comment.ancestry.nil? %>
-	  		<a class="fa fa-reply text-info" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Reply</a>
+	  		<a class="fa fa-reply text-info" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Reply</a> |
 	  	<% end %>
-	  	<% if current_user == @article.user || current_user == comment.user %> |
+	  	<% if current_user == @article.user || current_user == comment.user %>
 	  		<%= link_to "Delete", article_comment_path(@article, comment), :data => {:confirm => 'Delete Message?'}, method: :delete, class: "fa fa-trash-o text-danger" %> 
-	  		<% byebug %>
 	  	<% end %>
 	  	<% unless comment.id.nil? %>
 	  	 	<div class="dropdown-menu  col-md-7 reply-form" aria-labelledby="navbarDropdown" >

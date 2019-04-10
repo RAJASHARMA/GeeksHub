@@ -87,13 +87,14 @@ class ArticlesController < ApplicationController
         article_pagination
     end
 
-    def approve_article
+    def modify_status
         article = Article.find(params[:id])
         if current_user.admin?
             article.approved!
         elsif current_user.moderator?
             article.moderator_approved!
         end
+        article_list
         redirect_to articles_article_list_path
     end
 
