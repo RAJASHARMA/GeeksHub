@@ -27,6 +27,7 @@ class ProfilesController < ApplicationController
         update_picture
         redirect_to @profile, :notice => 'Profile Updated Successfully'
   		else
+        # byebug
         render :edit
     	end
 	end

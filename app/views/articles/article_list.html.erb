@@ -37,16 +37,16 @@
 				  		<div class="float-right col-md-4 text-right">
 				  			<% unless article.approved? %>
 					  			<% if article.moderator_approved? %>
-				            		<span class="col-md-4 user-detail-head"><%= link_to '', articles_modify_status_path(:id => article, :status => 1), class: 'fa fa-check text-info' %> </span>
+				            		<span class="col-md-4 user-detail-head"><%= link_to '', articles_modify_status_path(:id => article), class: 'fa fa-check text-info', title: 'Approve Article' %> </span>
 						        <% else %>
-						        	<span class="col-md-4 user-detail-head"><%= link_to '', articles_modify_status_path(:id => article, :status => 0), class: 'fa fa-check text-success' %> </span>
+						        	<span class="col-md-4 user-detail-head"><%= link_to '', articles_modify_status_path(:id => article), class: 'fa fa-check text-success', title: 'Approve Article' %> </span>
 					            <% end %>
 
 				            <% end %>
 				            <% unless article.decline? %>
-				            	<span class="col-md-4 user-detail-head"><%= link_to '', articles_modify_status_path(:id => article, :status => 3), class: 'fa fa-ban text-warning' %> </span>
+				            	<span class="col-md-4 user-detail-head"><%= link_to '', articles_modify_status_path(:id => article, :status => 3), class: 'fa fa-ban text-warning', title: 'Decline Article' %> </span>
 				            <% end %>
-				           	<span class="col-md-4 user-detail-head"><%= link_to '', article_path(article), method: :delete, data: { confirm: 'Are You Sure To Delete This Article ?'}, class: 'fa fa-trash text-danger' %> </span> 
+				           	<span class="col-md-4 user-detail-head"><%= link_to '', article_path(article), method: :delete, data: { confirm: 'Are You Sure To Delete This Article ?'}, class: 'fa fa-trash text-danger', title: 'Delete Article' %> </span> 
 						</div>
 			  		</div>
 		  			<a href="<%= article_path(article.id) %>" target="blank">

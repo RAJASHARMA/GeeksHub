@@ -29,10 +29,10 @@
 	  			<div></div>
 		  		<%= link_to user.email, profile_path(user.profile.id), target: '_blank' %> (<%= user.role.humanize %>)
 		  		<% if user.user? %>
-		  			<div class="float-right"><%= link_to '', profiles_rank_path(:id => user.id), class: 'fa fa-hand-o-up user-detail-head text-success col-md-2' %></div>
+		  			<div class="float-right"><%= link_to '', profiles_rank_path(:id => user.id), class: 'fa fa-hand-o-up user-detail-head text-success col-md-2', title: 'Rank-Up' %></div>
 		  			
 		  		<% elsif user.moderator? %>
-		  			<div class="float-right"><%= link_to '', profiles_rank_path(:id => user.id), class: 'fa fa-hand-o-down user-detail-head text-danger col-md-2' %></div>
+		  			<div class="float-right"><%= link_to '', profiles_rank_path(:id => user.id), class: 'fa fa-hand-o-down user-detail-head text-danger col-md-2', title: 'Rank-Down' %></div>
 		  			
 		  		<% end %>
 		  			

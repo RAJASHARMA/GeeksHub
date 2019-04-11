@@ -1,7 +1,22 @@
 <div class="col-md-11">
 	<div class="article-title-font">Edit Profile</div>
 
-	<%= form_for profile = current_user.profile do |f| %>
+	<%= form_for profile = @profile do |f| %>
+		<!-- <div>
+			<% if profile.errors.any? %>
+		    	<div id="error_explanation" class="alert">
+		      		<h2><%= pluralize(profile.errors.count, "error") %> Prohibited this Profile from being saved:</h2>
+
+		      		<ul>
+		        		<% profile.errors.full_messages.each do |msg| %>
+		          			<li><%= msg %></li>
+		          		<% end %>
+		      		</ul>
+		    	</div>
+		  	<% end %>		
+		</div>
+	 -->
+
 		<div class="form-group">
 			<%= f.label :profile_picture, class: 'label' %><br>
 			<% unless profile.image.nil? %>

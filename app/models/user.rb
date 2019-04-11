@@ -9,7 +9,7 @@ class User < ActiveRecord::Base
   devise :database_authenticatable, :registerable,
          :recoverable, :rememberable, :validatable, :trackable,  :confirmable
   
-  validates :email, presence: true, uniqueness: true, format: { with: URI::MailTo::EMAIL_REGEXP }, on: :create
+  validates :email, presence: true, uniqueness: true, on: :create
   validates :password, presence:true, length: {minimum: 8}, confirmation: true, on: :create
   
   enum role: [:admin, :moderator, :user]

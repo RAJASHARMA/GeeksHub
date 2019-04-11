@@ -12,7 +12,11 @@
 //
 //= require jquery
 //= require jquery_ujs
+//= require jquery-ui
+//= require jquery-ui/widgets/autocomplete
+//= require bootstrap
 //= require ckeditor/init
 //= require jquery.raty
 //= require ratyrate
 //= require_tree .
+

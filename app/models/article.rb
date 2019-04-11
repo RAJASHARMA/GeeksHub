@@ -3,7 +3,7 @@ class Article < ActiveRecord::Base
 	has_many :comments
 	has_one :image, :as => :imageable, dependent: :destroy
 
-	validates :title, presence: true, length: { in: 3..20 }, :uniqueness => {alert: "Already Exixts" }
+	validates :title, presence: true, length: { in: 3..40 }, uniqueness: { case_sensitive: false }
 	validates :content, presence: true 
 
 	enum status: [:pending, :moderator_approved, :approved, :decline]

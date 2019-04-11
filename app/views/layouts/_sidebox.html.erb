@@ -1,12 +1,12 @@
 
 <div class="col-md-12 sidebar padding2">
   <!-- END Search bar -->
-  <div class="sidebar-box search-form-wrap">
+  <div class="sidebar-box search-form-wrap bg-transparent left4">
     <%= form_tag articles_path, method: 'get', class: "search-form" do %> 
-      <div class="form-group row">
-          <%= text_field_tag :search, params[:search], class: 'form-control col-md-10', placeholder: 'Type a keyword and hit enter' %>  
-          <%= button_tag(type: 'submit', class: 'col-md-2') do %>
-            <span class="fa fa-search"></span> 
+      <div class="form-group row ">
+          <%= text_field_tag :search, params[:search], class: 'search col-md-11', placeholder: 'Type a keyword and hit enter' %>  
+          <%= button_tag(type: 'submit', class: 'col-md-2 fa fa-search bg-transparent border-0 left17') do %>
+            <!-- <span class="fa fa-search"></span>  -->
           <% end %>
       </div>
     <% end %>
@@ -51,16 +51,17 @@
           <li>
             <a href="<%=article_path(article)%>">
               <% if article.image.present? %>
-                <%= image_tag "/articles/images/#{article.image.name}" %>
+                <%= image_tag "/articles/images/#{article.image.name}", height: '70', width: '100' %>
               <% else %>
-                <%= image_tag(image_path('default_article.jpg')) %>
+                <%= image_tag(image_path('default_article.jpg'), height: '70', width: '100') %>
               <% end %>
+
               <div class="text">
                 <h4><%= article.title %></h4>
                 <div class="post-meta">
-                  <span class="mr-2">
-                    <%= current_user.profile.name.nil? ? (current_user.profile.public_email.nil? ? current_user.email.split('@')[0] : current_user.profile.public_email.split('@')[0]) : current_user.profile.name %>
-                  </span>
+                    <span class="mr-2">
+                      <%= article.user.profile.name.nil? ? (article.user.profile.public_email.nil? ? article.user.email.split('@')[0] : article.user.profile.public_email.split('@')[0]) : article.user.profile.name %>
+                    </span>
                 </div>
               </div>
             </a>
