@@ -17,10 +17,15 @@
       <!-- END header -->
 
       <!-- END section -->
-      <div>
-        <p class="custom-notice"><%= notice %></p>
-        <p class="custom-alert"><%= alert %></p>
+      <div class="notice-div">
+       <% unless notice.nil? %>
+          <p class="custom-notice"><%= notice %></p>
+        <% end %>
+        <% unless alert.nil? %>
+          <p class="custom-alert"><%= alert %></p>
+        <% end %>
       </div>
+
         
       <div class="site-section py-sm">
         <div class="container-fluid">

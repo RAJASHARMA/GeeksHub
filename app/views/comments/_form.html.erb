@@ -1,0 +1,6 @@
+<%= form_for [@article, @comment = @article.comments.build] do |f| %> 
+	<%= f.text_area :content, class: "comment-field col-md-12" %>
+	<p class='error'><%= show_errors(@comment, :content) %></p>
+	<%= f.hidden_field :parent_id %> 
+	<%= f.submit "Join Discussion", class: "btn btn-info btn-sm " %>      
+<% end %>

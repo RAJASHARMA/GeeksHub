@@ -20,7 +20,7 @@
                 <div class="blog-content-body" style="height: 125px;">
                   <div class="post-meta">
                     <span class="author mr-2"><%=image_tag(image_path('avatar.png')) %> <%= article.user.email %></span>
-                    <div class="row float-right"><%= rating_for article, "content", disable_after_rate: true, disable: true %></div>
+                    <div class="row float-right"><span class="badge-pill badge-warning"><%= article.content_average.nil? ? 0.0 : article.content_average.avg.floor(1) %></span></div>
                     <br>
                     <div class="wrap-text text-truncate">
                       <h2><%= article.title %></h2>

@@ -5,7 +5,7 @@
 		<div class="form-group">
 			<%= f.label :profile_picture, class: 'label' %><br>
 			<% unless profile.image.nil? %>
-				<%= image_tag "/profiles/images/#{profile.image.name}", height: '180', width: '200' %>
+			<%= image_tag "/profiles/images/#{profile.image.name}", height: '180', width: '200' %>
 			<% end %>
 			<%= f.file_field :image, required: false, autofocus: true, class: 'form-control fa fa-pencil-square-o text-info icon-size', style: 'width: 8%; border:none; vertical-align: bottom' %>
 			<p class='error'><%= show_errors(profile , :image) %></p>

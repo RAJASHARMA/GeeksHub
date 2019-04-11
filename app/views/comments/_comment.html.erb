@@ -1,9 +1,15 @@
 <div class="comment-div"> 
 
- 	By 
  	<% unless comment.user.nil? %>
-	 	<b><%=comment.user.email %> |
-	   	<%= time_ago_in_words(comment.created_at) %> ago </b>
+	 	<b>
+	 		<% if comment.user.profile.image.nil? %>
+	 			<%= image_tag(image_path('avatar.jpg'), class: "commenter-img")%>
+	 		<% else %>
+	 			<%= image_tag "/articles/images/#{comment.user.profile.image.name}", class: "commenter-img" %>
+	 		<% end %>
+	 		<%= link_to (comment.user.profile.name.nil? ? (comment.user.profile.public_email.nil? ? comment.user.email.split('@')[0] : comment.user.profile.public_email.split('@')[0]) : comment.user.profile.name), profile_path(comment.user.profile.id), target: '_blank', class: "standard-link text-info" %> |
+	   		<%= time_ago_in_words(comment.created_at) %> ago 
+	   	</b>
    	<% end %>
  	
  
@@ -20,11 +26,11 @@
 	  	<% unless comment.id.nil? %>
 	  	 	<div class="dropdown-menu  col-md-7 reply-form" aria-labelledby="navbarDropdown" >
 		  		<%= form_for [@article, comment.children.build] do |f| %> 
-			    <%= f.text_area :content,:placeholder => "Replay to.. ", class: "comment-field col-md-12" %>
-			    <%= f.hidden_field :parent_id %>   
-			    <%= f.submit "Reply", class: "fa fa-reply btn btn-success btn-sm " %>
-			    <a class="fa fa-cancel btn btn-info btn-sm" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="false" aria-expanded="false">Cancel</a>
-		  		<% end %>
+					<%= f.text_area :content,:placeholder => "Replay to.. " + (comment.user.profile.name.nil? ? (comment.user.profile.public_email.nil? ? comment.user.email.split('@')[0] : comment.user.profile.public_email.split('@')[0]) : comment.user.profile.name.split(" ")[0]), class: "comment-field col-md-12" %>
+					<%= f.hidden_field :parent_id %>   
+					<%= f.submit "Reply", class: "fa fa-reply btn btn-success btn-sm " %>
+					<a class="fa fa-cancel btn btn-info btn-sm" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="false" aria-expanded="false">Cancel</a>
+				<% end %>
 		  	</div>         
 		<% end %>	
  	</div>

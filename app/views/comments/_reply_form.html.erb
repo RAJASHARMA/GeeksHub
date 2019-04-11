@@ -1,8 +1,0 @@
-<%= form_for [@article, @comment] do |f| %> 
-   <%= f.text_area :content, class: "comment-field" %>
-   <%= f.hidden_field :parent_id %> 
-   <%= f.submit "Join the discussion...", class: " comment-button btn btn-primary" %>      
-  <% end %>
-
-
-

@@ -19,7 +19,6 @@ class ArticlesController < ApplicationController
     end
 
     def show
-        @comment = @article.comments.new
         @author = @article.user
     end
 

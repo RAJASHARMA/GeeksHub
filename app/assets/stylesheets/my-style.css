@@ -20,8 +20,9 @@
 .users-font{font-size: 15px; font-family: times new roman; padding: 2px; font-weight: bold; color: black;}
 
 .width60{width: 60%;}
-.custom-alert{color: red; text-align: center}
-.custom-notice{color: green; text-align: center;}
+.notice-div{margin-top: 20px;}
+.custom-alert{color: red; text-align: center; border: solid red 1px; margin: 10px; border-radius: 10px;}
+.custom-notice{color: green; text-align: center; border: solid green 1px; margin: 10px; border-radius: 10px;}
 .full-width{width: 100%;}
 .rsize{resize: none; width: 100%}
 .button{background-color: grey; color: white;}
@@ -39,8 +40,8 @@
 .raty-cancel{display: none;}
 .small {	font-size: 14px;}
 .nested-comments{margin-left: 40px;}
-.comment-field{background-color: #fcfcfc; height: 120px;}
-.signup-link:hover{text-decoration: underline;}
+.comment-field{background-color: #fcfcfc; height: 120px; border: solid lightgrey 1px;}
+.standard-link:hover{text-decoration: underline;}
 .user-edit{font-size: 17px;vertical-align: baseline;margin-top: 20px;margin-left: -30px;}
 .user-font{font-family: times-new-roman;}
 .user-name{font-size: 30px; font-weight: bold; color: black; font-variant: small-caps;}
@@ -48,7 +49,7 @@
 .user-content{font-size: 14px;}
 .user-detail-head{font-size: 25px;}
 .user-detail-label{font-size: 15px; font-weight: bold;}
-
+.commenter-img{height: 32px; width: 32px; border-radius: 10px; }
 
 .clearfix{margin-top: 1%; margin-bottom: 1%;}
 

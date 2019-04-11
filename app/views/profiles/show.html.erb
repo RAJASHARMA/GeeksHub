@@ -16,10 +16,10 @@
             <div class="fb-profile-text user-name col-md-4">
                 <%= @profile.name %> 
             </div>
-              <% if current_user == @author || @profile == current_user.profile %>
+              <% if signed_in? && (current_user == @author || @profile == current_user.profile) %>
                 <div class="col-md-4 row">
                     <div>
-                      <a href="<%= edit_profile_path(current_user) %>">
+                      <a href="<%= edit_profile_path(id: current_user.profile.id) %>">
                         <span class="icon-size fa fa-pencil-square-o text-info"></span>
                       <span class="text-info">Edit Profile</span>  
                       </a>
@@ -85,7 +85,7 @@
         <div>
           <span class="user-detail-label">Article Posted : <%= @profile.user.articles.count %></span>
         </div>
-        <% if @profile.user.articles.count > 0 %>
+        <% #if @profile.user.articles.count > 0 %>
           <div>
             <span class="user-detail-label">Article Title : <br>
                 <% @profile.user.articles.each do |article| %>
@@ -94,7 +94,7 @@
                   
             </span>
           </div>
-        <% end %>
+        <% #end %>
         
       </div>
     </div>
