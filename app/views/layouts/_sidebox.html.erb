@@ -1,18 +1,19 @@
 
 <div class="col-md-12 sidebar padding2">
-  <% #unless has_role?(:admin) %>
-    <div class="sidebar-box search-form-wrap">
-      <%= form_tag articles_path, method: 'get', class: "search-form" do %> 
-        <div class="form-group row">
-            <%= text_field_tag :search, params[:search], class: 'form-control col-md-10', placeholder: 'Type a keyword and hit enter' %>  
-            <%= button_tag(type: 'submit', class: 'col-md-2') do %>
-              <span class="fa fa-search"></span> 
-            <% end %>
-        </div>
-      <% #end %>
-    </div>
-  <% end %>
-  <!-- END sidebar-box -->
+  <!-- END Search bar -->
+  <div class="sidebar-box search-form-wrap">
+    <%= form_tag articles_path, method: 'get', class: "search-form" do %> 
+      <div class="form-group row">
+          <%= text_field_tag :search, params[:search], class: 'form-control col-md-10', placeholder: 'Type a keyword and hit enter' %>  
+          <%= button_tag(type: 'submit', class: 'col-md-2') do %>
+            <span class="fa fa-search"></span> 
+          <% end %>
+      </div>
+    <% end %>
+  </div>
+  <!-- END Search bar -->
+
+  <!-- START Author Section -->
   <% if action_name == 'show' %>
     <% unless @article.nil? %>
       <% unless @author.profile.nil? %>
@@ -25,26 +26,25 @@
             <% end %>
             <div class="bio-body">
                 <h2>Author</h2>
-                <!-- <h3><%= @author.profile.name %></h3> -->
-                <p> <%= @author.profile.public_email %></p>
-                <%# byebug %>
+                <%= @author.profile.name.nil? ? (@author.profile.public_email.nil? ? @author.email.split('@')[0] : @author.profile.public_email.split('@')[0]) : @author.profile.name %>
                 <p><%= link_to 'Read my bio', profile_path(@author.profile.id), class: "btn btn-primary btn-sm rounded" %></p>
-                <p class="social">
+                <!-- <p class="social">
                   <a href="#" class="p-2"><span class="fa fa-facebook"></span></a>
                   <a href="#" class="p-2"><span class="fa fa-twitter"></span></a>
                   <a href="#" class="p-2"><span class="fa fa-instagram"></span></a>
                   <a href="#" class="p-2"><span class="fa fa-youtube-play"></span></a>
-                </p>
+                </p> -->
             </div>
           </div>
         </div>
       <% end %>
     <% end %>
   <% end %>
-  <!-- END sidebar-box -->  
+  <!-- END Author Section -->
+  
+  <!-- START Popular Aricle Section -->
   <div class="sidebar-box col-md-12 padding3">
     <h3 class="heading">Popular Posts</h3>
-
     <div class="post-entry-sidebar">
       <ul>
         <% @popular_articles.each do |article| %> 
@@ -53,12 +53,14 @@
               <% if article.image.present? %>
                 <%= image_tag "/articles/images/#{article.image.name}" %>
               <% else %>
-                <%= image_tag(image_path('img_2.jpg')) %>
+                <%= image_tag(image_path('default_article.jpg')) %>
               <% end %>
               <div class="text">
                 <h4><%= article.title %></h4>
                 <div class="post-meta">
-                  <span class="mr-2"><%= article.user.email.split('@')[0] %></span>
+                  <span class="mr-2">
+                    <%= current_user.profile.name.nil? ? (current_user.profile.public_email.nil? ? current_user.email.split('@')[0] : current_user.profile.public_email.split('@')[0]) : current_user.profile.name %>
+                  </span>
                 </div>
               </div>
             </a>
@@ -67,11 +69,14 @@
       </ul>
     </div>
   </div>
+  <!-- END Popular Aricle Section -->
 
+  <!-- START Tag Section -->
   <div class="sidebar-box padding3">
     <h3 class="heading">Tags</h3>
     <ul class="tags">
       <%= raw ActsAsTaggableOn::Tag.all.map { |t| link_to t, tag_path(t.name), :class => "tag"}.join(' ') %>
     </ul>
   </div>
+  <!-- END Tag Section -->
 </div>
