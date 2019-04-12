@@ -1,1 +1,30 @@
-404: Not Found
+<%= stylesheet_link_tag    'my-style', media: 'all' %>
+<style type="text/css">
+	.notfound .notfound-404 h1 {
+		font-family: 'Montserrat', sans-serif;
+		font-size: 230px;
+		margin: 0px;
+		font-weight: 900;
+		position: absolute;
+		left: 50%;
+		-webkit-transform: translateX(-50%);
+		-ms-transform: translateX(-50%);
+		transform: translateX(-50%);
+		background: url("<%= image_path('bg.jpg')%>") no-repeat;
+		-webkit-background-clip: text;
+		-webkit-text-fill-color: transparent;
+		background-size: cover;
+		background-position: center;
+	}
+	
+</style>
+<div id="notfound">
+	<div class="notfound">
+		<div class="notfound-404">
+			<h1>Oops!</h1>
+		</div>
+		<h2>404 - Page not found</h2>
+		<p>The page you are looking for might have been removed had its name changed or is temporarily unavailable.</p>
+		<%= link_to 'Go To Homepage', root_path %>
+	</div>
+</div>

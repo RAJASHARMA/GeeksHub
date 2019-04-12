@@ -6,7 +6,9 @@ class ProfilesController < ApplicationController
 	def index
     if params[:val].present?
       @users = User.where(role: params[:val])
-      @role = @users.first.role
+      unless @users.empty?
+        @role = @users.first.role
+      end
     else
       @users = User.all
       @role = 'user'
@@ -27,6 +29,7 @@ class ProfilesController < ApplicationController
         update_picture
         redirect_to @profile, :notice => 'Profile Updated Successfully'
   		else
+        # byebug
         render :edit
     	end
 	end

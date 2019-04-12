@@ -3,41 +3,57 @@
     <div class="row">
         <%= render '/articles/shared/actions' %>
     </div>
+
     <div class="row">
-      <% if @articles.empty? %>
+      <% unless @articles.empty? %>
+
+        <% @articles.each do |article| %>
+          <div class="col-md-6">
+            <a href="<%= article_path(article.id) %>" class="blog-entry element-animate" data-animate-effect="fadeIn" target="_blank">
+
+              <% if article.image.present? %>
+                <%= image_tag "/articles/images/#{article.image.name}", height: '236', width: '353' %>
+              <% else %>
+                <%=image_tag(image_path('default_article.jpg'), height: '236', width: '353') %>
+              <% end %>
+
+              <div class="blog-content-body" style="height: 125px;">
+                <div class="post-meta">
+                  <span class="author mr-2">
+                    <% if article.user.profile.image.nil? %>
+                      <%= image_tag(image_path('avatar.jpg'), class: "author-img")%>
+                    <% else %>
+                      <%= image_tag "/articles/images/#{article.user.profile.image.name}", class: "author-img" %>
+                    <% end %> 
+                    <%= article.user.email %>
+                  </span>
+                  <div class="row float-right">
+                    <span class="badge-pill badge-warning">
+                      <%= article.content_average.nil? ? 0.0 : article.content_average.avg.floor(1) %>
+                    </span>
+                  </div><br>
+                  <div class="wrap-text text-truncate">
+                    <h2><%= article.title %></h2>
+                    <ul class="tags text-truncate">
+                      <%= raw article.tag_list.map { |t| %> <span class="tag"><%= t %></span> <% }.join(' ') %>
+                    </ul>
+                  </div>
+                </div>
+              </div>
+              
+            </a>
+          </div>
+        <% end %>
+
+      <% else %>
+
         <div class="not-found">
           <span>No Articles Found</span>
         </div>
-      <% else %>
-        <% @articles.each do |article| %>
-            <div class="col-md-6">
-              <a href="<%= article_path(article.id) %>" class="blog-entry element-animate" data-animate-effect="fadeIn">
-                <% if article.image.present? %>
-                  <%= image_tag "/articles/images/#{article.image.name}", height: '236', width: '353' %>
-                <% else %>
-                  <%=image_tag(image_path('img_1.jpg')) %>
-                <% end %>
-                <div class="blog-content-body" style="height: 125px;">
-                  <div class="post-meta">
-                    <span class="author mr-2"><%=image_tag(image_path('avatar.png')) %> <%= article.user.email %></span>
-                    <div class="row float-right"><span class="badge-pill badge-warning"><%= article.content_average.nil? ? 0.0 : article.content_average.avg.floor(1) %></span></div>
-                    <br>
-                    <div class="wrap-text text-truncate">
-                      <h2><%= article.title %></h2>
-                      <% if article.tag_list.present? %>
-                        <ul class="tags">
-                          <%= raw article.tag_list.map { |t| %>
-                              <span class="tag"><%= t %></span><% }.join(' ') %>
-                        </ul>
-                      <% end %>
-                    </div>
-                  </div>
-                </div>
-              </a>
-            </div>
-        <% end %>
+
       <% end %>
     </div>
+
     <div class="top10">
       <%= will_paginate @articles, renderer: WillPaginate::ActionView::BootstrapLinkRenderer %>
     </div>

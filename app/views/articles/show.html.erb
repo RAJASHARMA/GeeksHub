@@ -1,8 +1,11 @@
 <div class="col-md-12 col-lg-12 main-content bottom10 menu-font">
+
+  <!-- START Article Status Modificatin Section -->
   <div class="row" >
     <% unless current_user.nil? %>
       <% if current_user == @article.user || current_user.admin? %>
-        <div class="col-md-7">
+
+        <div class="col-md-10">
           <srrong>Status: </srrong>
           <% if @article.pending? %>
             <span class="text-danger"><i class="fa fa-clock-o"></i>&nbsp;<%= @article.status.humanize %></span>
@@ -11,29 +14,27 @@
           <% else %>
             <span class="text-success"><i class="fa fa-check"></i>&nbsp;<%= @article.status.humanize %></span>
           <% end %>
-          
         </div>
-        <div class="col-md-5 float-right">
+        
+        <div class="col-md-2 float-right">
           <div class="row">
-            
-              <div class="col-md-6">
-                <% if current_user == @article.user %>
-                <span class="icon-size"><%= link_to ' ', edit_article_path(@article), class: 'fa fa-pencil-square-o text-info' %> </span>
-                <span class="text-info user-content">Edit Article</span>
-                <% end %>
-              </div>
-            
-            
             <div class="col-md-6">
-              <span class="icon-size"><%= link_to '', article_path, method: :delete, data: { confirm: 'Are you sure to delete ?'}, class: 'fa fa-trash-o text-danger' %> </span>
-              <span class="text-danger user-content">Delete Article</span>
+              <% if current_user == @article.user %>
+              <span class="icon-size"><%= link_to '', edit_article_path(@article), class: 'fa fa-pencil-square-o text-info', title: 'Edit Article' %> </span>
+              <% end %>
+            </div>
+            <div class="col-md-6">
+              <span class="icon-size"><%= link_to '', article_path, method: :delete, data: { confirm: 'Are you sure to delete ?'}, class: 'fa fa-trash-o text-danger', title: 'Delete Article' %> </span>
             </div>
           </div>
-        </div>        
+        </div>
+
       <% end %> 
     <% end %>
-  </div>
-  <br>
+  </div><br>
+  <!-- END Article Status Modificatin Section -->
+
+  <!-- START Article Main Section -->
   <div class="clearfix"></div>
   <% if @article.image.present? %>
     <div id="thumbnail-div" class="row">
@@ -42,9 +43,9 @@
   <% else %>
     <div id="thumbnail-div" class="row">
       <%= image_tag(image_path('default_article.jpg'), class: 'img-size') %>
-    </div>
-    
+    </div>  
   <% end %>
+
   <div class="row">
     <div class="col-md-6">
       Overall Rating :&nbsp;<span class="badge-pill badge-warning"><%= @article.content_average.nil? ? 0.0 : @article.content_average.avg.floor(1) %></span>
@@ -62,25 +63,24 @@
       </ul>
     <% end %>
   </div>
+  <div class="top10 content-font"><%= raw @article.content %></div><br/>
+  <!-- END Article Main Section -->
 
-  <div class="top10 content-font"><%= raw @article.content %></div>  
-  
-  <br/>
 </div>
 
+<!-- START Comment Section -->
 <div class= "comment-section comment-font">
-  <% if current_user %>
+  <% if signed_in? %>
     <h5>Comment on Article</h5>
     <%= render 'comments/form' %>
   <% else %>
     <%= link_to "SignUp/LogIn to Comment..", new_user_session_path, class: "text-danger standard-link" %>
-  <% end %>
+  <% end %><hr/>
 
   <% no_of_comments = @article.comments.count %>
   <% if no_of_comments > 0 %>  
-    <hr/>
     <h5><%= pluralize(no_of_comments, "Comment") %></h5>
   <% end %>
   <%= nested_comments @article.comments.arrange(:order => :created_at) %>
-
 </div>
+<!-- END Comment Section -->

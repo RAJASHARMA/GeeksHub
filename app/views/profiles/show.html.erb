@@ -28,10 +28,11 @@
               <% end %>
         </div>
       </div>
-    </div> <!-- /container fluid-->  
-    <div class="container row">
-      <div class="col-sm-8">
+    </div>
 
+    <div class="container row">
+
+      <div class="col-sm-8">
           <div data-spy="scroll" class="tabbable-panel">
             <div class="tabbable-line">
               <span class="user-bio-head">Bio</span>
@@ -44,8 +45,8 @@
               </div>
             </div>
           </div>
-      
       </div>
+
       <div class="col-sm-4">
         <div class="panel panel-default">
           <div class="menu_title user-detail-head">
@@ -79,24 +80,24 @@
           </div>
         </div>
       </div>
+
       <div class="col-sm-8 ">
-        <span class="user-bio-head">GeeksHub Activities</span>
-        <hr>
+        <span class="user-bio-head">GeeksHub Activities</span><hr>
         <div>
           <span class="user-detail-label">Article Posted : <%= @profile.user.articles.count %></span>
         </div>
-        <% #if @profile.user.articles.count > 0 %>
+        <% if @profile.user.articles.count > 0 %>
           <div>
             <span class="user-detail-label">Article Title : <br>
                 <% @profile.user.articles.each do |article| %>
-                    <%= link_to article.title, article_path(article) %> |
+                    <%= link_to article.title, article_path(article), class: "badge-pill badge-success text-truncate" %>
                 <%  end %>
                   
             </span>
           </div>
-        <% #end %>
-        
+        <% end %>
       </div>
+
     </div>
   <% else %>
     <%= link_to 'Go to Dashboard', profile_path(current_user.profile), class: 'btn btn-info'  %>

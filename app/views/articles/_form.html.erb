@@ -9,7 +9,7 @@
 
     <div class="form-group">
       <%= f.label :tag_list, 'Tags ( separated By commas )', class: 'label', wrapper: false %>
-      <%= f.text_field :tag_list, class: 'form-control', wrapper: false %>
+      <%= f.text_field :tag_list, class: 'form-control', wrapper: false, value: @article.tag_list.join(',') %>
       <p class='error'><%= show_errors(@article, :tag_list) %></p>
     </div>
     
