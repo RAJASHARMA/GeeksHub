@@ -20,18 +20,30 @@
             <% if @author.profile.image.present? %>
               <%= image_tag "/profiles/images/#{@author.profile.image.name}" %>
             <% else %>
-              <%= image_tag(image_path('avatar.png')) %>
+              <%= image_tag(image_path('avatar.jpg')) %>
             <% end %>
             <div class="bio-body">
                 <h2>Author</h2>
                 <%= @author.profile.name.nil? ? (@author.profile.public_email.nil? ? @author.email.split('@')[0] : @author.profile.public_email.split('@')[0]) : @author.profile.name %>
                 <p><%= link_to 'Read my bio', profile_path(@author.profile.id), class: "btn btn-primary btn-sm rounded" %></p>
-                <!-- <p class="social">
-                  <a href="#" class="p-2"><span class="fa fa-facebook"></span></a>
-                  <a href="#" class="p-2"><span class="fa fa-twitter"></span></a>
-                  <a href="#" class="p-2"><span class="fa fa-instagram"></span></a>
-                  <a href="#" class="p-2"><span class="fa fa-youtube-play"></span></a>
-                </p> -->
+                <div>
+                        <% if @author.profile.facebook.present? %>
+                            <span class="mx-2"><%=link_to '', @author.profile.facebook, class: 'fa fa-facebook', style: 'color:blue' %></span>
+                        <% end %>
+                        <% if @author.profile.twitter.present? %>
+                            <span class="mx-2"><%=link_to '', @author.profile.twitter, class: 'fa fa-twitter', style: 'color:skyblue' %></span>
+                        <% end %>
+                        <% if @author.profile.instagram.present? %>
+                            <span class="mx-2"><%=link_to '', @author.profile.instagram, class: 'fa fa-instagram', style: 'color:#ec7f9e' %></span>
+                        <% end %>
+                        <% if @author.profile.linkedin.present? %>
+                            <span class="mx-2"><%=link_to '', @author.profile.linkedin, class: 'fa fa-linkedin', style: 'color:darkblue' %></span>
+                        <% end %>
+                        <% if @author.profile.youtube.present? %>
+                            <span class="mx-2"><%=link_to '', @author.profile.youtube, class: 'fa fa-youtube', style: 'color:red' %></span>
+                        <% end %>
+  
+                    </div>
             </div>
           </div>
         </div>

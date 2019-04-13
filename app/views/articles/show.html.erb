@@ -6,14 +6,17 @@
       <% if current_user == @article.user || current_user.admin? %>
 
         <div class="col-md-10">
-          <srrong>Status: </srrong>
-          <% if @article.pending? %>
-            <span class="text-danger"><i class="fa fa-clock-o"></i>&nbsp;<%= @article.status.humanize %></span>
-          <% elsif @article.moderator_approved? %>
-            <span class="text-warning"><i class="fa fa-check"></i>&nbsp;<%= @article.status.humanize %></span>
-          <% else %>
-            <span class="text-success"><i class="fa fa-check"></i>&nbsp;<%= @article.status.humanize %></span>
-          <% end %>
+          <div>
+            <srrong>Status: </srrong>
+            <% if @article.pending? %>
+              <span class="text-danger"><i class="fa fa-clock-o"></i>&nbsp;<%= @article.status.humanize %></span>
+            <% elsif @article.moderator_approved? %>
+              <span class="text-warning"><i class="fa fa-check"></i>&nbsp;<%= @article.status.humanize %></span>
+            <% else %>
+              <span class="text-success"><i class="fa fa-check"></i>&nbsp;<%= @article.status.humanize %></span>
+            <% end %>
+          </div>
+          
         </div>
         
         <div class="col-md-2 float-right">
@@ -31,7 +34,7 @@
 
       <% end %> 
     <% end %>
-  </div><br>
+  </div>
   <!-- END Article Status Modificatin Section -->
 
   <!-- START Article Main Section -->
@@ -48,7 +51,12 @@
 
   <div class="row">
     <div class="col-md-6">
-      Overall Rating :&nbsp;<span class="badge-pill badge-warning"><%= @article.content_average.nil? ? 0.0 : @article.content_average.avg.floor(1) %></span>
+      <div class="float-left">
+      Overall Rating :&nbsp;<%= @article.content_average.nil? ? 0.0 : @article.content_average.avg.floor(1) %>
+    </div>
+    <div class="float-left">
+      <i class="fa fa-star text-warning"></i>
+    </div>
     </div>
     <% unless @article.user == current_user %>
       <div class="col-md-6 text-right"><%= rating_for @article, "content", disable_after_rate: true %></div><br>

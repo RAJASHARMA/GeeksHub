@@ -6,7 +6,7 @@ class Article < ActiveRecord::Base
 	validates :title, presence: true, length: { in: 3..40 }, uniqueness: { case_sensitive: false }
 	validates :content, presence: true 
 
-	enum status: [:pending, :moderator_approved, :approved, :decline]
+	enum status: [:pending, :moderator_approved, :approved, :declined]
 	
 	acts_as_taggable
 	ratyrate_rateable "content"

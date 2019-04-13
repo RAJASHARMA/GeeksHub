@@ -43,8 +43,8 @@
 					            <% end %>
 
 				            <% end %>
-				            <% unless article.decline? %>
-				            	<span class="col-md-4 user-detail-head"><%= link_to '', articles_modify_status_path(:id => article, :status => 3), class: 'fa fa-ban text-warning', title: 'Decline Article' %> </span>
+				            <% unless article.declined? %>
+				            	<span class="col-md-4 user-detail-head"><%= link_to '', articles_modify_status_path(:id => article, :status => 3), class: 'fa fa-ban text-warning', title: 'Decline Article', remote: true %> </span>
 				            <% end %>
 				           	<span class="col-md-4 user-detail-head"><%= link_to '', article_path(article), method: :delete, data: { confirm: 'Are You Sure To Delete This Article ?'}, class: 'fa fa-trash text-danger', title: 'Delete Article' %> </span> 
 						</div>
@@ -52,7 +52,7 @@
 		  			<a href="<%= article_path(article.id) %>" target="blank">
 						<div class="card-body">
 					    	<% if article.image.nil? %>
-					    		<%= image_tag(image_path('avatar.png'), height: '100') %>
+					    		<%= image_tag(image_path('default_article.jpg'), height: '100') %>
 					    	<% else %>
 					    		<%= image_tag "/articles/images/#{article.image.name}", height: '100' %>
 					    	<% end %>

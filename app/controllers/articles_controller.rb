@@ -100,8 +100,12 @@ class ArticlesController < ApplicationController
                     article.moderator_approved!
                 end
             end
-        end
-        redirect_to articles_article_list_path
+        end 
+        redirect_to(:back)
+        # respond_to do |format|
+        #     format.html{ render '/' }
+        #     format.js { render 'modify_status'}
+        # end
     end
 
     private
@@ -123,7 +127,7 @@ class ArticlesController < ApplicationController
         end
 
         def article_pagination
-            @articles = @articles.paginate(page: params[:page], per_page: 10)
+            @articles = @articles.paginate(page: params[:page], per_page: 9)
         end
 
 end

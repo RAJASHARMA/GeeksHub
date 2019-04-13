@@ -20,3 +20,11 @@
 //= require ratyrate
 //= require_tree .
 
+$(document).ready( function(){
+	$('.fa-search').on("mouseover", function(){
+		$('.fa-search').css('color','green');
+	});
+	$('.fa-search').on("mouseout", function(){
+		$('.fa-search').css('color','black');
+	});
+});

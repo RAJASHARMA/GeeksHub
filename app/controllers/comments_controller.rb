@@ -11,18 +11,15 @@ class CommentsController < ApplicationController
   def create
     @comment = @article.comments.new(comment_params)
     if @comment.save
-      redirect_to article_url(@comment.article_id) 
+      redirect_to(:back)
     else
       redirect_to article_url(@comment.article_id), :alert => 'Comment must be within 2-200 characters.'
     end
   end
 
-
-  
-
   def destroy
     @comment = Comment.find(params[:id]).destroy
-    redirect_to article_url(@article)
+    redirect_to(:back)
   end
 
   private

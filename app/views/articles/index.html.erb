@@ -8,36 +8,48 @@
       <% unless @articles.empty? %>
 
         <% @articles.each do |article| %>
-          <div class="col-md-6">
+          <div class="col-md-4">
             <a href="<%= article_path(article.id) %>" class="blog-entry element-animate" data-animate-effect="fadeIn" target="_blank">
 
               <% if article.image.present? %>
-                <%= image_tag "/articles/images/#{article.image.name}", height: '236', width: '353' %>
+                <%= image_tag "/articles/images/#{article.image.name}", height: '113', width: '225'%>
               <% else %>
-                <%=image_tag(image_path('default_article.jpg'), height: '236', width: '353') %>
+                <%=image_tag(image_path('default_article.jpg'), height: '113', width: '225') %>
               <% end %>
 
-              <div class="blog-content-body" style="height: 125px;">
+              <div class="blog-content-body" style="height: 100px;">
                 <div class="post-meta">
-                  <span class="author mr-2">
-                    <% if article.user.profile.image.nil? %>
-                      <%= image_tag(image_path('avatar.jpg'), class: "author-img")%>
-                    <% else %>
-                      <%= image_tag "/articles/images/#{article.user.profile.image.name}", class: "author-img" %>
-                    <% end %> 
-                    <%= article.user.email %>
-                  </span>
-                  <div class="row float-right">
-                    <span class="badge-pill badge-warning">
-                      <%= article.content_average.nil? ? 0.0 : article.content_average.avg.floor(1) %>
-                    </span>
-                  </div><br>
-                  <div class="wrap-text text-truncate">
-                    <h2><%= article.title %></h2>
-                    <ul class="tags text-truncate">
-                      <%= raw article.tag_list.map { |t| %> <span class="tag"><%= t %></span> <% }.join(' ') %>
-                    </ul>
+                  <div class="wrap-text row">
+                      <div class="col-md-8 text-truncate">
+                        <h2><%= article.title %></h2>
+                      </div>
+                    
+                      <div class="col-md-4">
+                        <div class="float-left"><i class="fa fa-star text-warning"></i></div>
+                        <div class="badge-pill float-left">
+                          <%= article.content_average.nil? ? 0.0 : article.content_average.avg.floor(1) %>
+                        </div>
+                        
+                      </div>
                   </div>
+                  <div>
+                    <div class="author mx-2 float-left">
+                      <% if article.user.profile.image.nil? %>
+                        <%= image_tag(image_path('avatar.jpg'), class: "author-img")%>
+                      <% else %>
+                        <%= image_tag "/articles/images/#{article.user.profile.image.name}", class: "author-img" %>
+                      <% end %>   
+                    </div>
+                    <div class="float-left">
+                      &bullet;<span class="mx-1 sub-heading"><%= article.created_at.strftime("%b %d, %Y") %></span>&bullet;
+                    </div>
+                    <div class="col-md-3 float-left">
+                      <i class="fa fa-comments">&nbsp;<%= article.comments.count %></i>
+                    </div>
+                  </div>
+                  
+                  
+                  
                 </div>
               </div>
               

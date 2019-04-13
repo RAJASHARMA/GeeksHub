@@ -29,7 +29,6 @@ class ProfilesController < ApplicationController
         update_picture
         redirect_to @profile, :notice => 'Profile Updated Successfully'
   		else
-        # byebug
         render :edit
     	end
 	end
@@ -41,7 +40,7 @@ class ProfilesController < ApplicationController
     elsif user.moderator?
       user.user!
     end
-    redirect_to profiles_path
+    redirect_to(:back)
   end
 
 	private
@@ -51,7 +50,7 @@ class ProfilesController < ApplicationController
   end
 
   def profile_params
-    params.require(:profile).permit(:name, :public_email, :location, :country, :profession, :organization, :bio)
+    params.require(:profile).permit(:name, :public_email, :location, :country, :profession, :organization, :facebook, :twitter, :instagram, :linkedin, :youtube, :bio)
   end
 
   def record_not_found

@@ -5,7 +5,7 @@
 
 .button-font{font-size: 15px; font-family: times new roman;}
 .not-found{margin-left: 45%; margin-top: 10%; color: red; font-family: times new roman;}
-.bottom0{margin-bottom: 0px;}
+.sub-heading{font-family: monospace; font-size: 12px;}
 .bottom10{margin-bottom: 10%;}
 .top10{margin-top: 10%; }
 .sidebox-left{margin-left: -5%; }
@@ -15,7 +15,7 @@
 .left3{margin-left: 3%;}
 .left4{margin-left: 4%;}
 .left17{margin-left: -17%;}
-.search{border-radius: 5px; border: 1px solid lightgrey; height:40px; }
+.search{border-radius: 5px; border: 1px solid lightgrey; height:40px; background-color: #f4f4f5 }
 
 .icon-size{font-size: 35px;}
 .icon2{font-size: 35px; width: 7%; border: none; vertical-align: bottom; position: inherit; margin-left: -8%; z-index: 1; opacity: 1; background-color: white;}

@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20190409073935) do
+ActiveRecord::Schema.define(version: 20190412064600) do
 
   create_table "articles", force: :cascade do |t|
     t.string   "title",      limit: 255
@@ -89,6 +89,11 @@ ActiveRecord::Schema.define(version: 20190409073935) do
     t.datetime "created_at",                 null: false
     t.datetime "updated_at",                 null: false
     t.text     "bio",          limit: 65535
+    t.string   "facebook",     limit: 255
+    t.string   "twitter",      limit: 255
+    t.string   "instagram",    limit: 255
+    t.string   "linkedin",     limit: 255
+    t.string   "youtube",      limit: 255
   end
 
   add_index "profiles", ["user_id"], name: "index_profiles_on_user_id", using: :btree
