@@ -51,11 +51,12 @@
 			  		</div>
 		  			<a href="<%= article_path(article.id) %>" target="blank">
 						<div class="card-body">
-					    	<% if article.image.nil? %>
-					    		<%= image_tag(image_path('default_article.jpg'), height: '100') %>
-					    	<% else %>
-					    		<%= image_tag "/articles/images/#{article.image.name}", height: '100' %>
-					    	<% end %>
+							<% if article.image.present? && !article.image.image_file_name.nil? %>
+				                <%= image_tag article.image.image.url, height: '100', width: '170'%>
+				            <% else %>
+				                <%=image_tag(image_path('default_article.jpg'), height: '100', width: '170') %>
+				            <% end %>
+				            
 						    <div class="card-text float-right">
 						    	<% if article.tag_list.present? %>
 					              	<ul class="tags">Tags:

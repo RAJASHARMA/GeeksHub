@@ -17,8 +17,8 @@
       <% unless @author.profile.nil? %>
         <div class="sidebar-box top10">
           <div class="bio text-center">
-            <% if @author.profile.image.present? %>
-              <%= image_tag "/profiles/images/#{@author.profile.image.name}" %>
+            <% if @author.profile.image.present? && !@author.profile.image.image_file_name.nil? %>
+              <%= image_tag @author.profile.image.image.url %>
             <% else %>
               <%= image_tag(image_path('avatar.jpg')) %>
             <% end %>
@@ -60,8 +60,8 @@
         <% @popular_articles.each do |article| %> 
           <li>
             <a href="<%=article_path(article)%>">
-              <% if article.image.present? %>
-                <%= image_tag "/articles/images/#{article.image.name}", height: '70', width: '100' %>
+              <% if article.image.present? && !article.image.image_file_name.nil?  %>
+                <%= image_tag article.image.image.url, height: '70', width: '100' %>
               <% else %>
                 <%= image_tag(image_path('default_article.jpg'), height: '70', width: '100') %>
               <% end %>

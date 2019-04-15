@@ -44,11 +44,12 @@
 			  			
 		  		</div>
 				<div class="card-body">
-			    	<% if user.profile.image.nil? %>
-			    		<%= image_tag(image_path('avatar.jpg'), class: "author-img") %>
-			    	<% else %>
-			    		<%= image_tag "/profiles/images/#{user.profile.image.name}", class: "author-img" %>
-			    	<% end %>
+					<% if user.profile.image.present? && !user.profile.image.image_file_name.nil? %>
+		              	<%= image_tag user.profile.image.image.url, class: "author-img" %>
+		            <% else %>
+		              	<%= image_tag(image_path('avatar.jpg'), class: "author-img") %>
+		            <% end %>
+
 				    <%= user.profile.public_email %>
 				    <p class="card-text">Posted <%= user.articles.count %> articles</p>
 				    <!-- <a href="#" class="btn btn-primary">Go somewhere</a> -->

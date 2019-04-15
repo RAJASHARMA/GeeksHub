@@ -1,4 +1,5 @@
 class Profile < ActiveRecord::Base
+  include ProfilesHelper
   belongs_to :user
   has_one :image, :as => :imageable, dependent: :destroy
 

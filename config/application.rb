@@ -8,6 +8,5 @@ module GeeksHub
   class Application < Rails::Application  
     config.active_record.raise_in_transactional_callbacks = true
     config.autoload_paths += %w(#{config.root}/app/models/ckeditor)
-    config.paperclip_defaults = { storage: :'rails_root/public/system/:class/:attachment/:id_partition/:style/:filename'}
   end
 end

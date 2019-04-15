@@ -31,10 +31,12 @@ class ArticlesController < ApplicationController
 
     def create
         @article = current_user.articles.new(article_params)
-
+        @image = Image.new(image: image_params)
+        @article.image = @image
         respond_to do |format|
           if @article.save
-              save_picture
+              @image.save
+              # save_picture
               format.html { redirect_to @article, :notice => 'Article Created Successfully' }
               format.json { render :show, status: :created, location: @article }
           else
@@ -47,7 +49,14 @@ class ArticlesController < ApplicationController
     def update
         respond_to do |format|
           if @article.update(article_params)
-              update_picture
+              # update_picture
+              if @article.image.nil? 
+                @image = Image.new(image: image_params)
+                @article.image = @image
+                @image.save
+            else
+                @article.image.update(image: image_params)
+            end
               format.html { redirect_to @article, :notice => 'Article Updated Successfully' }
               format.json { render :show, status: :ok, location: @article }
           else
@@ -128,6 +137,10 @@ class ArticlesController < ApplicationController
 
         def article_pagination
             @articles = @articles.paginate(page: params[:page], per_page: 9)
+        end
+
+        def image_params
+            params[:article][:image]
         end
 
 end

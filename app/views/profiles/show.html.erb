@@ -8,11 +8,11 @@
       <div class="row">
         <div class="fb-profile row">
             <img align="left" class="fb-image-lg" src="http://lorempixel.com/850/280/nightlife/5/" alt="Profile image example"/>
-            <% if @profile.image.nil? %>
-              <img align="left" class="fb-image-profile thumbnail" src="http://lorempixel.com/180/180/people/10/" alt="Profile image example"/>
-              <% else %>
-                <%= image_tag "/profiles/images/#{@profile.image.name}", class: 'fb-image-profile thumbnail' %>
-              <% end %>
+            <% if @profile.image.present? && !@profile.image.image_file_name.nil? %>
+              <%= image_tag @profile.image.image.url, class: 'fb-image-profile thumbnail' %>
+            <% else %>
+              <%= image_tag(image_path('avatar.jpg'), class: 'fb-image-profile thumbnail') %>
+            <% end %>
             <div class="fb-profile-text user-name col-md-4">
                 <%= @profile.name %> 
             </div>

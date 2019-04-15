@@ -11,8 +11,8 @@
           <div class="col-md-4">
             <a href="<%= article_path(article.id) %>" class="blog-entry element-animate" data-animate-effect="fadeIn" target="_blank">
 
-              <% if article.image.present? %>
-                <%= image_tag "/articles/images/#{article.image.name}", height: '113', width: '225'%>
+              <% if article.image.present? && !article.image.image_file_name.nil? %>
+                <%= image_tag article.image.image.url, height: '113', width: '225'%>
               <% else %>
                 <%=image_tag(image_path('default_article.jpg'), height: '113', width: '225') %>
               <% end %>
@@ -34,11 +34,13 @@
                   </div>
                   <div>
                     <div class="author mx-2 float-left">
-                      <% if article.user.profile.image.nil? %>
-                        <%= image_tag(image_path('avatar.jpg'), class: "author-img")%>
+
+                      <% if article.user.profile.image.present? && !article.user.profile.image.image_file_name.nil? %>
+                        <%= image_tag article.user.profile.image.image.url, class: "author-img" %>
                       <% else %>
-                        <%= image_tag "/articles/images/#{article.user.profile.image.name}", class: "author-img" %>
-                      <% end %>   
+                        <%= image_tag(image_path('avatar.jpg'), class: "author-img") %>
+                      <% end %>
+
                     </div>
                     <div class="float-left">
                       &bullet;<span class="mx-1 sub-heading"><%= article.created_at.strftime("%b %d, %Y") %></span>&bullet;

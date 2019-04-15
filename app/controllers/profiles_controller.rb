@@ -26,7 +26,9 @@ class ProfilesController < ApplicationController
 
 	def update
 	 		if @profile.update(profile_params)
-        update_picture
+        unless image_params.nil?
+          @profile.image.update(image: image_params)
+        end
         redirect_to @profile, :notice => 'Profile Updated Successfully'
   		else
         render :edit
@@ -55,6 +57,10 @@ class ProfilesController < ApplicationController
 
   def record_not_found
     render partial: "layouts/not_found", status: 404
+  end
+
+  def image_params
+    params[:profile][:image]
   end
 
 end
