@@ -1,11 +1,23 @@
 
-<div class="col-md-12 sidebar padding2">
+<div class="col-md-12">
   <!-- END Search bar -->
-  <div class="sidebar-box search-form-wrap bg-transparent left4">
+  <div class=" search-form-wrap bg-transparent left4 ">
     <%= form_tag articles_path, method: 'get', class: "search-form" do %> 
       <div class="form-group row ">
-          <%= text_field_tag :search, params[:search], class: 'search col-md-11', placeholder: 'Type a keyword and hit enter' %> 
-          <%= button_tag(type: 'submit', class: 'col-md-2 fa fa-search bg-transparent border-0 left17') do %><% end %>
+          <div class="col-md-12">
+              <div id="custom-search-input">
+                  <div class="input-group">
+                      <%= text_field_tag :search, params[:search], class: 'form-control input-lg col-md-12', placeholder: 'Type a keyword and hit enter' %>
+                      <span class="input-group-btn">
+                          <%= button_tag(type: 'submit', class: 'btn btn-info btn-lg') do %>
+                              <i class="fa fa-search"></i>
+                          <% end %>
+                      </span>
+                  </div>
+              </div>
+          </div>
+           
+          
       </div>
     <% end %>
   </div>

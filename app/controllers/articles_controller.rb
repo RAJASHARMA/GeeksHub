@@ -92,7 +92,7 @@ class ArticlesController < ApplicationController
         article = Article.find(params[:id])
         if current_user.admin? || current_user.moderator?
             if params[:status]
-                article.decline!
+                article.declined!
             else
                 if current_user.admin?
                     article.approved!

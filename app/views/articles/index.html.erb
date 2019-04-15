@@ -9,13 +9,15 @@
 
         <% @articles.each do |article| %>
           <div class="col-md-4">
-            <a href="<%= article_path(article.id) %>" class="blog-entry element-animate" data-animate-effect="fadeIn" target="_blank">
-
-              <% if article.image.present? %>
-                <%= image_tag "/articles/images/#{article.image.name}", height: '113', width: '225'%>
-              <% else %>
-                <%=image_tag(image_path('default_article.jpg'), height: '113', width: '225') %>
-              <% end %>
+            <a href="<%= article_path(article.id) %>" class="blog-entry element-animate" data-animate-effect="fadeIn">
+              <div>
+                <% if article.image.present? %>
+                  <%= image_tag "/articles/images/#{article.image.name}", class: 'p-0 col-md-12', height: '120' %>
+                <% else %>
+                  <%=image_tag(image_path('default_article.jpg'), class: 'p-0 col-md-12', height: '120') %>
+                <% end %>  
+              </div>
+              
 
               <div class="blog-content-body" style="height: 100px;">
                 <div class="post-meta">
@@ -43,13 +45,10 @@
                     <div class="float-left">
                       &bullet;<span class="mx-1 sub-heading"><%= article.created_at.strftime("%b %d, %Y") %></span>&bullet;
                     </div>
-                    <div class="col-md-3 float-left">
+                    <div class="ml-2 float-left">
                       <i class="fa fa-comments">&nbsp;<%= article.comments.count %></i>
                     </div>
                   </div>
-                  
-                  
-                  
                 </div>
               </div>
               

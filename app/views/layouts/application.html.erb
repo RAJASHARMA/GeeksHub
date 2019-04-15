@@ -6,17 +6,23 @@
     <%= stylesheet_link_tag    'application', media: 'all' %>
     <%= javascript_include_tag 'application' %>
     <%= csrf_meta_tags %>
-    
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <style type="text/css">
+      @media only screen and (max-width: 768px) {
+        /* For mobile phones: */
+        [class*="col-"] {
+          width: 100%;
+        }
+      }
+    </style>
   </head>
   <body>
-    <div class="">
-      <div class="">
+    <div>
+      
+      <div>
         <%= render partial: 'layouts/header' %>  
       </div>
       
-      <!-- END header -->
-
-      <!-- END section -->
       <div class="notice-div">
        <% unless notice.nil? %>
           <p class="custom-notice"><%= notice %></p>
@@ -25,19 +31,14 @@
           <p class="custom-alert"><%= alert %></p>
         <% end %>
       </div>
-      <!-- <div>
-        <button id="test">Hello</button>
-        <div id="see"></div>
-      </div> -->
-        
-      <div class="site-section py-sm">
+
+      <div class="site-section py-sm ">
         <div class="container-fluid">
-          
-          <div class="row blog-entries">
-            <div class="left3 yield-div float-left bottom10">
+          <div class="row col-md-12 blog-entries">
+            <div class="col-md-8 bottom10 p-4" style="background-color: white;">
               <%= yield %>  
             </div>
-            <div class="side-div sidebox-left float-left">
+            <div class="col-md-4">
               <%= render partial: 'layouts/sidebox' %>  
             </div>
             
