@@ -4,3 +4,4 @@ $(".comment-list").html("<%=j nested_comments @article.comments.arrange(:order =
 <% if no_of_comments > 0 %>  
 	$("#noOfComments").html("<br/><hr/><%=j pluralize(no_of_comments, 'Comment') %>")
 <% end %>
+$("#comment-text").val("")

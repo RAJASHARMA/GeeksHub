@@ -1,5 +1,5 @@
 <%= form_for [@article, @comment = @article.comments.build], remote: true do |f| %> 
-	<%= f.text_area :content, class: "comment-field col-md-12" %>
+	<%= f.text_area :content, class: "comment-field col-md-12", id: 'comment-text' %>
 	<p class='error'><%= show_errors(@comment, :content) %></p>
 	<%= f.hidden_field :parent_id %> 
 	<%= f.submit "Join Discussion", class: "btn btn-info btn-sm ", data: { disable_with: "Please wait..." } %>      

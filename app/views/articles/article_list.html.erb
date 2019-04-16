@@ -47,10 +47,14 @@
 
 				            <% end %>
 				            <% unless article.declined? %>
-				            	<span class="icon2"><%= link_to '', articles_modify_status_path(:id => article, :status => :declined), class: 'fa fa-ban text-warning', style: 'vertical-align: middle;', title: 'Decline Article', remote: true %> </span> |
+				            	<span class="icon2">
+				            		<%= link_to '', articles_modify_status_path(:id => article, :status => :declined), class: 'fa fa-ban text-warning', style: 'vertical-align: middle;', title: 'Decline Article', remote: true %> 
+				            	</span> |
 				            <% end %> 
 
-				           	<span class="icon2"><%= link_to '', article_path(article), method: :delete, data: { confirm: 'Are You Sure To Delete This Article ?'}, class: 'fa fa-trash text-danger', style: 'vertical-align: middle;', title: 'Delete Article', remote: true %> </span> 
+				           	<span class="icon2">
+				           		<%= link_to '', article_path(article), method: :delete, data: { confirm: 'Are You Sure To Delete This Article ?'}, class: 'fa fa-trash text-danger', style: 'vertical-align: middle;', title: 'Delete Article', remote: true %> 
+				           	</span> 
 						</div>
 			  		</div>
 		  			<a href="<%= article_path(article.id) %>" target="blank">

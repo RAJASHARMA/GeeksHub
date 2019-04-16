@@ -44,7 +44,6 @@ gem 'rolify'
 gem 'where-or'
 gem 'ancestry'
 gem 'jquery-ui-rails'
-# gem 'bullet'
 gem 'friendly_id'
 
 # Use ActiveModel has_secure_password

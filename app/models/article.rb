@@ -13,6 +13,9 @@ class Article < ActiveRecord::Base
 
 	after_create :default_status
 
+	extend FriendlyId
+  	friendly_id :title, use: :slugged
+
 	private
 	
 	def default_status

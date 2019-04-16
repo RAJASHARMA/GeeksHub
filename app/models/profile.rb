@@ -10,4 +10,6 @@ class Profile < ActiveRecord::Base
   validates :profession, persence: false, format: { with: /\A[a-zA-Z ]*\z/, message: "only allows letters" }, on: :update
   validates :organization, persence: false, format: { with: /\A[a-zA-Z0-9 ]*\z/, message: "only allows letters" }, on: :update
 
+  extend FriendlyId
+  friendly_id :id, use: :slugged
 end

@@ -24,15 +24,22 @@
       </div>
       
       <div class="notice-div">
-       <% unless notice.nil? %>
-          <p class="custom-notice"><%= notice %></p>
+        <% unless notice.nil? %>
+          <div class="alert alert-success alert-dismissible custom-notice align-center ">
+            <a href="#" class="float-right text-success" data-dismiss="alert" aria-label="close"><b>&times;</b></a>
+              <%= notice %>
+          </div>
         <% end %>
+
         <% unless alert.nil? %>
-          <p class="custom-alert"><%= alert %></p>
+          <div class="alert alert-danger alert-dismissible custom-alert align-center ">
+            <a href="#" class="float-right text-danger" data-dismiss="alert" aria-label="close"><b>&times;</b></a>
+            <%= alert %>
+          </div>
         <% end %>
       </div>
 
-      <div class="site-section py-sm ">
+      <div class="site-section py-sm">
         <div class="container-fluid">
           <div class="row col-md-12 blog-entries">
             <div class="col-md-8 bottom10 p-4" style="background-color: white;">

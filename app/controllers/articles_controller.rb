@@ -94,14 +94,14 @@ class ArticlesController < ApplicationController
     end
 
     def modify_status
-        article = Article.friendly.find(params[:id])
+        # article = Article.friendly.find(params[:id])
         if params[:status]
-            article.declined!
+            @article.declined!
         else
             if current_user.admin?
-                article.approved!
+                @article.approved!
             elsif current_user.moderator?
-                article.moderator_approved!
+                @article.moderator_approved!
             end
         end
         redirect_to(:back)
@@ -110,7 +110,7 @@ class ArticlesController < ApplicationController
     private
 
         def set_article
-            @article = Article.find(params[:id])
+            @article = Article.friendly.find(params[:id])
         end
 
         def article_params
