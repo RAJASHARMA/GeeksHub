@@ -23,9 +23,11 @@
 .users-font{font-size: 15px; font-family: times new roman; padding: 2px; font-weight: bold; color: black;}
 
 .width60{width: 60%;}
-.notice-div{margin-top: 20px;}
+
+.notice-div{margin-top: 20px; padding-bottom: 20px;}
 .custom-alert{color: red; text-align: center; border: solid red 1px; margin: 10px; border-radius: 10px;}
 .custom-notice{color: green; text-align: center; border: solid green 1px; margin: 10px; border-radius: 10px;}
+
 .full-width{width: 100%;}
 .rsize{resize: none; width: 100%}
 .button{background-color: grey; color: white;}

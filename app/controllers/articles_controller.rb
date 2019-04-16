@@ -92,10 +92,10 @@ class ArticlesController < ApplicationController
     end
 
     def modify_status
-        article = Article.find(params[:id])
+        article = Article.friendly.find(params[:id])
         if current_user.admin? || current_user.moderator?
             if params[:status]
-                article.decline!
+                article.declined!
             else
                 if current_user.admin?
                     article.approved!
@@ -114,7 +114,7 @@ class ArticlesController < ApplicationController
     private
 
         def set_article
-            @article = Article.find(params[:id])
+            @article = Article.friendly.find(params[:id])
         end
 
         def article_params

@@ -1,9 +1,9 @@
 class ProfilesController < ApplicationController
   include ProfilesHelper
-	before_action :set_profile, only: [:edit, :show, :update, :destroy]
+  before_action :set_profile, only: [:edit, :show, :update, :destroy]
 
 
-	def index
+  def index
     if params[:val].present?
       @users = User.where(role: params[:val])
       unless @users.empty?
@@ -14,26 +14,26 @@ class ProfilesController < ApplicationController
       @role = 'user'
     end
     @users = @users.paginate(page: params[:page], per_page: 3)
-	end
+  end
 
-	def show
+  def show
     
-	end
+  end
 
-	def edit
+  def edit
 
-	end
+  end
 
-	def update
-	 		if @profile.update(profile_params)
-        unless image_params.nil?
-          @profile.image.update(image: image_params)
-        end
-        redirect_to @profile, :notice => 'Profile Updated Successfully'
-  		else
-        render :edit
-    	end
-	end
+  def update
+    if @profile.update(profile_params)
+      unless image_params.nil?
+        @profile.image.update(image: image_params)
+      end
+      redirect_to @profile, :notice => 'Profile Updated Successfully'
+    else
+      render :edit
+    end
+  end
 
   def rank
     user = User.find_by_id(params[:id])
@@ -45,14 +45,18 @@ class ProfilesController < ApplicationController
     redirect_to(:back)
   end
 
-	private
+  private
 
   def set_profile
-      @profile = Profile.find_by_id(params[:id])
+    @profile = Profile.friendly.find(params[:id])
   end
 
   def profile_params
-    params.require(:profile).permit(:name, :public_email, :location, :country, :profession, :organization, :facebook, :twitter, :instagram, :linkedin, :youtube, :bio)
+    params[:profile][:slug] = (params[:profile][:name] + "_" + params[:id]).capitalize if params[:profile][:name]
+    params.require(:profile).permit(:name, :public_email,
+      :location, :country, :profession, :organization,
+      :facebook, :twitter, :instagram, :linkedin, :youtube,
+      :bio, :slug)
   end
 
   def record_not_found

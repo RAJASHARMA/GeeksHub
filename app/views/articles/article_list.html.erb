@@ -44,7 +44,7 @@
 
 				            <% end %>
 				            <% unless article.declined? %>
-				            	<span class="col-md-4 user-detail-head"><%= link_to '', articles_modify_status_path(:id => article, :status => 3), class: 'fa fa-ban text-warning', title: 'Decline Article', remote: true %> </span>
+				            	<span class="col-md-4 user-detail-head"><%= link_to '', articles_modify_status_path(:id => article, :status => 3), class: 'fa fa-ban text-warning', title: 'Decline Article' %> </span>
 				            <% end %>
 				           	<span class="col-md-4 user-detail-head"><%= link_to '', article_path(article), method: :delete, data: { confirm: 'Are You Sure To Delete This Article ?'}, class: 'fa fa-trash text-danger', title: 'Delete Article' %> </span> 
 						</div>

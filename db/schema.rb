@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20190413080755) do
+ActiveRecord::Schema.define(version: 20190416091414) do
 
   create_table "articles", force: :cascade do |t|
     t.string   "title",      limit: 255
@@ -20,8 +20,10 @@ ActiveRecord::Schema.define(version: 20190413080755) do
     t.datetime "created_at",               null: false
     t.datetime "updated_at",               null: false
     t.integer  "status",     limit: 4
+    t.string   "slug",       limit: 255
   end
 
+  add_index "articles", ["slug"], name: "index_articles_on_slug", unique: true, using: :btree
   add_index "articles", ["user_id"], name: "index_articles_on_user_id", using: :btree
 
   create_table "average_caches", force: :cascade do |t|
@@ -62,6 +64,18 @@ ActiveRecord::Schema.define(version: 20190413080755) do
   add_index "comments", ["article_id"], name: "index_comments_on_article_id", using: :btree
   add_index "comments", ["user_id"], name: "index_comments_on_user_id", using: :btree
 
+  create_table "friendly_id_slugs", force: :cascade do |t|
+    t.string   "slug",           limit: 255, null: false
+    t.integer  "sluggable_id",   limit: 4,   null: false
+    t.string   "sluggable_type", limit: 50
+    t.string   "scope",          limit: 255
+    t.datetime "created_at"
+  end
+
+  add_index "friendly_id_slugs", ["slug", "sluggable_type", "scope"], name: "index_friendly_id_slugs_on_slug_and_sluggable_type_and_scope", unique: true, length: {"slug"=>70, "sluggable_type"=>nil, "scope"=>70}, using: :btree
+  add_index "friendly_id_slugs", ["slug", "sluggable_type"], name: "index_friendly_id_slugs_on_slug_and_sluggable_type", length: {"slug"=>140, "sluggable_type"=>nil}, using: :btree
+  add_index "friendly_id_slugs", ["sluggable_type", "sluggable_id"], name: "index_friendly_id_slugs_on_sluggable_type_and_sluggable_id", using: :btree
+
   create_table "images", force: :cascade do |t|
     t.string   "name",               limit: 255
     t.integer  "imageable_id",       limit: 4
@@ -98,8 +112,10 @@ ActiveRecord::Schema.define(version: 20190413080755) do
     t.string   "instagram",    limit: 255
     t.string   "linkedin",     limit: 255
     t.string   "youtube",      limit: 255
+    t.string   "slug",         limit: 255
   end
 
+  add_index "profiles", ["slug"], name: "index_profiles_on_slug", unique: true, using: :btree
   add_index "profiles", ["user_id"], name: "index_profiles_on_user_id", using: :btree
 
   create_table "rates", force: :cascade do |t|
