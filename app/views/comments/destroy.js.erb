@@ -1,0 +1,8 @@
+$(".comment-list").html("<%=j nested_comments @article.comments.arrange(:order => :created_at)%>")
+
+<% no_of_comments = @article.comments.count %>
+<% if no_of_comments > 0 %>  
+	$("#noOfComments").html("<br/><hr/><%=j pluralize(no_of_comments, 'Comment') %>")
+<% else %>
+	$("#noOfComments").html("")
+<% end %>

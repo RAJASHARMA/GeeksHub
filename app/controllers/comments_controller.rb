@@ -4,22 +4,33 @@ class CommentsController < ApplicationController
 
 
   def new
-    @comment = @article.comments.new(:parent_id => params[:parent_id])
+    # @comment = @article.comments.new(:parent_id => params[:parent_id])
   end
 
 
   def create
     @comment = @article.comments.new(comment_params)
-    if @comment.save
-      redirect_to(:back)
-    else
-      redirect_to article_url(@comment.article_id), :alert => 'Comment must be within 2-200 characters.'
+    respond_to do |format|
+      if @comment.save
+        # byebug
+          # save_picture
+          format.html { redirect_to @article, :notice => 'Article Created Successfully' }
+          format.js
+      else
+          format.html { render :new }
+          format.js { render json: @article.errors, status: :unprocessable_entity }
+      end
     end
   end
 
   def destroy
-    @comment = Comment.find(params[:id]).destroy
-    redirect_to(:back)
+    @comment = Comment.find(params[:id])
+    respond_to do |format|
+    if @comment.destroy
+      format.html { redirect_to @article, :notice => 'Comment destroyed Successfully.' }
+      format.js
+      end
+    end
   end
 
   private

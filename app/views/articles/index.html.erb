@@ -9,7 +9,7 @@
 
         <% @articles.each do |article| %>
           <div class="col-md-4">
-            <a href="<%= article_path(article.id) %>" class="blog-entry element-animate" data-animate-effect="fadeIn" target="_blank">
+            <a href="<%= article_path(article.id) %>" class="blog-entry element-animate" data-animate-effect="fadeIn">
 
               <% if article.image.present? && !article.image.image_file_name.nil? %>
                 <%= image_tag article.image.image.url, height: '113', width: '225'%>
