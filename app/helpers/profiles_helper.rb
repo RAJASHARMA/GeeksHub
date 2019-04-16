@@ -18,4 +18,6 @@ module ProfilesHelper
 	  		file.write(img.read)
 	  	end
 	end
+
+
 end

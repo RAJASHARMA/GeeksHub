@@ -39,9 +39,9 @@
 
   <!-- START Article Main Section -->
   <div class="clearfix"></div>
-  <% if @article.image.present? %>
+  <% if @article.image.present? && !@article.image.image_file_name.nil? %>
     <div id="thumbnail-div" class="row">
-      <%= image_tag "/articles/images/#{@article.image.name}", class: 'img-size' %>
+      <%= image_tag @article.image.image.url, class: 'img-size' %>
     </div>
   <% else %>
     <div id="thumbnail-div" class="row">
@@ -83,11 +83,11 @@
     <%= render 'comments/form' %>
   <% else %>
     <%= link_to "SignUp/LogIn to Comment..", new_user_session_path, class: "text-danger standard-link" %>
-  <% end %><hr/>
+  <% end %>
 
   <% no_of_comments = @article.comments.count %>
   <% if no_of_comments > 0 %>  
-    <h5><%= pluralize(no_of_comments, "Comment") %></h5>
+    <hr/><h5><%= pluralize(no_of_comments, "Comment") %></h5>
   <% end %>
   <%= nested_comments @article.comments.arrange(:order => :created_at) %>
 </div>

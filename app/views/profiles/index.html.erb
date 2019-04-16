@@ -35,20 +35,21 @@
 		  			<%= link_to (user.profile.name.nil? ? (user.profile.public_email.nil? ? user.email.split('@')[0] : user.profile.public_email.split('@')[0]) : user.profile.name), profile_path(user.profile.id), target: '_blank', class: "standard-link text-info" %>
 		  			(<%= user.role.humanize %>)
 			  		<% if user.user? %>
-			  			<div class="float-right"><%= link_to '', profiles_rank_path(:id => user.id), class: 'fa fa-hand-o-up user-detail-head text-success col-md-2', title: 'Rank-Up' %></div>
+			  			<div class="float-right"><%= link_to '', profiles_rank_path(:id => user.id), class: 'fa fa-hand-o-up icon2 text-success col-md-2', title: 'Rank-Up' %></div>
 			  			
 			  		<% elsif user.moderator? %>
-			  			<div class="float-right"><%= link_to '', profiles_rank_path(:id => user.id), class: 'fa fa-hand-o-down user-detail-head text-danger col-md-2', title: 'Rank-Down' %></div>
+			  			<div class="float-right"><%= link_to '', profiles_rank_path(:id => user.id), class: 'fa fa-hand-o-down icon2 text-danger col-md-2', title: 'Rank-Down' %></div>
 			  			
 			  		<% end %>
 			  			
 		  		</div>
 				<div class="card-body">
-			    	<% if user.profile.image.nil? %>
-			    		<%= image_tag(image_path('avatar.jpg'), class: "author-img") %>
-			    	<% else %>
-			    		<%= image_tag "/profiles/images/#{user.profile.image.name}", class: "author-img" %>
-			    	<% end %>
+					<% if user.profile.image.present? && !user.profile.image.image_file_name.nil? %>
+		              	<%= image_tag user.profile.image.image.url, class: "author-img" %>
+		            <% else %>
+		              	<%= image_tag(image_path('avatar.jpg'), class: "author-img") %>
+		            <% end %>
+
 				    <%= user.profile.public_email %>
 				    <p class="card-text">Posted <%= user.articles.count %> articles</p>
 				    <!-- <a href="#" class="btn btn-primary">Go somewhere</a> -->

@@ -1,19 +1,19 @@
 class ArticlesController < ApplicationController
     include ArticlesHelper
-    before_action :set_article, only: [:show, :edit, :update, :destroy]
+    before_action :set_article, only: [:show, :edit, :update, :destroy, :modify_status]
     before_action :authenticate_user!, except: [:index, :show]
-    after_action :article_pagination, only: [:index, :user_articles]
+    after_action :article_pagination, only: [:index, :user_articles, :article_list]
     rescue_from ActiveRecord::RecordNotFound, with: :record_not_found
 
     def index
         if params[:tag]
-            @articles = Article.where(status: 2).tagged_with(params[:tag]).order(created_at: :DESC)
+            @articles = Article.includes(:comments, :user).approved.tagged_with(params[:tag]).order(created_at: :DESC)
             @tag = params[:tag]
         elsif params[:search]
             @articles = search_articles(params[:search])
             @search = params[:search]
         else
-            @articles =  Article.where(status: 2).order(created_at: :DESC)  
+            @articles =  Article.includes(:comments, :user).approved.order(created_at: :DESC)  
         end
         article_pagination
     end
@@ -31,10 +31,12 @@ class ArticlesController < ApplicationController
 
     def create
         @article = current_user.articles.new(article_params)
-
+        @image = Image.new(image: image_params)
+        @article.image = @image
         respond_to do |format|
           if @article.save
-              save_picture
+              @image.save
+              # save_picture
               format.html { redirect_to @article, :notice => 'Article Created Successfully' }
               format.json { render :show, status: :created, location: @article }
           else
@@ -47,7 +49,14 @@ class ArticlesController < ApplicationController
     def update
         respond_to do |format|
           if @article.update(article_params)
-              update_picture
+              # byebug
+              if @article.image.nil? 
+                @image = Image.new(image: image_params)
+                @article.image = @image
+                @image.save
+            else
+                @article.image.update(image: image_params)
+            end
               format.html { redirect_to @article, :notice => 'Article Updated Successfully' }
               format.json { render :show, status: :ok, location: @article }
           else
@@ -89,23 +98,25 @@ class ArticlesController < ApplicationController
     end
 
     def modify_status
-        article = Article.find(params[:id])
-        if current_user.admin? || current_user.moderator?
-            if params[:status]
-                article.declined!
-            else
-                if current_user.admin?
-                    article.approved!
-                elsif current_user.moderator?
-                    article.moderator_approved!
+        respond_to do |format|
+            if current_user.admin? || current_user.moderator?
+                if params[:status]
+                    @article.declined!
+                else
+                    if current_user.admin?
+                        @article.approved!
+                    elsif current_user.moderator?
+                        @article.moderator_approved!
+                    end
                 end
+                format.html { render article_list }
+                format.js
+            else
+                format.html { redirect_to(:back) }
+                format.js
             end
-        end 
-        redirect_to(:back)
-        # respond_to do |format|
-        #     format.html{ render '/' }
-        #     format.js { render 'modify_status'}
-        # end
+        end
+        
     end
 
     private
@@ -128,6 +139,10 @@ class ArticlesController < ApplicationController
 
         def article_pagination
             @articles = @articles.paginate(page: params[:page], per_page: 9)
+        end
+
+        def image_params
+            params[:article][:image]
         end
 
 end

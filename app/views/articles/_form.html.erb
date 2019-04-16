@@ -13,28 +13,19 @@
       <p class='error'><%= show_errors(@article, :tag_list) %></p>
     </div>
 
-   <!--  <div class="input-group width60">
-      <div class="input-group-prepend">
-        <span class="input-group-text" id="inputGroupFileAddon01">Upload</span>
-      </div>
-      <div class="custom-file">
-        <input type="file" class="custom-file-input" id="inputGroupFile01" aria-describedby="inputGroupFileAddon01">
-        <label class="custom-file-label" for="inputGroupFile01">Choose file</label>
-      </div>
-    </div> -->
+   
 
-    <p>Custom file:</p>
+    <!-- <p>Custom file:</p>
     <div class="custom-file mb-3">
       <input type="file" class="custom-file-input" id="customFile" name="filename">
       <label class="custom-file-label" for="customFile">Choose file</label>
-    </div>
+    </div> -->
     
-    <!-- <div class="form-group">
+     <div class="form-group">
       <%= f.label "Thumbnail Image", class: 'label', wrapper: false %>
       <%= f.file_field :image, class: 'custom-files' %>
       <p class='error'><%= show_errors(@article, :image) %></p>
     </div>
-     -->
     <div class="form-group">
       <%= f.label :content, class: 'label', wrapper: false %>
       <%= f.cktext_area :content, class: 'form-control' %>

@@ -1,1 +1,40 @@
-<%= j render 'article_list' %>
+
+
+$("#articleTitle").html("<%= j article.title %>&nbsp;(<%= j article.status.humanize %>")
+
+<% unless article.approved? %>
+	<% if article.moderator_approved? %>
+		$("#modify").html("<span class='col-md-4 user-detail-head'><%= j link_to '', articles_modify_status_path(:id => article), class: 'fa fa-check text-info', title: 'Approve Article', remote: true %> </span>")
+	<% else %>
+		$("#modify").html("<span class='col-md-4 user-detail-head'><%= j link_to '', articles_modify_status_path(:id => article), class: 'fa fa-check text-success', title: 'Approve Article', remote: true %> </span>")
+	<% end %>
+<% end %>
+<% unless article.declined? %>
+	$("#modify").html("<span class='col-md-4 user-detail-head'><%= j link_to '', articles_modify_status_path(:id => article, :status => 3), class: 'fa fa-ban text-warning', title: 'Decline Article', remote: true %> </span>")
+<% end %>
+	$("#modify").html("<span class='col-md-4 user-detail-head'><%= j link_to '', article_path(article), method: :delete, data: { confirm: 'Are You Sure To Delete This Article ?'}, class: 'fa fa-trash text-danger', title: 'Delete Article', remote: true %> </span>")
+
+
+
+
+
+
+
+
+
+
+
+
+
+ // def create
+ //    @comment = @article.comments.new(comment_params)
+ //    respond_to do |format|
+ //      if @comment.save
+ //          format.html { redirect_to @article, :notice => 'Article Created Successfully' }
+ //          format.js
+ //      else
+ //          format.html { render :new }
+ //          format.js { render json: @article.errors, status: :unprocessable_entity }
+ //      end
+ //    end
+ //  end

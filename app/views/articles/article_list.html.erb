@@ -33,30 +33,33 @@
 		<% @articles.each do |article|%>
 				<div class="users-font card">
 			   		<div class="card-header users-font">
-				  		<%= article.title %>&nbsp;(<%= article.status.humanize %>)
-				  		<div class="float-right col-md-4 text-right">
+			   			<div id="aricleTitle" class="float-left">
+			   				<%= article.title %>&nbsp;(<%= article.status.humanize %>)	
+			   			</div>
+				  		
+				  		<div id="modify" class="float-right col-md-4 text-right">
 				  			<% unless article.approved? %>
 					  			<% if article.moderator_approved? %>
-				            		<span class="col-md-4 user-detail-head"><%= link_to '', articles_modify_status_path(:id => article), class: 'fa fa-check text-info', title: 'Approve Article' %> </span>
+				            		<span class="icon2"><%= link_to '', articles_modify_status_path(:id => article), class: 'fa fa-check text-info', style: 'vertical-align: middle;', title: 'Approve Article', remote: true %> </span> |
 						        <% else %>
-						        	<span class="col-md-4 user-detail-head"><%= link_to '', articles_modify_status_path(:id => article), class: 'fa fa-check text-success', title: 'Approve Article' %> </span>
+						        	<span class=" icon2"><%= link_to '', articles_modify_status_path(:id => article), class: 'fa fa-check text-success', style: 'vertical-align: middle;', title: 'Approve Article', remote: true %> </span> |
 					            <% end %>
 
 				            <% end %>
 				            <% unless article.declined? %>
-				            	<span class="col-md-4 user-detail-head"><%= link_to '', articles_modify_status_path(:id => article, :status => 3), class: 'fa fa-ban text-warning', title: 'Decline Article' %> </span>
-				            <% end %>
-				           	<span class="col-md-4 user-detail-head"><%= link_to '', article_path(article), method: :delete, data: { confirm: 'Are You Sure To Delete This Article ?'}, class: 'fa fa-trash text-danger', title: 'Delete Article' %> </span> 
+				            	<span class="icon2"><%= link_to '', articles_modify_status_path(:id => article, :status => 3), class: 'fa fa-ban text-warning', style: 'vertical-align: middle;', title: 'Decline Article', remote: true %> </span> |
+				            <% end %> 
+				           	<span class="icon2"><%= link_to '', article_path(article), method: :delete, data: { confirm: 'Are You Sure To Delete This Article ?'}, class: 'fa fa-trash text-danger', style: 'vertical-align: middle;', title: 'Delete Article', remote: true %> </span> 
 						</div>
 			  		</div>
 		  			<a href="<%= article_path(article.id) %>" target="blank">
 						<div class="card-body">
 							<div class="col-md-2">
-								<% if article.image.nil? %>
-						    		<%= image_tag(image_path('default_article.jpg'), class: 'img-fluid img-thumbnail') %>
-						    	<% else %>
-						    		<%= image_tag "/articles/images/#{article.image.name}", class: 'img-fluid img-thumbnail' %>
-						    	<% end %>	
+								<% if article.image.present? && !article.image.image_file_name.nil? %>
+					                <%= image_tag article.image.image.url, class: 'img-fluid img-thumbnail' %>
+					            <% else %>
+					                <%=image_tag(image_path('default_article.jpg'), class: 'img-fluid img-thumbnail') %>
+					            <% end %>
 							</div>
 					    	
 						    <div class="card-text float-right">

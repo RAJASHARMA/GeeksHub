@@ -8,24 +8,18 @@
       <div class="row">
         <div class="fb-profile row">
             <img align="left" class="fb-image-lg" src="http://lorempixel.com/850/280/nightlife/5/" alt="Profile image example"/>
-            <% if @profile.image.nil? %>
-              <img align="left" class="fb-image-profile thumbnail" src="http://lorempixel.com/180/180/people/10/" alt="Profile image example"/>
-              <% else %>
-                <%= image_tag "/profiles/images/#{@profile.image.name}", class: 'fb-image-profile thumbnail' %>
-              <% end %>
+            <% if @profile.image.present? && !@profile.image.image_file_name.nil? %>
+              <%= image_tag @profile.image.image.url, class: 'fb-image-profile thumbnail' %>
+            <% else %>
+              <%= image_tag(image_path('avatar.jpg'), class: 'fb-image-profile thumbnail') %>
+            <% end %>
+            <% if signed_in? && (current_user == @author || @profile == current_user.profile) %>
+                <button type="button" class="fa fa-pencil-square-o float-right icon2 mr-5" data-toggle="modal" data-target="#profile-image"></button>
+            <% end %>
             <div class="fb-profile-text user-name col-md-4">
                 <%= @profile.name %> 
             </div>
-              <% if signed_in? && (current_user == @author || @profile == current_user.profile) %>
-                <div class="col-md-4 row">
-                    <div>
-                      <a href="<%= edit_profile_path(id: current_user.profile.id) %>">
-                        <span class="icon-size fa fa-pencil-square-o text-info"></span>
-                      <span class="text-info">Edit Profile</span>  
-                      </a>
-                    </div>
-                </div>
-              <% end %>
+              
         </div>
       </div>
     </div>
@@ -36,6 +30,9 @@
           <div data-spy="scroll" class="tabbable-panel">
             <div class="tabbable-line">
               <span class="user-bio-head">Bio</span>
+              <% if signed_in? && (current_user == @author || @profile == current_user.profile) %>
+                <button type="button" class="fa fa-pencil-square-o float-right icon2 mt-2" data-toggle="modal" data-target="#bio"></button>
+              <% end %>
               <div class="tab-content">
                 <div class="tab-pane active " id="tab_default_1">
                   <div class="user-content">
@@ -49,8 +46,11 @@
 
       <div class="col-sm-4">
         <div class="panel panel-default">
-          <div class="menu_title user-detail-head">
-           Profile Details
+          <div class="menu_title ">
+           <span class="">Profile Details</span>
+           <% if signed_in? && (current_user == @author || @profile == current_user.profile) %>
+            <button type="button" class="fa fa-pencil-square-o icon2 mt-2" data-toggle="modal" data-target="#profile"></button>
+           <% end %>
           </div>
           <div class="panel-body">
             <div class="row">
@@ -64,7 +64,7 @@
                     <span class="user-content"><%= @profile.profession %></span>
                 </div>
                 <div>
-                    <label class="user-detail-label">Organiation :</label>
+                    <label class="user-detail-label">Organization :</label>
                     <span class="user-content"><%= @profile.organization %></span>
                 </div>
                 <div>
@@ -77,7 +77,11 @@
                 </div>
 
                 <div class="form-group">
-                    <label class="user-detail-label">Social Media Links :</label><br>
+                    <label class="user-detail-label">Social Media Links :</label>
+                    <% if signed_in? && (current_user == @author || @profile == current_user.profile) %>
+                      <button type="button" class="fa fa-pencil-square-o float-right icon2 mt-1 mr-4" data-toggle="modal" data-target="#social-media"></button>
+                    <% end %>
+                    <br>
                     <div>
                         <% if @profile.facebook.present? %>
                             <span class="mx-2"><%=link_to '', @profile.facebook, class: 'fa fa-facebook', style: 'color:#037ae0' %></span>
@@ -110,21 +114,209 @@
         <div>
           <span class="user-detail-label">Article Posted : <%= @profile.user.articles.count %></span>
         </div>
-        <% if @profile.user.articles.count > 0 %>
-          <div>
-            <span class="user-detail-label">Article Title : <br>
-                <% @profile.user.articles.each do |article| %>
-                    <%= link_to article.title, article_path(article), class: "badge-pill badge-success text-truncate" %>
-                <%  end %>
-                  
-            </span>
-          </div>
-        <% end %>
       </div>
-
     </div>
   <% else %>
     <%= link_to 'Go to Dashboard', profile_path(current_user.profile), class: 'btn btn-info'  %>
   <% end %>
 </div>
 
+<!-- Bio Edit -->
+
+<div class="modal fade" id="bio">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h4 class="modal-title">Edit Bio</h4>
+        <button type="button" class="close" data-dismiss="modal">&times;</button>
+      </div>
+
+      <%= form_for profile = @profile do |f| %>
+        <div class="modal-body">
+          <div class="form-group">
+            <%= f.label :write_about_yourself, class: 'label' %>
+            <%= f.cktext_area :bio,
+            hint: "leave it blank if you don't want to add it",
+            required: false,
+            class: 'form-control' %> 
+            <p class='error'><%= show_errors(profile , :bio) %></p> 
+          </div>
+        </div>
+        <div class="modal-footer text-center">
+          <%= f.submit 'Update Bio', class: 'btn btn-success' %>
+        </div>
+      <% end %>
+
+    </div>
+  </div>
+</div>
+
+<!-- End --> 
+
+<!-- Profile Edit -->
+
+<div class="modal fade" id="profile">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h4 class="modal-title">Edit Profile</h4>
+        <button type="button" class="close" data-dismiss="modal">&times;</button>
+      </div>
+
+      <%= form_for profile = @profile do |f| %>
+        <div class="modal-body">
+          <div class="form-inputs">
+            <div class="form-group row">
+              <div class="col-md-3"><%= f.label :name, class: 'label' %></div>
+              <div class="col-md-9"><%= f.text_field :name, required: false, autofocus: true, class: 'form-control' %></div>
+              <p class='error'><%= show_errors(profile , :name) %></p>
+            </div>
+
+            <div class="form-group row">
+              <div class="col-md-3"><%= f.label :public_email, class: 'label' %></div>
+              <div class="col-md-9"><%= f.text_field :public_email, required: false,
+              hint: "leave it blank if you don't want to add it",
+              class: 'form-control' %></div>
+              <p class='error'><%= show_errors(profile , :public_email) %></p>
+            </div>
+
+            <div class="form-group row">
+              <div class="col-md-3"><%= f.label :location, class: 'label' %></div>
+              <div class="col-md-9"><%= f.text_field :location,
+              hint: "leave it blank if you don't want to add it",
+              required: false,
+              class: 'form-control' %></div>
+              <p class='error'><%= show_errors(profile , :location) %></p>
+            </div>
+
+            <div class="form-group row">
+              <div class="col-md-3"><%= f.label :country, class: 'label' %></div>
+              <div class="col-md-9"><%= f.text_field :country,
+              hint: "leave it blank if you don't want to add it",
+              required: false,
+              class: 'form-control' %></div>
+              <p class='error'><%= show_errors(profile , :country) %></p>
+            </div> 
+
+            <div class="form-group row">
+              <div class="col-md-3"><%= f.label :profession, class: 'label' %></div>
+              <div class="col-md-9"><%= f.text_field :profession,
+              hint: "leave it blank if you don't want to add it",
+              required: false,
+              class: 'form-control' %> </div>
+              <p class='error'><%= show_errors(profile , :profession) %></p>
+            </div>
+
+            <div class="form-group row">
+              <div class="col-md-3"><%= f.label :organization, class: 'label' %></div>
+              <div class="col-md-9"><%= f.text_field :organization,
+              hint: "leave it blank if you don't want to add it",
+              required: false,
+              class: 'form-control' %> </div>
+              <p class='error'><%= show_errors(profile , :organization) %></p> 
+            </div>
+            <div class="modal-footer text-center">
+              <%= f.submit 'Update Profile Details', class: 'btn btn-success' %>
+            </div>
+          <% end %>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="modal fade" id="social-media">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h4 class="modal-title">Edit Profile</h4>
+        <button type="button" class="close" data-dismiss="modal">&times;</button>
+      </div>
+    
+      <%= form_for profile = @profile do |f| %>
+        <div class="modal-body">
+          <div class="form-group">
+            <%= f.label :social_media_links, class: 'label' %>
+              
+              <div class="row">
+                <div class="col-md-2"><%= f.label :facebook, class: 'label' %></div>
+                <div class="col-md-9"><%= f.text_field :facebook,
+                hint: "leave it blank if you don't want to add it",
+                required: false,
+                class: 'form-control' %> </div>
+                <p class='error'><%= show_errors(profile , :facebook) %></p> 
+              </div>
+
+              <div class=" row">
+                <div class="col-md-2"><%= f.label :twitter, class: 'label' %></div>
+                <div class="col-md-9"><%= f.text_field :twitter,
+                hint: "leave it blank if you don't want to add it",
+                required: false,
+                class: 'form-control' %> </div>
+                <p class='error'><%= show_errors(profile , :twitter) %></p> 
+              </div>
+
+              <div class=" row">
+                <div class="col-md-2"><%= f.label :instagram, class: 'label' %></div>
+                <div class="col-md-9"><%= f.text_field :instagram,
+                hint: "leave it blank if you don't want to add it",
+                required: false,
+                class: 'form-control' %> </div>
+                <p class='error'><%= show_errors(profile , :instagram) %></p> 
+              </div>
+
+              <div class=" row">
+                <div class="col-md-2"><%= f.label :linkedin, class: 'label' %></div>
+                <div class="col-md-9"><%= f.text_field :linkedin,
+                hint: "leave it blank if you don't want to add it",
+                required: false,
+                class: 'form-control' %> </div>
+                <p class='error'><%= show_errors(profile , :linkedin) %></p> 
+              </div>
+
+              <div class=" row">
+                <div class="col-md-2"><%= f.label :youtube, class: 'label' %></div>
+                <div class="col-md-9"><%= f.text_field :youtube,
+                hint: "leave it blank if you don't want to add it",
+                required: false,
+                class: 'form-control' %> </div>
+                <p class='error'><%= show_errors(profile , :youtube) %></p> 
+              </div>
+            </div>
+          </div>
+
+          <div class="modal-footer text-center">
+            <%= f.submit 'Update Social Media', class: 'btn btn-success' %>
+          </div>
+
+        <% end %>
+      </div>
+    </div>
+  </div>
+
+<div class="modal fade" id="profile-image">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h4 class="modal-title">Edit Profile</h4>
+        <button type="button" class="close" data-dismiss="modal">&times;</button>
+      </div>
+    
+      <%= form_for profile = @profile do |f| %>
+      <div class="modal-body">
+        <div class="form-group">
+          <%= f.label :profile_picture, class: 'label' %><br>
+          <% unless profile.image.nil? %>
+          <%= image_tag "/profiles/images/#{profile.image.name}", height: '180', width: '200' %>
+          <% end %>
+          <%= f.file_field :image, required: false, autofocus: true, class: 'form-control ',  title: 'Choose Picture'%>
+          <p class='error'><%= show_errors(profile , :image) %></p>
+        </div>
+      </div>
+      <div class="modal-footer text-center">
+        <%= f.submit 'Update Profile Picture', class: 'btn btn-success' %>
+      </div>
+      <% end %>
+    </div>
+  </div>
+</div>
