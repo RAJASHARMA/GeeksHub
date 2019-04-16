@@ -2,8 +2,9 @@
 <div class="col-md-12">
   <!-- END Search bar -->
   <div class=" search-form-wrap bg-transparent left4 ">
-    <%= form_tag articles_path, method: 'get', class: "search-form" do %> 
+    <%= form_tag articles_path, method: 'get', class: "search-form", id: 'search-form' do %> 
       <div class="form-group row ">
+        <div id="test"></div>
           <div class="col-md-12">
               <div id="custom-search-input">
                   <div class="input-group">

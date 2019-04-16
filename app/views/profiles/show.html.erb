@@ -7,7 +7,8 @@
     <div class="container-fluid">
       <div class="row">
         <div class="fb-profile row">
-            <img align="left" class="fb-image-lg" src="http://lorempixel.com/850/280/nightlife/5/" alt="Profile image example"/>
+            <!-- <img align="left" class="fb-image-lg" src="http://lorempixel.com/850/280/nightlife/5/" alt="Profile image example"/> -->
+            <%= image_tag(image_path('cover.jpg'), class: 'fb-image-lg align-left') %>
             <% if @profile.image.present? && !@profile.image.image_file_name.nil? %>
               <%= image_tag @profile.image.image.url, class: 'fb-image-profile thumbnail' %>
             <% else %>
@@ -112,7 +113,14 @@
       <div class="col-sm-8 ">
         <span class="user-bio-head">GeeksHub Activities</span><hr>
         <div>
-          <span class="user-detail-label">Article Posted : <%= @profile.user.articles.count %></span>
+          <% no_of_articles = @profile.user.articles.count %>
+          <% if no_of_articles > 0 %>
+            <span class="user-detail-label ">Article Posted : 
+              <%= link_to no_of_articles, articles_user_articles_path(user_id: @profile.user), class: "standard-link text-info" %>
+            </span>
+          <% else %>
+            <span class="user-detail-label ">No Articles Posted</span>
+          <% end %>
         </div>
       </div>
     </div>
@@ -307,7 +315,7 @@
         <div class="form-group">
           <%= f.label :profile_picture, class: 'label' %><br>
           <% unless profile.image.nil? %>
-          <%= image_tag "/profiles/images/#{profile.image.name}", height: '180', width: '200' %>
+            <%= image_tag profile.image.image.url, height: '180', width: '200' %>
           <% end %>
           <%= f.file_field :image, required: false, autofocus: true, class: 'form-control ',  title: 'Choose Picture'%>
           <p class='error'><%= show_errors(profile , :image) %></p>

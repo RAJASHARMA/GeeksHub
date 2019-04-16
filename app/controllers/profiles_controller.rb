@@ -27,7 +27,11 @@ class ProfilesController < ApplicationController
 	def update
 	 		if @profile.update(profile_params)
         unless image_params.nil?
-          @profile.image.update(image: image_params)
+          if@profile.image.nil?
+            @profile.image = Image.new(image: image_params)
+          else
+            @profile.image.update(image: image_params)
+          end
         end
         redirect_to @profile, :notice => 'Profile Updated Successfully'
   		else
@@ -42,7 +46,6 @@ class ProfilesController < ApplicationController
     elsif user.moderator?
       user.user!
     end
-    redirect_to(:back)
   end
 
 	private

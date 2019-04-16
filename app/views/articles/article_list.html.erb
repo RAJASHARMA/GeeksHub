@@ -24,7 +24,7 @@
 	</div>
 </div>
 <div class="clearfix top10"></div>
-<div class="col-md-12">
+<div class="col-md-12" id="article-list">
 	<% if @articles.empty? %>
         <div>
           <h2 class="text-danger text-center">No Articles Found</h2>
@@ -33,11 +33,11 @@
 		<% @articles.each do |article|%>
 				<div class="users-font card">
 			   		<div class="card-header users-font">
-			   			<div id="aricleTitle" class="float-left">
+			   			<div class="float-left" id="article-title">
 			   				<%= article.title %>&nbsp;(<%= article.status.humanize %>)	
 			   			</div>
 				  		
-				  		<div id="modify" class="float-right col-md-4 text-right">
+				  		<div class="float-right col-md-4 text-right" id="modify-status">
 				  			<% unless article.approved? %>
 					  			<% if article.moderator_approved? %>
 				            		<span class="icon2"><%= link_to '', articles_modify_status_path(:id => article), class: 'fa fa-check text-info', style: 'vertical-align: middle;', title: 'Approve Article', remote: true %> </span> |
@@ -47,8 +47,9 @@
 
 				            <% end %>
 				            <% unless article.declined? %>
-				            	<span class="icon2"><%= link_to '', articles_modify_status_path(:id => article, :status => 3), class: 'fa fa-ban text-warning', style: 'vertical-align: middle;', title: 'Decline Article', remote: true %> </span> |
+				            	<span class="icon2"><%= link_to '', articles_modify_status_path(:id => article, :status => :declined), class: 'fa fa-ban text-warning', style: 'vertical-align: middle;', title: 'Decline Article', remote: true %> </span> |
 				            <% end %> 
+
 				           	<span class="icon2"><%= link_to '', article_path(article), method: :delete, data: { confirm: 'Are You Sure To Delete This Article ?'}, class: 'fa fa-trash text-danger', style: 'vertical-align: middle;', title: 'Delete Article', remote: true %> </span> 
 						</div>
 			  		</div>

@@ -2,15 +2,17 @@ class ArticlesController < ApplicationController
     include ArticlesHelper
     before_action :set_article, only: [:show, :edit, :update, :destroy, :modify_status]
     before_action :authenticate_user!, except: [:index, :show]
+    before_action :set_user, only: [:user_articles]
     after_action :article_pagination, only: [:index, :user_articles, :article_list]
     rescue_from ActiveRecord::RecordNotFound, with: :record_not_found
 
     def index
         if params[:tag]
             @articles = Article.includes(:comments, :user).approved.tagged_with(params[:tag]).order(created_at: :DESC)
+
             @tag = params[:tag]
         elsif params[:search]
-            @articles = search_articles(params[:search])
+            @articles = Article.search(params[:search])
             @search = params[:search]
         else
             @articles =  Article.includes(:comments, :user).approved.order(created_at: :DESC)  
@@ -31,12 +33,9 @@ class ArticlesController < ApplicationController
 
     def create
         @article = current_user.articles.new(article_params)
-        @image = Image.new(image: image_params)
-        @article.image = @image
+        @article.image = Image.new(image: image_params)
         respond_to do |format|
           if @article.save
-              @image.save
-              # save_picture
               format.html { redirect_to @article, :notice => 'Article Created Successfully' }
               format.json { render :show, status: :created, location: @article }
           else
@@ -48,21 +47,18 @@ class ArticlesController < ApplicationController
 
     def update
         respond_to do |format|
-          if @article.update(article_params)
-              # byebug
-              if @article.image.nil? 
-                @image = Image.new(image: image_params)
-                @article.image = @image
-                @image.save
+            if @article.update(article_params)
+                if @article.image.nil?
+                    @article.image = Image.new(image: image_params)
+                else
+                    @article.image.update(image: image_params)
+                end
+                format.html { redirect_to @article, :notice => 'Article Updated Successfully' }
+                format.json { render :show, status: :ok, location: @article }
             else
-                @article.image.update(image: image_params)
+                format.html { render :edit }
+                format.json { render json: @article.errors, status: :unprocessable_entity }
             end
-              format.html { redirect_to @article, :notice => 'Article Updated Successfully' }
-              format.json { render :show, status: :ok, location: @article }
-          else
-              format.html { render :edit }
-              format.json { render json: @article.errors, status: :unprocessable_entity }
-          end
         end
     end
 
@@ -76,9 +72,9 @@ class ArticlesController < ApplicationController
 
     def user_articles
         if params[:val]
-            @articles = current_user.articles.where(:status => params[:val]).order(created_at: :DESC)
+            @articles = @user.articles.where(:status => params[:val]).order(created_at: :DESC)
         else 
-            @articles = current_user.articles.order(created_at: :DESC)
+            @articles = @user.articles.order(created_at: :DESC)
         end
         article_pagination
         render 'index'
@@ -98,25 +94,17 @@ class ArticlesController < ApplicationController
     end
 
     def modify_status
-        respond_to do |format|
-            if current_user.admin? || current_user.moderator?
-                if params[:status]
-                    @article.declined!
-                else
-                    if current_user.admin?
-                        @article.approved!
-                    elsif current_user.moderator?
-                        @article.moderator_approved!
-                    end
-                end
-                format.html { render article_list }
-                format.js
-            else
-                format.html { redirect_to(:back) }
-                format.js
+        article = Article.friendly.find(params[:id])
+        if params[:status]
+            article.declined!
+        else
+            if current_user.admin?
+                article.approved!
+            elsif current_user.moderator?
+                article.moderator_approved!
             end
         end
-        
+        redirect_to(:back)
     end
 
     private
@@ -145,5 +133,9 @@ class ArticlesController < ApplicationController
             params[:article][:image]
         end
 
+        def set_user
+            @user = User.find_by_id(params[:user_id])
+            
+        end
 end
 

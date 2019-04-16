@@ -19,16 +19,12 @@
           
         </div>
         
-        <div class="col-md-2 float-right">
-          <div class="row">
-            <div class="col-md-6">
+        <div class="col-md-2">
+          <div class="row float-right">
               <% if current_user == @article.user %>
-              <span class="icon-size"><%= link_to '', edit_article_path(@article), class: 'fa fa-pencil-square-o text-info', title: 'Edit Article' %> </span>
-              <% end %>
-            </div>
-            <div class="col-md-6">
-              <span class="icon-size"><%= link_to '', article_path, method: :delete, data: { confirm: 'Are you sure to delete ?'}, class: 'fa fa-trash-o text-danger', title: 'Delete Article' %> </span>
-            </div>
+              <span class=""><%= link_to "", edit_article_path(@article), class: 'fa fa-pencil-square-o text-info icon2', title: 'Edit Article' %> </span>&nbsp;|&nbsp;
+              <% end %> 
+              <span class=""><%= link_to "", article_path, method: :delete, data: { confirm: 'Are you sure to delete ?'}, class: 'fa fa-trash-o text-danger icon2', title: 'Delete Article' %> </span>
           </div>
         </div>
 
@@ -84,11 +80,16 @@
   <% else %>
     <%= link_to "SignUp/LogIn to Comment..", new_user_session_path, class: "text-danger standard-link" %>
   <% end %>
-
   <% no_of_comments = @article.comments.count %>
-  <% if no_of_comments > 0 %>  
-    <hr/><h5><%= pluralize(no_of_comments, "Comment") %></h5>
-  <% end %>
-  <%= nested_comments @article.comments.arrange(:order => :created_at) %>
+  
+    <h5 id="noOfComments">
+      <% if no_of_comments > 0 %><br/><hr/>
+      <%= pluralize(no_of_comments, 'Comment') %>
+      <% end %>
+    </h5>
+  
+  <div class="comment-list">
+    <%= nested_comments @article.comments.arrange(:order => :created_at)%>
+  </div>
 </div>
 <!-- END Comment Section -->

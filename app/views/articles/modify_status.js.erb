@@ -1,40 +1,35 @@
+debugger
+<% if @articles.empty? %>
+    $("#article-list").html("<div><h2 class='text-danger text-center'>No Articles Found</h2></div>")
+<% else %>
+	<% @articles.each do |article|%>
+		$("#article-list").html("<div class='users-font card'><div class='card-header users-font'><div class='float-left' id='article-title'>")
+			$("#article-list").html("<%=j article.title %>&nbsp;(<%=j article.status.humanize %>)</div>	")
+  		$("#article-list").html("<div class='float-right col-md-4 text-right' id='modify-status'> ")
+			<% unless article.approved? %>
+  			<% if article.moderator_approved? %>
+        		$("#article-list").html("<span class='icon2'><%=j link_to '', articles_modify_status_path(:id => article), class: 'fa fa-check text-info', style: 'vertical-align: middle;', title: 'Approve Article', remote: true %> </span> |")
+	        <% else %>
+	        	$("#article-list").html("<span class=' icon2'><%=j link_to '', articles_modify_status_path(:id => article), class: 'fa fa-check text-success', style: 'vertical-align: middle;', title: 'Approve Article', remote: true %> </span> |")
+            <% end %>
+        <% end %>
+        <% unless article.declined? %>
+        	$("#article-list").html("<span class='icon2'><%= link_to '', articles_modify_status_path(:id => article, :status => :declined), class: 'fa fa-ban text-warning', style: 'vertical-align: middle;', title: 'Decline Article', remote: true %> </span> |")
+        <% end %> 
+       	$("#article-list").html("<span class='icon2'><%= link_to '', article_path(article), method: :delete, data: { confirm: 'Are You Sure To Delete This Article ?'}, class: 'fa fa-trash text-danger', style: 'vertical-align: middle;', title: 'Delete Article', remote: true %> </span> </div></div> ")
+		$("#article-list").html("<a href='<%=j article_path(article.id) %>' target='blank'><div class='card-body'><div class='col-md-2'> ")
 
-
-$("#articleTitle").html("<%= j article.title %>&nbsp;(<%= j article.status.humanize %>")
-
-<% unless article.approved? %>
-	<% if article.moderator_approved? %>
-		$("#modify").html("<span class='col-md-4 user-detail-head'><%= j link_to '', articles_modify_status_path(:id => article), class: 'fa fa-check text-info', title: 'Approve Article', remote: true %> </span>")
-	<% else %>
-		$("#modify").html("<span class='col-md-4 user-detail-head'><%= j link_to '', articles_modify_status_path(:id => article), class: 'fa fa-check text-success', title: 'Approve Article', remote: true %> </span>")
+		<% if article.image.present? && !article.image.image_file_name.nil? %>
+			$("#article-list").html("<%=j image_tag article.image.image.url, class: 'img-fluid img-thumbnail' %>")
+		<% else %>
+		    $("#article-list").html("<%=image_tag(image_path('default_article.jpg'), class: 'img-fluid img-thumbnail') %>")
+		<% end %>
+		$("#article-list").html("</div>  <div class='card-text float-right'> ")
+		<% if article.tag_list.present? %>
+		  	$("#article-list").html("<ul class='tags'>Tags:	<%= raw article.tag_list.map { |t| %> <span class='tag'><%= t %></span><% }.join(' ') %> </ul>")
+			<% end %>
+			$("#article-list").html("</div>	</div></a>  	</div><br>")
 	<% end %>
 <% end %>
-<% unless article.declined? %>
-	$("#modify").html("<span class='col-md-4 user-detail-head'><%= j link_to '', articles_modify_status_path(:id => article, :status => 3), class: 'fa fa-ban text-warning', title: 'Decline Article', remote: true %> </span>")
-<% end %>
-	$("#modify").html("<span class='col-md-4 user-detail-head'><%= j link_to '', article_path(article), method: :delete, data: { confirm: 'Are You Sure To Delete This Article ?'}, class: 'fa fa-trash text-danger', title: 'Delete Article', remote: true %> </span>")
 
 
-
-
-
-
-
-
-
-
-
-
-
- // def create
- //    @comment = @article.comments.new(comment_params)
- //    respond_to do |format|
- //      if @comment.save
- //          format.html { redirect_to @article, :notice => 'Article Created Successfully' }
- //          format.js
- //      else
- //          format.html { render :new }
- //          format.js { render json: @article.errors, status: :unprocessable_entity }
- //      end
- //    end
- //  end

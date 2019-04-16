@@ -20,11 +20,21 @@
 //= require ratyrate
 //= require_tree .
 
-$(document).ready( function(){
-	$('.fa-search').on("mouseover", function(){
-		$('.fa-search').css('color','green');
-	});
-	$('.fa-search').on("mouseout", function(){
-		$('.fa-search').css('color','black');
-	});
-});
+
+
+$("#search").keyup(function() {
+debugger
+  $("#search").addClass("loading"); 
+  var form = $("#search-form"); 
+
+  var url = "http://localhost:3000/articles.json";    
+  var formData = form.serialize(); // grab the data in the form   
+  $.get(url, formData, function(html) { // perform an AJAX get
+
+    $("#search").removeClass("loading"); // hide the spinner
+
+    $("#test").html(html); // replace the "results" div with the results
+
+  });
+
+}); 
