@@ -40,36 +40,42 @@
 				  		<div class="float-right col-md-4 text-right" id="modify-status">
 				  			<% unless article.approved? %>
 					  			<% if article.moderator_approved? %>
-				            		<span class="icon2"><%= link_to '', articles_modify_status_path(:id => article), class: 'fa fa-check text-info', style: 'vertical-align: middle;', title: 'Approve Article', remote: true %> </span> |
+				            		<span class="icon2"><%= link_to '', articles_modify_status_path(:id => article), class: 'fa fa-check text-info', style: 'vertical-align: middle;', title: 'Approve Article' %> </span> |
 						        <% else %>
-						        	<span class=" icon2"><%= link_to '', articles_modify_status_path(:id => article), class: 'fa fa-check text-success', style: 'vertical-align: middle;', title: 'Approve Article', remote: true %> </span> |
+						        	<span class=" icon2"><%= link_to '', articles_modify_status_path(:id => article), class: 'fa fa-check text-success', style: 'vertical-align: middle;', title: 'Approve Article' %> </span> |
 					            <% end %>
 
 				            <% end %>
 				            <% unless article.declined? %>
 				            	<span class="icon2">
-				            		<%= link_to '', articles_modify_status_path(:id => article, :status => :declined), class: 'fa fa-ban text-warning', style: 'vertical-align: middle;', title: 'Decline Article', remote: true %> 
+				            		<%= link_to '', articles_modify_status_path(:id => article, :status => :declined), class: 'fa fa-ban text-warning', style: 'vertical-align: middle;', title: 'Decline Article' %> 
 				            	</span> |
 				            <% end %> 
 
 				           	<span class="icon2">
-				           		<%= link_to '', article_path(article), method: :delete, data: { confirm: 'Are You Sure To Delete This Article ?'}, class: 'fa fa-trash text-danger', style: 'vertical-align: middle;', title: 'Delete Article', remote: true %> 
+				           		<%= link_to '', article_path(article), method: :delete, data: { confirm: 'Are You Sure To Delete This Article ?'}, class: 'fa fa-trash text-danger', style: 'vertical-align: middle;', title: 'Delete Article' %> 
 				           	</span> 
 						</div>
 			  		</div>
 		  			<a href="<%= article_path(article.id) %>" target="blank">
-						<div class="card-body">
-							<div class="col-md-2">
+						<div class="card-body row">
+							<div class="col-md-3">
 								<% if article.image.present? && !article.image.image_file_name.nil? %>
 					                <%= image_tag article.image.image.url, class: 'img-fluid img-thumbnail' %>
 					            <% else %>
 					                <%=image_tag(image_path('default_article.jpg'), class: 'img-fluid img-thumbnail') %>
 					            <% end %>
 							</div>
-					    	
-						    <div class="card-text float-right">
+					    	<div class="col-md-4">
+
+					    		<span class="sub-heading text-secondary">
+					    			By: <%= article.user.profile.name.nil? ? (article.user.profile.public_email.nil? ? article.user.email.split('@')[0] : article.user.profile.public_email.split('@')[0]) : article.user.profile.name %></i></span><br>
+					    		<span class="sub-heading text-muted">
+					    			On: <%= article.created_at.strftime("%b %d, %Y") %></span>
+					    	</div>
+						    <div class="card-text col-md-5 ">
 						    	<% if article.tag_list.present? %>
-					              	<ul class="tags">Tags:
+					              	<ul class="tags float-right">Tags:
 					                	<%= raw article.tag_list.map { |t| %>
 					                    <span class="tag"><%= t %></span><% }.join(' ') %>
 					              	</ul>

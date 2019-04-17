@@ -46,6 +46,7 @@ class ProfilesController < ApplicationController
     elsif user.moderator?
       user.user!
     end
+    redirect_to(:back)
   end
 
   private

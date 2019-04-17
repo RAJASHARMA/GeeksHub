@@ -22,9 +22,9 @@
         <div class="col-md-2">
           <div class="row float-right">
               <% if current_user == @article.user %>
-              <span class=""><%= link_to "", edit_article_path(@article), class: 'fa fa-pencil-square-o text-info icon2', title: 'Edit Article' %> </span>&nbsp;|&nbsp;
+              <span class=""><%= link_to "", edit_article_path(@article), class: 'fa fa-pencil-square-o text-info icon2', title: 'Edit Article', style: 'vertical-align: middle;' %> </span>&nbsp;|&nbsp;
               <% end %> 
-              <span class=""><%= link_to "", article_path, method: :delete, data: { confirm: 'Are you sure to delete ?'}, class: 'fa fa-trash-o text-danger icon2', title: 'Delete Article' %> </span>
+              <span class=""><%= link_to "", article_path, method: :delete, data: { confirm: 'Are you sure to delete ?'}, class: 'fa fa-trash-o text-danger icon2', title: 'Delete Article', style: 'vertical-align: text-bottom;' %> </span>
           </div>
         </div>
 
