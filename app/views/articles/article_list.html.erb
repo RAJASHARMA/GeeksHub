@@ -40,24 +40,24 @@
 				  		<div class="float-right col-md-4 text-right" id="modify-status">
 				  			<% unless article.approved? %>
 					  			<% if article.moderator_approved? %>
-				            		<span class="icon2"><%= link_to '', articles_modify_status_path(:id => article), class: 'fa fa-check text-info', style: 'vertical-align: middle;', title: 'Approve Article', remote: true %> </span> |
+				            		<span class="icon2"><%= link_to '', articles_modify_status_path(:id => article), class: 'fa fa-check text-info', style: 'vertical-align: middle;', title: 'Approve Article' %> </span> |
 						        <% else %>
-						        	<span class=" icon2"><%= link_to '', articles_modify_status_path(:id => article), class: 'fa fa-check text-success', style: 'vertical-align: middle;', title: 'Approve Article', remote: true %> </span> |
+						        	<span class=" icon2"><%= link_to '', articles_modify_status_path(:id => article), class: 'fa fa-check text-success', style: 'vertical-align: middle;', title: 'Approve Article'%> </span> |
 					            <% end %>
 
 				            <% end %>
 				            <% unless article.declined? %>
 				            	<span class="icon2">
-				            		<%= link_to '', articles_modify_status_path(:id => article, :status => :declined), class: 'fa fa-ban text-warning', style: 'vertical-align: middle;', title: 'Decline Article', remote: true %> 
+				            		<%= link_to '', articles_modify_status_path(:id => article, :status => :declined), class: 'fa fa-ban text-warning', style: 'vertical-align: middle;', title: 'Decline Article' %> 
 				            	</span> |
 				            <% end %> 
 
 				           	<span class="icon2">
-				           		<%= link_to '', article_path(article), method: :delete, data: { confirm: 'Are You Sure To Delete This Article ?'}, class: 'fa fa-trash text-danger', style: 'vertical-align: middle;', title: 'Delete Article', remote: true %> 
+				           		<%= link_to '', article_path(article), method: :delete, data: { confirm: 'Are You Sure To Delete This Article ?'}, class: 'fa fa-trash text-danger', style: 'vertical-align: middle;', title: 'Delete Article' %> 
 				           	</span> 
 						</div>
 			  		</div>
-		  			<a href="<%= article_path(article.id) %>" target="blank">
+		  			<a href="<%= article_path(article.slug) %>" target="blank">
 						<div class="card-body">
 							<div class="col-md-2">
 								<% if article.image.present? && !article.image.image_file_name.nil? %>

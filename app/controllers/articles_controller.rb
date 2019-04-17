@@ -82,12 +82,12 @@ class ArticlesController < ApplicationController
 
     def article_list
         if params[:status].present?
-            @articles = Article.where(status: params[:status])
+            @articles = Article.friendly.where(status: params[:status])
             unless @articles.empty?
                 @status = @articles.first.status
             end
         else
-            @articles = Article.all
+            @articles = Article.friendly.all
             @status = 'all'
         end
         article_pagination

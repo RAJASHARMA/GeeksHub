@@ -26,9 +26,9 @@ class CommentsController < ApplicationController
   def destroy
     @comment = Comment.find(params[:id])
     respond_to do |format|
-    if @comment.destroy
-      format.html { redirect_to @article, :notice => 'Comment destroyed Successfully.' }
-      format.js
+      if @comment.destroy
+        format.html { redirect_to @article, :notice => 'Comment destroyed Successfully.' }
+        format.js
       end
     end
   end
@@ -40,7 +40,7 @@ class CommentsController < ApplicationController
     end
 
     def find_article
-      @article = Article.find(params[:article_id])
+      @article = Article.friendly.find(params[:article_id])
     end
 end
 
