@@ -1,6 +1,6 @@
 class Article < ActiveRecord::Base
 	belongs_to :user
-	has_many :comments
+	has_many :comments, dependent: :destroy
 	has_one :image, :as => :imageable, dependent: :destroy
 
 	validates :title, presence: true, length: { in: 3..40 }, uniqueness: { case_sensitive: false }

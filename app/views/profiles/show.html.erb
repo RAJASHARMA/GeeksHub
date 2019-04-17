@@ -26,9 +26,6 @@
                   
               <% end %>  
             </div>
-            
-            
-              
         </div>
       </div>
     </div>
@@ -183,53 +180,63 @@
         <div class="modal-body">
           <div class="form-inputs">
             <div class="form-group row">
-              <div class="col-md-4"><%= f.label :name, class: 'label' %><span class="text-danger">*</span></div>
-              <div class="col-md-8"><%= f.text_field :name, required: false, autofocus: true, class: 'form-control' %></div>
-              <p class='error'><%= show_errors(profile , :name) %></p>
+
+              <div class="col-md-3"><%= f.label :name, class: 'label' %></div>
+              <div class="col-md-9"><%= f.text_field :name, required: false,
+                autofocus: true, class: 'form-control' %>
+                <p class='error'><%= show_errors(profile , :name) %></p>
+              </div>
+              
             </div>
 
             <div class="form-group row">
-              <div class="col-md-4"><%= f.label :public_email, class: 'label' %><span class="text-danger">*</span></div>
-              <div class="col-md-8"><%= f.text_field :public_email, required: false,
-              hint: "leave it blank if you don't want to add it",
-              class: 'form-control' %></div>
-              <p class='error'><%= show_errors(profile , :public_email) %></p>
+              <div class="col-md-3"><%= f.label :public_email, class: 'label' %></div>
+              <div class="col-md-9"><%= f.text_field :public_email, required: false,
+                hint: "leave it blank if you don't want to add it",
+                class: 'form-control' %>
+                <p class='error'><%= show_errors(profile , :public_email) %></p>
+              </div>
+              
             </div>
 
             <div class="form-group row">
-              <div class="col-md-4"><%= f.label :location, class: 'label' %></div>
-              <div class="col-md-8"><%= f.text_field :location,
-              hint: "leave it blank if you don't want to add it",
-              required: false,
-              class: 'form-control' %></div>
-              <p class='error'><%= show_errors(profile , :location) %></p>
+              <div class="col-md-3"><%= f.label :location, class: 'label' %></div>
+              <div class="col-md-9"><%= f.text_field :location,
+                hint: "leave it blank if you don't want to add it",
+                required: false, class: 'form-control' %>
+                <p class='error'><%= show_errors(profile , :location) %></p>
+              </div>
+              
             </div>
 
             <div class="form-group row">
-              <div class="col-md-4"><%= f.label :country, class: 'label' %></div>
-              <div class="col-md-8"><%= f.text_field :country,
-              hint: "leave it blank if you don't want to add it",
-              required: false,
-              class: 'form-control' %></div>
-              <p class='error'><%= show_errors(profile , :country) %></p>
+              <div class="col-md-3"><%= f.label :country, class: 'label' %></div>
+              <div class="col-md-9"><%= f.text_field :country,
+                hint: "leave it blank if you don't want to add it",
+                required: false, class: 'form-control' %>
+                <p class='error'><%= show_errors(profile , :country) %></p>
+              </div>
+              
             </div> 
 
             <div class="form-group row">
-              <div class="col-md-4"><%= f.label :profession, class: 'label' %></div>
-              <div class="col-md-8"><%= f.text_field :profession,
-              hint: "leave it blank if you don't want to add it",
-              required: false,
-              class: 'form-control' %> </div>
-              <p class='error'><%= show_errors(profile , :profession) %></p>
+              <div class="col-md-3"><%= f.label :profession, class: 'label' %></div>
+              <div class="col-md-9"><%= f.text_field :profession,
+                hint: "leave it blank if you don't want to add it",
+                required: false, class: 'form-control' %>
+                <p class='error'><%= show_errors(profile , :profession) %></p>
+              </div>
+              
             </div>
 
             <div class="form-group row">
-              <div class="col-md-4"><%= f.label :organization, class: 'label' %></div>
-              <div class="col-md-8"><%= f.text_field :organization,
-              hint: "leave it blank if you don't want to add it",
-              required: false,
-              class: 'form-control' %> </div>
-              <p class='error'><%= show_errors(profile , :organization) %></p> 
+              <div class="col-md-3"><%= f.label :organization, class: 'label' %></div>
+              <div class="col-md-9"><%= f.text_field :organization,
+                hint: "leave it blank if you don't want to add it",
+                required: false, class: 'form-control' %> 
+                <p class='error'><%= show_errors(profile , :organization) %></p> 
+              </div>
+              
             </div>
             <div class="modal-footer text-center">
               <%= f.submit 'Update Profile Details', class: 'btn btn-success' %>

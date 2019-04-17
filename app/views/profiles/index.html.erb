@@ -31,7 +31,7 @@
 		<% @users.each do |user|%>
 			<div class="users-font card" >
 		  		<div class=" users-font card-header col-md-12"id="user-list">
-		  			<%= link_to (user.profile.name.nil? ? (user.profile.public_email.nil? ? user.email.split('@')[0] : user.profile.public_email.split('@')[0]) : user.profile.name), profile_path(user.profile.id), target: '_blank', class: "standard-link text-info" %>
+		  			<%= link_to (user.profile.name.nil? ? (user.profile.public_email.nil? ? user.email.split('@')[0] : user.profile.public_email.split('@')[0]) : user.profile.name), profile_path(user.profile.slug ? user.profile.slug : user.profile.id), target: '_blank', class: "standard-link text-info" %>
 		  			(<%= user.role.humanize %>)
 			  		<% if user.user? %>
 			  			<div class="float-right"><%= link_to '', profiles_rank_path(:id => user.id), class: 'fa fa-hand-o-up icon2 text-success col-md-2', title: 'Make Moderator' %></div>

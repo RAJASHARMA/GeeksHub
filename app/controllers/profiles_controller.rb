@@ -24,8 +24,8 @@ class ProfilesController < ApplicationController
 
   end
 
-	def update
-	 		if @profile.update(profile_params)
+  def update
+      if @profile.update(profile_params)
         unless image_params.nil?
           if@profile.image.nil?
             @profile.image = Image.new(image: image_params)
@@ -34,10 +34,10 @@ class ProfilesController < ApplicationController
           end
         end
         redirect_to @profile, :notice => 'Profile Updated Successfully'
-  		else
-        render :edit
-    	end
-	end
+      else
+        render :show
+      end
+  end
 
   def rank
     user = User.find_by_id(params[:id])
@@ -56,7 +56,9 @@ class ProfilesController < ApplicationController
   end
 
   def profile_params
-    params[:profile][:slug] = (params[:profile][:name] + "_" + params[:id]).capitalize if params[:profile][:name]
+    if @profile.slug.nil?
+      params[:profile][:slug] = (params[:profile][:name] + "_" + params[:id]).capitalize if params[:profile][:name]
+    end
     params.require(:profile).permit(:name, :public_email,
       :location, :country, :profession, :organization,
       :facebook, :twitter, :instagram, :linkedin, :youtube,
