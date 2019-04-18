@@ -18,23 +18,29 @@
 //= require ckeditor/init
 //= require jquery.raty
 //= require ratyrate
+//= require rails.validations
 //= require_tree .
+//= require tag
+//= require search
 
 
 
-$("#search").keyup(function() {
-debugger
-  $("#search").addClass("loading"); 
-  var form = $("#search-form"); 
 
-  var url = "http://localhost:3000/articles.json";    
-  var formData = form.serialize(); // grab the data in the form   
-  $.get(url, formData, function(html) { // perform an AJAX get
 
-    $("#search").removeClass("loading"); // hide the spinner
+// $("#search").keyup(function(event) {
+// 		debugger
+// 		if ($("#search").val().length > 3){
+// 			// if(element.title.toLowerCase().startsWith(keyword.toLowerCase()))
+// 			$("#search").autocomplete({
+// 				source: articles
+// 			});
+// 		}
+// 	});
 
-    $("#test").html(html); // replace the "results" div with the results
 
-  });
 
-}); 
+
+
+
+// bootstrap-tagsinput.js file - add in local
+

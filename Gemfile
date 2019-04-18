@@ -45,6 +45,8 @@ gem 'where-or'
 gem 'ancestry'
 gem 'jquery-ui-rails'
 gem 'friendly_id'
+gem 'client_side_validations'
+
 # gem 'bullet'
 # gem 'ruby-growl'
 # Use ActiveModel has_secure_password

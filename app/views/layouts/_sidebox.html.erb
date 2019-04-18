@@ -6,15 +6,20 @@
       <div class="form-group row ">
         <div id="test"></div>
           <div class="col-md-12">
-              <div id="custom-search-input">
+              <div id="custom-search-input" class="col-md-12">
                   <div class="input-group">
-                      <%= text_field_tag :search, params[:search], class: 'form-control input-lg col-md-12', placeholder: 'Type a keyword and hit enter' %>
+                      <%= text_field_tag :search, params[:search], class: 'form-control input-lg col-md-12', placeholder: 'Type a keyword and hit enter', autocomplete: 'off' %>
                       <span class="input-group-btn">
                           <%= button_tag(type: 'submit', class: 'btn btn-info btn-lg') do %>
                               <i class="fa fa-search"></i>
                           <% end %>
                       </span>
+
                   </div>
+                  
+              </div>
+              <div class="col-md-12 bg-white" id="search-values">
+                
               </div>
           </div>
            
@@ -69,7 +74,7 @@
   <div class="sidebar-box col-md-12 padding3">
     <h3 class="heading">Popular Posts</h3>
     <div class="post-entry-sidebar">
-      <ul>
+      <ul id="popular-articles">
         <% @popular_articles.each do |article| %> 
           <li>
             <a href="<%=article_path(article)%>">
@@ -99,7 +104,7 @@
   <div class="sidebar-box padding3">
     <h3 class="heading">Tags</h3>
     <ul class="tags">
-      <%= raw ActsAsTaggableOn::Tag.order('taggings_count DESC').limit(40).map { |t| link_to t, tag_path(t.name), :class => "tag"}.join(' ') %>
+      <%= raw ActsAsTaggableOn::Tag.order('taggings_count DESC').limit(40).map { |t| link_to t, tag_path(t.name), :class => "tag-text"}.join(' ') %>
     </ul>
   </div>
   <!-- END Tag Section -->

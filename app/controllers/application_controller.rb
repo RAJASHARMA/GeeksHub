@@ -14,6 +14,10 @@ class ApplicationController < ActionController::Base
 
     def popular_articles
       @popular_articles  = Article.joins(:content_average).approved.order('rating_caches.avg DESC').limit(5)
+      # respond_to do |format|
+      #   # format.html { redirect_to articles_path }
+      #   format.js
+      # end
     end
 
 end

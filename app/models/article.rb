@@ -25,7 +25,7 @@ class Article < ActiveRecord::Base
 	def self.search(keyword)
       articles = Article.includes(:comments, :user).approved.tagged_with(keyword)
       if articles.empty?
-        articles = Article.includes(:comments, :user).approved.where("title LIKE ? OR content LIKE ?", "%#{keyword}%", "%#{keyword}%")
+        articles = Article.includes(:comments, :user).approved.where("title LIKE ? ", "%#{keyword}%")
       end
       articles
     end

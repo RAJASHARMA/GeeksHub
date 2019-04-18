@@ -1,0 +1,10 @@
+debugger
+<% @popular_articles.each do |article| %>
+ 	$("#popular-articles").html("<li><a href='<%=article_path(article)%>'>")
+  	<% if article.image.present? && !article.image.image_file_name.nil?  %>
+  	  	$("#popular-articles").append("<%= j image_tag article.image.image.url, height: '70', width: '100' %>")
+  	<% else %>
+    	$("#popular-articles").append("<%= j image_tag(image_path('default_article.jpg'), height: '70', width: '100') %>")
+  	<% end %>
+  	$("#popular-articles").append("<div class='text pd-l-5'><h4><%= article.title %></h4><div class='post-meta'><span class='mr-2'> <%= article.user.profile.name.nil? ? (article.user.profile.public_email.nil? ? article.user.email.split('@')[0] : article.user.profile.public_email.split('@')[0]) : article.user.profile.name %> </span> </div> </div> </a> </li>")
+<% end %>
