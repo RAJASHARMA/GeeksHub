@@ -26,6 +26,7 @@ class User < ActiveRecord::Base
 
   def create_profile
     profile = Profile.create(user: self)
+    profile.image = Image.create()
   end
 
 end

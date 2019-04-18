@@ -47,12 +47,8 @@ class ArticlesController < ApplicationController
 
     def update
         respond_to do |format|
-            if @article.update(article_params)
-                if @article.image.nil?
-                    @article.image = Image.new(image: image_params)
-                else
-                    @article.image.update(image: image_params)
-                end
+            @article.image.update(image: image_params)
+            if @article.update(article_params) 
                 format.html { redirect_to @article, :notice => 'Article Updated Successfully' }
                 format.json { render :show, status: :ok, location: @article }
             else

@@ -25,14 +25,8 @@ class ProfilesController < ApplicationController
   end
 
   def update
+      @profile.image.update(image: image_params)
       if @profile.update(profile_params)
-        unless image_params.nil?
-          if@profile.image.nil?
-            @profile.image = Image.new(image: image_params)
-          else
-            @profile.image.update(image: image_params)
-          end
-        end
         redirect_to @profile, :notice => 'Profile Updated Successfully'
       else
         render :show
