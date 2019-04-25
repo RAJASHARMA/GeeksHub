@@ -51,7 +51,7 @@ class ProfilesController < ApplicationController
 
   def profile_params
     if @profile.slug.nil?
-      params[:profile][:slug] = (params[:profile][:name] + "_" + params[:id]).capitalize if params[:profile][:name]
+      params[:profile][:slug] = (params[:profile][:name].split(" ")[0] + "_" + params[:id]).capitalize if params[:profile][:name]
     end
     params.require(:profile).permit(:name, :public_email,
       :location, :country, :profession, :organization,
