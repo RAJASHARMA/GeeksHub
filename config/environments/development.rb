@@ -26,8 +26,8 @@ Rails.application.configure do
     domain: "railscasts.com",
     authentication: "plain",
     enable_starttls_auto: true,
-    user_name: "rajasharma07071995@gmail.com",
-    password: "rajasharmarajasharma"
+    user_name: "sushant9658070043@gmail.com",
+    password: "Mamata@72"
   }
 
   # Print deprecation notices to the Rails logger.

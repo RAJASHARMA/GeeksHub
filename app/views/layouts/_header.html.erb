@@ -8,7 +8,7 @@
     <div class="collapse navbar-collapse container-fluid col-md-8" id="navbarMenu">
       <ul class="navbar-nav ml-auto ">
         <li class="nav-item">
-          <a href="<%= new_article_path %>" class="nav-link">
+          <a href="<%= new_article_path %>" class="nav-link" remote="true">
             <i class="fa fa-pencil">
               Create Article
             </i>
@@ -17,7 +17,7 @@
         </li>
         <% if user_signed_in? %>
           <li class="nav-item dropdown">
-            <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"><i class="fa fa-user">
+            <a class="nav-link dropdown-toggle" href="<%= profile_path(current_user.profile.slug ? current_user.profile.slug : current_user.profile.id) %>" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"><i class="fa fa-user">
               <%= current_user.profile.name.nil? ? (current_user.profile.public_email.nil? ? current_user.email.split('@')[0] : current_user.profile.public_email.split('@')[0]) : current_user.profile.name.split(" ")[0] %></i>
             </a>
             <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdown">

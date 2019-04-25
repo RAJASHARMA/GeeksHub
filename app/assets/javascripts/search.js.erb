@@ -1,0 +1,38 @@
+$(document).ready(function() {
+	$("#search").keyup(function(event) {
+		if ($("#search").val().length > 3){
+			$.ajax({
+				url: 'localhost:3000/articles.json',
+				data: {keyword: this.value},
+				success: function(data) {
+					keyword = $("#search").val();
+					$("#search-values").html('');
+					$.each(data, function(index, element) {
+						if(element.title.toLowerCase().startsWith(keyword.toLowerCase()))
+							$("#search-values").slideDown().append('<div class="test">' + element.title + '</div>');
+						$(".test").mouseover(function(){
+							$(this).css("background-color", "green");
+							$(this).css("color", "white");
+							$(this).css("cursor", "pointer")
+							$("#search").val(this.textContent);
+
+						});
+						$(".test").mouseout(function(){
+							$(this).css("background-color", "white");
+							$(this).css("color", "grey");
+							$("#search").val("");
+
+						});
+						$(".test").click(function(){
+							$("#search").val(this.textContent)
+							$("#search-values").html('');
+						});
+
+					});
+				}
+			});	
+		}
+		else
+			$("#search-values").html('');
+	})
+});

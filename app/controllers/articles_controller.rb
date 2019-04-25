@@ -8,6 +8,9 @@ class ArticlesController < ApplicationController
     before_action :authenticate_user!, except: [:index, :show]
     before_action :set_user, only: [:user_articles]
     after_action :article_pagination, only: [:index, :user_articles, :article_list]
+
+    autocomplete :article, :title, :full => true
+    
     rescue_from ActiveRecord::RecordNotFound, with: :record_not_found
 
     def index
@@ -42,9 +45,11 @@ class ArticlesController < ApplicationController
           if @article.save
               format.html { redirect_to @article, :notice => 'Article Created Successfully' }
               format.json { render :show, status: :created, location: @article }
+              format.js
           else
               format.html { render :new }
               format.json { render json: @article.errors, status: :unprocessable_entity }
+              format.js
           end
         end
     end

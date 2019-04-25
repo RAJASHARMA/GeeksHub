@@ -30,12 +30,16 @@
     <% else %>
 		<% @users.each do |user|%>
 			<div class="users-font card" >
-		  		<div class=" users-font card-header col-md-12"id="user-list">
+		  		<div class=" users-font card-header col-md-12" id="user-list">
 		  			<%= link_to (user.profile.name.nil? ? (user.profile.public_email.nil? ? user.email.split('@')[0] : user.profile.public_email.split('@')[0]) : user.profile.name), profile_path(user.profile.slug ? user.profile.slug : user.profile.id), target: '_blank', class: "standard-link text-info" %>
 		  			(<%= user.role.humanize %>)
 			  		<% if user.user? %>
-			  			<div class="float-right"><%= link_to '', profiles_rank_path(:id => user.id), class: 'fa fa-hand-o-up icon2 text-success col-md-2', title: 'Make Moderator' %></div>
 			  			
+			  			<div class="float-right"><%= link_to '', profiles_rank_path(:id => user.id), class: 'fa fa-hand-o-up icon2 text-success col-md-2', title: 'Make Moderator' %></div>
+			  			<% if user.moderator_request == true %>
+			  				<div class="float-right text-primary">(Requested to be Moderator)</div>
+			  			<% end %>
+
 			  		<% elsif user.moderator? %>
 			  			<div class="float-right"><%= link_to '', profiles_rank_path(:id => user.id), class: 'fa fa-hand-o-down icon2 text-danger col-md-2', title: 'Make User' %></div>
 			  			
@@ -53,6 +57,7 @@
 				    <% no_of_articles = user.articles.count %>
 			          <% if no_of_articles > 0 %>
 			              <p class="card-text">Posted <%= no_of_articles %> articles</p>
+			              <p class="card-text"><%= @rate %></p>
 			          <% else %>
 			            <p class="card-text">No Articles Posted</p>
 			          <% end %>

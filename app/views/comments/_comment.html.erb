@@ -1,44 +1,42 @@
 <div class="comment-div"> 
-	<!-- START Commenter Details and Comment Content -->
- 	<% unless comment.user.nil? %>
-	 	<b>
-	 		<% if comment.user.profile.image.present? && !comment.user.profile.image.image_file_name.nil? %>
-              	<%= image_tag comment.user.profile.image.image.url, class: "author-img" %>
-            <% else %>
-              	<%= image_tag(image_path('avatar.jpg'), class: "author-img") %>
+<!-- START Commenter Details and Comment Content -->
+    <% unless comment.user.nil? %>
+    <b>
+        <% if comment.user.profile.image.present? && !comment.user.profile.image.image_file_name.nil? %>
+            <%= image_tag comment.user.profile.image.image.url, class: "author-img" %>
+        <% else %>
+            <%= image_tag(image_path('avatar.jpg'), class: "author-img") %>
+        <% end %>
+
+        <%= link_to (comment.user.profile.name.nil? ? (comment.user.profile.public_email.nil? ? comment.user.email.split('@')[0] : comment.user.profile.public_email.split('@')[0]) : comment.user.profile.name), profile_path(comment.user.profile.id), target: '_blank', class: "standard-link text-info" %> |
+        <%= time_ago_in_words(comment.created_at) %> ago 
+    </b>
+    <% end %>
+
+    <div class="comment-content">
+        <%= comment.content %>
+    </div>
+    <!-- ENDS Commenter Details and Comment Content -->
+
+    <!-- START Reply Section -->
+    <div class="comment-reply">
+        <% if comment.ancestry.nil? || comment.parent.ancestry.nil? %>
+            <a class="fa fa-reply text-info" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"> Reply</a> |
+        <% end %>
+        <% if current_user == @article.user || current_user == comment.user %>
+            <%= link_to " Delete", article_comment_path(@article, comment), method: :delete, remote: true, class: "fa fa-trash-o text-danger" %> 
+        <% end %>
+
+        <% unless comment.nil? %>
+            <div class="dropdown-menu col-md-7 reply-form" aria-labelledby="navbarDropdown" >
+            <%= form_for [@article, comment.children.build], remote: true do |f| %> 
+                <%= f.text_area :content,:placeholder => "Replay to.. " + (comment.user.profile.name.nil? ? (comment.user.profile.public_email.nil? ? comment.user.email.split('@')[0] : comment.user.profile.public_email.split('@')[0]) : comment.user.profile.name.split(" ")[0]), class: "comment-field col-md-12" %>
+                <%= f.hidden_field :parent_id %> 
+                <%= f.submit "Reply", class: "fa fa-reply btn btn-success btn-sm" %>
+                <!-- <a class="fa fa-cancel btn btn-info btn-sm" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Cancel</a> -->
             <% end %>
-
-	 		<%= link_to (comment.user.profile.name.nil? ? (comment.user.profile.public_email.nil? ? comment.user.email.split('@')[0] : comment.user.profile.public_email.split('@')[0]) : comment.user.profile.name), profile_path(comment.user.profile.id), target: '_blank', class: "standard-link text-info" %> |
-	   		<%= time_ago_in_words(comment.created_at) %> ago 
-	   	</b>
-   	<% end %>
- 	
- 	<div class="comment-content">
-	  	<%= comment.content %>
- 	</div>
- 	<!-- ENDS Commenter Details and Comment Content -->
-
- 	<!-- START Reply Section -->
- 	<div class="comment-reply">
- 		
- 		<% if comment.ancestry.nil? || comment.parent.ancestry.nil? %>
-	  		<a class="fa fa-reply text-info" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"> Reply</a> |
-	  	<% end %>
-	  	<% if current_user == @article.user || current_user == comment.user %>
-	  		<%= link_to " Delete", article_comment_path(@article, comment), method: :delete, remote: true, class: "fa fa-trash-o text-danger" %> 
-	  	<% end %>
-	  	
-	  	<% unless comment.nil? %>
-	  	 	<div class="dropdown-menu  col-md-7 reply-form" aria-labelledby="navbarDropdown" >
-		  		<%= form_for [@article, comment.children.build], remote: true  do |f| %> 
-					<%= f.text_area :content,:placeholder => "Replay to.. " + (comment.user.profile.name.nil? ? (comment.user.profile.public_email.nil? ? comment.user.email.split('@')[0] : comment.user.profile.public_email.split('@')[0]) : comment.user.profile.name.split(" ")[0]), class: "comment-field col-md-12" %>
-					<%= f.hidden_field :parent_id %>   
-					<%= f.submit "Reply", class: "fa fa-reply btn btn-success btn-sm " %>
-					<a class="fa fa-cancel btn btn-info btn-sm" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="false" aria-expanded="false">Cancel</a>
-				<% end %>
-		  	</div>         
-		<% end %>	
- 	</div>
- 	<!-- END Reply Section -->
- 
+            </div> 
+        <% end %>	
+    </div>
+    <!-- END Reply Section -->
 </div>

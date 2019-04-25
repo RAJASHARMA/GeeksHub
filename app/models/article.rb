@@ -1,6 +1,7 @@
 class Article < ActiveRecord::Base
   belongs_to :user
   has_many :comments, dependent: :destroy
+  has_many :reports, dependent: :destroy
   has_one :image, :as => :imageable, dependent: :destroy
 
   validates_associated :image
@@ -26,9 +27,8 @@ class Article < ActiveRecord::Base
   def self.search(keyword)
     articles = Article.includes(:comments, :user).approved.tagged_with(keyword)
     if articles.empty?
-      articles = Article.includes(:comments, :user).approved.where("title LIKE ? OR content LIKE ?", "%#{keyword}%", "%#{keyword}%")
+      articles = Article.includes(:comments, :user).approved.where("title LIKE ? ", "%#{keyword}%")
     end
     articles
   end
-
 end

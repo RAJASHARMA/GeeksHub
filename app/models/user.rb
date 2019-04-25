@@ -3,6 +3,7 @@ class User < ActiveRecord::Base
 
   has_many :articles, dependent: :destroy
   has_many :comments, dependent: :destroy
+  has_many :reports, dependent: :destroy
   has_one :image, :as => :imageable, dependent: :destroy
   has_one :profile, dependent: :destroy
   

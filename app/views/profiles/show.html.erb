@@ -11,6 +11,7 @@
   </div>
   <hr>
   <% if @profile %>
+    <% user = @profile.user %>
     <div class="container-fluid">
       <div class="row">
         <div class="fb-profile row">
@@ -118,13 +119,20 @@
       <div class="col-sm-8 ">
         <span class="user-bio-head">GeeksHub Activities</span><hr>
         <div>
-          <% no_of_articles = @profile.user.articles.count %>
+          <% no_of_articles = user.articles.count %>
           <% if no_of_articles > 0 %>
             <span class="user-detail-label ">Article Posted : 
-              <%= link_to no_of_articles, articles_user_articles_path(user_id: @profile.user), class: "standard-link text-info" %>
+              <%= link_to no_of_articles, articles_user_articles_path(user_id: user), class: "standard-link text-info" %>
             </span>
           <% else %>
             <span class="user-detail-label ">No Articles Posted</span>
+          <% end %>
+          <% if user.articles.count >= 10 && user.user? %>
+            <% if user.moderator_request == true %>
+              <br><span class="user-detail-label text-success"> Your have requested to be Moderator </span>
+            <% else %>
+              <br><span class="user-detail-label text-danger" id="rank-request-link">You are now eligible to be a Moderator <%= link_to 'Request here',profiles_rank_request_path(id: @profile.id, user_id: user), class: 'text-info', remote: true %></span>
+            <% end %>
           <% end %>
         </div>
       </div>
@@ -144,7 +152,7 @@
         <button type="button" class="close" data-dismiss="modal">&times;</button>
       </div>
 
-      <%= form_for profile = @profile do |f| %>
+      <%= form_for @profile, html: { id: :bio_form } do |f| %>
         <div class="modal-body">
           <div class="form-group">
             <%= f.label :write_about_yourself, class: 'label' %>
@@ -152,11 +160,11 @@
             hint: "leave it blank if you don't want to add it",
             required: false,
             class: 'form-control' %> 
-            <p class='error'><%= show_errors(profile , :bio) %></p> 
+            <p class='error' id="bio-error"><%= show_errors(@profile , :bio) %></p> 
           </div>
         </div>
         <div class="modal-footer text-center">
-          <%= f.submit 'Update Bio', class: 'btn btn-success' %>
+          <%= f.button 'Update Bio', type: :button, class: 'btn btn-success', id: "bio-validate" %>
         </div>
       <% end %>
 
@@ -176,70 +184,70 @@
         <button type="button" class="close" data-dismiss="modal">&times;</button>
       </div>
 
-      <%= form_for profile = @profile do |f| %>
+      <%= form_for @profile, html: { id: :profile_details_form } do |f| %>
         <div class="modal-body">
           <div class="form-inputs">
             <div class="form-group row">
 
-              <div class="col-md-3"><%= f.label :name, class: 'label' %></div>
-              <div class="col-md-9"><%= f.text_field :name, required: false,
-                autofocus: true, class: 'form-control' %>
-                <p class='error'><%= show_errors(profile , :name) %></p>
+              <div class="col-md-4"><%= f.label :name, class: 'label' %><span class="text-danger">*</span></div>
+              <div class="col-md-8" id="name-div"><%= f.text_field :name, required: false,
+                autofocus: true, class: 'form-control', validate: { presence: true } %>
+                <p class='error' id="name-error"><%= show_errors(@profile , :name) %></p>
               </div>
               
             </div>
 
             <div class="form-group row">
-              <div class="col-md-3"><%= f.label :public_email, class: 'label' %></div>
-              <div class="col-md-9"><%= f.text_field :public_email, required: false,
+              <div class="col-md-4"><%= f.label :public_email, class: 'label' %><span class="text-danger">*</span></div>
+              <div class="col-md-8" id="public-email-div"><%= f.text_field :public_email, required: false,
                 hint: "leave it blank if you don't want to add it",
                 class: 'form-control' %>
-                <p class='error'><%= show_errors(profile , :public_email) %></p>
+                <p class='error' id="public-email-error"><%= show_errors(@profile , :public_email) %></p>
               </div>
               
             </div>
 
             <div class="form-group row">
-              <div class="col-md-3"><%= f.label :location, class: 'label' %></div>
-              <div class="col-md-9"><%= f.text_field :location,
+              <div class="col-md-4"><%= f.label :location, class: 'label' %></div>
+              <div class="col-md-8"><%= f.text_field :location,
                 hint: "leave it blank if you don't want to add it",
                 required: false, class: 'form-control' %>
-                <p class='error'><%= show_errors(profile , :location) %></p>
+                <p class='error'><%= show_errors(@profile , :location) %></p>
               </div>
               
             </div>
 
             <div class="form-group row">
-              <div class="col-md-3"><%= f.label :country, class: 'label' %></div>
-              <div class="col-md-9"><%= f.text_field :country,
+              <div class="col-md-4"><%= f.label :country, class: 'label' %></div>
+              <div class="col-md-8"><%= f.text_field :country,
                 hint: "leave it blank if you don't want to add it",
                 required: false, class: 'form-control' %>
-                <p class='error'><%= show_errors(profile , :country) %></p>
+                <p class='error'><%= show_errors(@profile , :country) %></p>
               </div>
               
             </div> 
 
             <div class="form-group row">
-              <div class="col-md-3"><%= f.label :profession, class: 'label' %></div>
-              <div class="col-md-9"><%= f.text_field :profession,
+              <div class="col-md-4"><%= f.label :profession, class: 'label' %></div>
+              <div class="col-md-8"><%= f.text_field :profession,
                 hint: "leave it blank if you don't want to add it",
                 required: false, class: 'form-control' %>
-                <p class='error'><%= show_errors(profile , :profession) %></p>
+                <p class='error'><%= show_errors(@profile , :profession) %></p>
               </div>
               
             </div>
 
             <div class="form-group row">
-              <div class="col-md-3"><%= f.label :organization, class: 'label' %></div>
-              <div class="col-md-9"><%= f.text_field :organization,
+              <div class="col-md-4"><%= f.label :organization, class: 'label' %></div>
+              <div class="col-md-8"><%= f.text_field :organization,
                 hint: "leave it blank if you don't want to add it",
                 required: false, class: 'form-control' %> 
-                <p class='error'><%= show_errors(profile , :organization) %></p> 
+                <p class='error'><%= show_errors(@profile , :organization) %></p> 
               </div>
               
             </div>
             <div class="modal-footer text-center">
-              <%= f.submit 'Update Profile Details', class: 'btn btn-success' %>
+              <%= f.button 'Update Profile Details', type: :button, class: 'btn btn-success', id: "profile-validate" %>
             </div>
           <% end %>
         </div>
@@ -248,15 +256,19 @@
   </div>
 </div>
 
+<!-- End -->
+
+<!-- Social Media -->
+
 <div class="modal fade" id="social-media">
   <div class="modal-dialog">
     <div class="modal-content">
       <div class="modal-header">
-        <h4 class="modal-title">Edit Profile</h4>
+        <h4 class="modal-title">Edit Social Media</h4>
         <button type="button" class="close" data-dismiss="modal">&times;</button>
       </div>
     
-      <%= form_for profile = @profile do |f| %>
+      <%= form_for @profile, html: { id: :social_media_form } do |f| %>
         <div class="modal-body">
           <div class="form-group">
             <%= f.label :social_media_links, class: 'label' %>
@@ -267,7 +279,7 @@
                 hint: "leave it blank if you don't want to add it",
                 required: false,
                 class: 'form-control' %> </div>
-                <p class='error'><%= show_errors(profile , :facebook) %></p> 
+                <p class='error'><%= show_errors(@profile , :facebook) %></p> 
               </div>
 
               <div class=" row">
@@ -276,7 +288,7 @@
                 hint: "leave it blank if you don't want to add it",
                 required: false,
                 class: 'form-control' %> </div>
-                <p class='error'><%= show_errors(profile , :twitter) %></p> 
+                <p class='error'><%= show_errors(@profile , :twitter) %></p> 
               </div>
 
               <div class=" row">
@@ -285,7 +297,7 @@
                 hint: "leave it blank if you don't want to add it",
                 required: false,
                 class: 'form-control' %> </div>
-                <p class='error'><%= show_errors(profile , :instagram) %></p> 
+                <p class='error'><%= show_errors(@profile , :instagram) %></p> 
               </div>
 
               <div class=" row">
@@ -294,7 +306,7 @@
                 hint: "leave it blank if you don't want to add it",
                 required: false,
                 class: 'form-control' %> </div>
-                <p class='error'><%= show_errors(profile , :linkedin) %></p> 
+                <p class='error'><%= show_errors(@profile , :linkedin) %></p> 
               </div>
 
               <div class=" row">
@@ -303,13 +315,14 @@
                 hint: "leave it blank if you don't want to add it",
                 required: false,
                 class: 'form-control' %> </div>
-                <p class='error'><%= show_errors(profile , :youtube) %></p> 
+                <p class='error'><%= show_errors(@profile , :youtube) %></p> 
               </div>
             </div>
+            <p id="social-media-error"></p>
           </div>
 
           <div class="modal-footer text-center">
-            <%= f.submit 'Update Social Media', class: 'btn btn-success' %>
+            <%= f.button 'Update Social Media', type: :button, class: 'btn btn-success', id: "social-media-validate" %>
           </div>
 
         <% end %>
@@ -317,27 +330,33 @@
     </div>
   </div>
 
+<!-- End -->
+
+<!-- Profile Pic Edit -->
+
 <div class="modal fade" id="profile-image">
   <div class="modal-dialog">
     <div class="modal-content">
       <div class="modal-header">
-        <h4 class="modal-title">Edit Profile</h4>
+        <h4 class="modal-title">Edit Profile Picture</h4>
         <button type="button" class="close" data-dismiss="modal">&times;</button>
       </div>
     
-      <%= form_for profile = @profile do |f| %>
+      <%= form_for @profile, html: { id: :image_form } do |f| %>
       <div class="modal-body">
         <div class="form-group">
           <%= f.label :profile_picture, class: 'label' %><br>
-          <% unless profile.image.nil? %>
-            <%= image_tag profile.image.image.url, height: '180', width: '200' %>
+          <% unless @profile.image.nil? %>
+            <%= image_tag @profile.image.image.url, height: '180', width: '200' %>
           <% end %>
-          <%= f.file_field :image, required: false, autofocus: true, value: 'test', class: 'form-control ',  title: 'Choose Picture'%>
-          <p class='error'><%= show_errors(profile , :image) %></p>
+          <%= f.hidden_field :id %>  
+          <%= f.file_field :image, required: true, autofocus: true, class: 'form-control ',  title: 'Choose Picture' %>
+          
+          <p class='error' id="image-error"><%= show_errors(@profile , :image) %></p>
         </div>
       </div>
       <div class="modal-footer text-center">
-        <%= f.submit 'Update Profile Picture', class: 'btn btn-success' %>
+        <%= f.button 'Update Profile Picture', type: :button, class: 'btn btn-success', id: "image-validate" %>
       </div>
       <% end %>
     </div>
