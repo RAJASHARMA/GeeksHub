@@ -8,7 +8,10 @@
           <div class="col-md-12">
               <div id="custom-search-input" class="col-md-12">
                   <div class="input-group">
-                      <%= text_field_tag :search, params[:search], class: 'form-control input-lg col-md-12', placeholder: 'Type a keyword and hit enter', autocomplete: 'off' %>
+                      <div>
+                        <%= autocomplete_field_tag 'search', '', autocomplete_article_title_articles_path, :size => 28 %>
+                          
+                        </div>
                       <span class="input-group-btn">
                           <%= button_tag(type: 'submit', class: 'btn btn-info btn-lg') do %>
                               <i class="fa fa-search"></i>

@@ -4,7 +4,6 @@ class CommentsController < ApplicationController
 
 
   def new
-    # @comment = @article.comments.new(:parent_id => params[:parent_id])
   end
 
 
@@ -12,9 +11,7 @@ class CommentsController < ApplicationController
     @comment = @article.comments.new(comment_params)
     respond_to do |format|
       if @comment.save
-        # byebug
-          # save_picture
-          format.html { redirect_to @article, :notice => 'Article Created Successfully' }
+          format.html { redirect_to @article, :notice => 'Comment Created Successfully' }
           format.js
       else
           format.html { render :new }

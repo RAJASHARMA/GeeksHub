@@ -4,6 +4,8 @@ class ArticlesController < ApplicationController
     before_action :authenticate_user!, except: [:index, :show]
     before_action :set_user, only: [:user_articles]
     after_action :article_pagination, only: [:index, :user_articles, :article_list]
+
+    autocomplete :article, :title, :full => true
     
     rescue_from ActiveRecord::RecordNotFound, with: :record_not_found
 
@@ -50,12 +52,8 @@ class ArticlesController < ApplicationController
 
     def update
         respond_to do |format|
-            if @article.update(article_params)
-                if @article.image.nil?
-                    @article.image = Image.new(image: image_params)
-                else
-                    @article.image.update(image: image_params)
-                end
+            @article.image.update(image: image_params)
+            if @article.update(article_params) 
                 format.html { redirect_to @article, :notice => 'Article Updated Successfully' }
                 format.json { render :show, status: :ok, location: @article }
             else
@@ -138,7 +136,6 @@ class ArticlesController < ApplicationController
 
         def set_user
             @user = User.find_by_id(params[:user_id])
-            
         end
 end
 

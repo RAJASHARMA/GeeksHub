@@ -1,11 +1,11 @@
 class ProfilesController < ApplicationController
   include ProfilesHelper
-  before_action :set_profile, only: [:edit, :show, :update, :destroy]
+  before_action :set_profile, only: [:edit, :show, :update, :destroy, :rank_request ]
 
 
   def index
     if params[:val].present?
-      @users = User.where(role: params[:val])
+      @users = User.includes(:articles).where(role: params[:val])
       unless @users.empty?
         @role = @users.first.role
       end
@@ -16,23 +16,9 @@ class ProfilesController < ApplicationController
     @users = @users.paginate(page: params[:page], per_page: 3)
   end
 
-  def show
-    
-  end
-
-  def edit
-
-  end
-
   def update
+      @profile.image.update(image: image_params)
       if @profile.update(profile_params)
-        unless image_params.nil?
-          if@profile.image.nil?
-            @profile.image = Image.new(image: image_params)
-          else
-            @profile.image.update(image: image_params)
-          end
-        end
         redirect_to @profile, :notice => 'Profile Updated Successfully'
       else
         render :show
@@ -41,12 +27,24 @@ class ProfilesController < ApplicationController
 
   def rank
     user = User.find_by_id(params[:id])
-    if user.user?
+    if user.user?{
       user.moderator!
+      user.update(moderator_request: false)
+    }
     elsif user.moderator?
       user.user!
     end
     redirect_to(:back)
+  end
+
+  def rank_request
+    user = User.find_by_id(params[:user_id])
+    if user.update(moderator_request: true)
+      respond_to do |format|
+        format.html{ redirect_to @profile, :notice => "Your Request Sent Successfully"}
+        format.js
+      end
+    end
   end
 
   private

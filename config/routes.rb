@@ -1,5 +1,7 @@
 Rails.application.routes.draw do
 
+  get 'report/create'
+
   root "articles#index"
   
   post '/rate' => 'rater#create', :as => 'rate'
@@ -8,11 +10,14 @@ Rails.application.routes.draw do
   get '/articles/modify_status' => 'articles#modify_status'
   get '/profiles/rank' => 'profiles#rank'
   get '/pages/*page' => 'pages#show', :as => 'page_show'
+  get 'profiles/rank_request' => 'profiles#rank_request'
 
   mount Ckeditor::Engine => '/ckeditor'
   get 'tags/:tag', to: 'articles#index', as: :tag
   resources :articles do
     resources :comments
+    resources :reports
+    get :autocomplete_article_title, :on => :collection
   end
   resources :tags
   resources :profiles

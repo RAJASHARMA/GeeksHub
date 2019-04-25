@@ -67,14 +67,20 @@
       </ul>
     <% end %>
   </div>
-  <div class="top10 content-font"><%= raw @article.content %></div><br/>
+  <div class="top10 content-font"><%= raw @article.content %></div>
   <!-- END Article Main Section -->
 
 </div>
 
+
 <!-- START Comment Section -->
 <div class= "comment-section comment-font">
   <% if signed_in? %>
+    <%#= link_to 'Report Article', new_article_report %>
+    <div class="mb-5">
+      <a data-toggle="modal" data-target="#report"><i class="fa fa-exclamation-circle text-danger icon2"></i> <span class="icon2">Report this article</span> </a>
+    </div>
+      
     <h5>Comment on Article</h5>
     <%= render 'comments/form' %>
   <% else %>
@@ -93,3 +99,33 @@
   </div>
 </div>
 <!-- END Comment Section -->
+
+
+
+<div class="modal fade" id="report">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h4 class="modal-title">Write Report</h4>
+        <button type="button" class="close" data-dismiss="modal">&times;</button>
+      </div>
+
+      <%= form_for [@article, @report = @article.reports.build],html: { id: :report_form } do |f| %>
+        <div class="modal-body">
+          <div class="form-group">
+            <label>If you find content on Medium which you consider to be spam, harassment, or which violates Medium's Rules, please report it to us in product or email us with details. </label>
+            <%= f.text_area :description,
+                              required: false,
+                              class: 'form-control',
+                              rows: 10 %> 
+            <p class='error' id="report-error"><%= show_errors(@report , :description) %></p> 
+          </div>
+        </div>
+        <div class="modal-footer text-center">
+          <%= f.button 'Report', type: :button, class: 'btn btn-success', id: "report-button" %>
+        </div>
+      <% end %>
+
+    </div>
+  </div>
+</div>

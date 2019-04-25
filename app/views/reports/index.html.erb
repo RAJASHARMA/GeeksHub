@@ -1,0 +1,31 @@
+<div>
+    <div class="text-center"><%= link_to @article.title, @article, class: 'text-info article-title-font' %></div>
+    <div>
+        <% @reports.each do |report| %>
+            <div class="col-sm-12">
+                <div data-spy="scroll" class="tabbable-panel text-dark">
+                    <div class="tabbable-line bg-light">
+                        <div class="row">
+                            <span class="col-md-11">Reported By : <%= link_to (report.user.profile.name.nil? ? (report.user.profile.public_email.nil? ? report.user.email.split('@')[0] : report.user.profile.public_email.split('@')[0]) : report.user.profile.name), profile_path(report.user.profile.slug ? report.user.profile.slug : report.user.profile.id), target: '_blank', class: "standard-link text-info" %>
+                        </span>
+                        <span class="icon2 col-md-1">
+                                <%= link_to '', article_report_path(id: report.id), method: :delete, data: { confirm: 'Are You Sure To Delete This Report ?'}, class: 'fa fa-trash text-danger', style: 'vertical-align: middle;', title: 'Delete Report' %> 
+                        </span>
+                            
+                        </div>
+                        <div class="tab-content">
+                            <div class="tab-pane active " id="tab_default_1">
+                                <div class="user-content">
+                                    <span><u>Description:</u></span><br>
+                                    <%= report.description %>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <br>
+        <% end %>
+    </div>
+</div>
+

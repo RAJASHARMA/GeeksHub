@@ -34,8 +34,13 @@
 				<div class="users-font card">
 			   		<div class="card-header users-font">
 			   			<div class="float-left" id="article-title">
-			   				<%= article.title %>&nbsp;(<%= article.status.humanize %>)	
+			   				<%= link_to article.title, article, class: 'text-info' %>&nbsp;(<%= article.status.humanize %>)	
 			   			</div>
+			   			<div class="float-left ml-3">
+					      	<% unless article.reports.empty? %>
+					      		<a href="<%= article_reports_path(article_id: article.id) %>"><span class="text-danger fa fa-exclamation-circle"> <%= article.reports.count %> </span></a>
+					      	<% end %>
+					    </div>
 				  		
 				  		<div class="float-right col-md-4 text-right" id="modify-status">
 				  			<% unless article.approved? %>
@@ -57,7 +62,7 @@
 				           	</span> 
 						</div>
 			  		</div>
-		  			<a href="<%= article_path(article.id) %>" target="blank">
+		  			<!-- <a href="<%= article_path(article.id) %>" target="blank"> -->
 						<div class="card-body row">
 							<div class="col-md-3">
 								<% if article.image.present? && !article.image.image_file_name.nil? %>
@@ -77,12 +82,14 @@
 						    	<% if article.tag_list.present? %>
 					              	<ul class="tags float-right">Tags:
 					                	<%= raw article.tag_list.map { |t| %>
-					                    <span class="tag"><%= t %></span><% }.join(' ') %>
+					                    <span class="tag-text"><%= t %></span><% }.join(' ') %>
 					              	</ul>
 				             	<% end %>
 				          	</div>
+				          	
+
 					  	</div>
-				  	</a>  
+				  	<!-- </a>   -->
 			   	</div><br>
 		<% end %>
 	<% end %>

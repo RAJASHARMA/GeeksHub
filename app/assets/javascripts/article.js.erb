@@ -1,0 +1,15 @@
+$(document).ready(function(){
+	$("#article_title").keyup(function(){
+		if($("#article_title").val().trim() == "")
+			$("#title-length").slideUp().html("");
+		else	
+			$("#title-length").slideDown().html("<span class='text-info float-right' style='font-size: 13px;'>" + (40 - $("#article_title").val().length) + " Characters remaining</span>")
+	});
+	$("#comment-text").keyup(function(){
+		if($("#comment-text").val().trim() == "")
+			$("#comment-length").slideUp().html("");
+		else	
+			$("#comment-length").slideDown().html("<span class='text-info float-right' style='font-size: 13px;'>" + (500 - $("#comment-text").val().length) + " Characters remaining</span>")
+	});
+
+});

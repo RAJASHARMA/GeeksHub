@@ -18,7 +18,7 @@
 .search{border-radius: 5px; border: 1px solid lightgrey; height:40px; background-color: #f4f4f5 }
 
 .icon-size{font-size: 35px;}
-.icon2{ background-color: transparent; border: none; font-size: larger;}
+.icon2{ background-color: transparent; border: none; font-size: larger; cursor: pointer;}
 .dashboard{font-family: monospace; font-size: 30px; color: darkslateblue;}
 .users-font{font-size: 15px; font-family: times new roman; padding: 2px; font-weight: bold; color: black;}
 
