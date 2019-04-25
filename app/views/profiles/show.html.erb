@@ -1,13 +1,10 @@
 <div class="col-md-12 col-lg-12 main-content user-font">
   <div>
-    <!-- <div class="fb-profile-text user-name"> -->
       <% if @profile %>
         <span class="dashboard"><%= @profile.name %> </span>
       <% else %>
         <span class="dashboard">Profile</span>
       <% end %>
-    <!-- </div> -->
-      
   </div>
   <hr>
   <% if @profile %>
@@ -127,7 +124,7 @@
           <% else %>
             <span class="user-detail-label ">No Articles Posted</span>
           <% end %>
-          <% if user.articles.count >= 10 && user.user? %>
+          <% if user.articles.count >= 10 && user.user? && user == current_user %>
             <% if user.moderator_request == true %>
               <br><span class="user-detail-label text-success"> Your have requested to be Moderator </span>
             <% else %>
@@ -136,7 +133,12 @@
           <% end %>
         </div>
       </div>
+
+
     </div>
+    <% if user == current_user %>
+      <%= link_to 'Change Password', edit_user_registration_path, class: 'user-content text-info float-right' %>
+    <% end %>
   <% else %>
     <%= link_to 'Go to Dashboard', profile_path(current_user.profile), class: 'btn btn-info'  %>
   <% end %>

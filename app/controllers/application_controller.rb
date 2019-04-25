@@ -4,6 +4,7 @@ class ApplicationController < ActionController::Base
     before_action :popular_articles
     before_action :configure_permitted_parameters, if: :devise_controller?
     before_action :popular_articles
+    before_action :new_reports
 
     protected
     
@@ -14,10 +15,14 @@ class ApplicationController < ActionController::Base
 
     def popular_articles
       @popular_articles  = Article.joins(:content_average).approved.order('rating_caches.avg DESC').limit(5)
-      # respond_to do |format|
-      #   # format.html { redirect_to articles_path }
-      #   format.js
-      # end
     end
 
+    def new_reports
+      @new_reports = Report.select(:article_id).distinct.last(5)
+      @total = 0
+
+      @new_reports.each do |report|
+        @total = @total + report.article.reports.count
+      end
+    end
 end

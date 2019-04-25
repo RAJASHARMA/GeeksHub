@@ -22,7 +22,7 @@
 .dashboard{font-family: monospace; font-size: 30px; color: darkslateblue;}
 .users-font{font-size: 15px; font-family: times new roman; padding: 2px; font-weight: bold; color: black;}
 
-.width60{width: 60%;}
+.notification-box{height: 280px; overflow: scroll;}
 
 .notice-div{margin-top: 20px; padding-bottom: 20px;}
 .custom-alert{color: red; text-align: center; border: solid red 1px; margin: 10px; border-radius: 10px;}

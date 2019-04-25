@@ -4,11 +4,7 @@ class ReportsController < ApplicationController
     before_action :set_report, only: [:destroy]
 
     def index
-        if params[:article_id]
-            @reports = Report.where(article_id: params[:article_id]);
-        else
-            @reports = Report.all
-        end
+        @reports = @article.reports
     end
 
     def new
@@ -28,8 +24,12 @@ class ReportsController < ApplicationController
     end
 
     def destroy
-        @report.destroy
-        redirect_to(:back, :notice => 'Report Removed Successfully')       
+        if @report.destroy
+            respond_to do |format|
+                format.html {redirect_to(:back)}
+                format.js
+            end
+        end    
     end
 
     private
@@ -45,4 +45,4 @@ class ReportsController < ApplicationController
         def find_article
           @article = Article.friendly.find(params[:article_id])
         end
-end
+end 

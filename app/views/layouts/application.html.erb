@@ -24,16 +24,16 @@
         <%= render partial: 'layouts/header' %>  
       </div>
       
-      <div class="notice-div">
+      <div class="notice-div mx-5">
         <% unless notice.nil? %>
-          <div class="alert alert-success alert-dismissible custom-notice align-center ">
+          <div class="alert alert-success alert-dismissible custom-notice align-center notice" >
             <a href="#" class="float-right text-success" data-dismiss="alert" aria-label="close"><b>&times;</b></a>
               <%= notice %>
           </div>
         <% end %>
 
         <% unless alert.nil? %>
-          <div class="alert alert-danger alert-dismissible custom-alert align-center ">
+          <div class="alert alert-danger alert-dismissible custom-alert align-center notice">
             <a href="#" class="float-right text-danger" data-dismiss="alert" aria-label="close"><b>&times;</b></a>
             <%= alert %>
           </div>

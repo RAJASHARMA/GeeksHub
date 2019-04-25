@@ -28,6 +28,10 @@
 
 
 $(document).ready(function(){
+
+	$(".notice").delay(2000).slideUp();
+
+
 	$("#search").keyup(function(event) {
 		$("#search-values").css("background-color", "white");
 	});

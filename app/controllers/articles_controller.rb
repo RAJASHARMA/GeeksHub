@@ -71,6 +71,7 @@ class ArticlesController < ApplicationController
         end
     end
 
+    # This function will return list of articles created by a particular user
     def user_articles
         if params[:val]
             @articles = @user.articles.where(:status => params[:val]).order(created_at: :DESC)
@@ -81,6 +82,7 @@ class ArticlesController < ApplicationController
         render 'index'
     end
 
+    # This function will filter the article list with provided status
     def article_list
         if params[:status].present?
             @articles = Article.friendly.where(status: params[:status])
@@ -94,6 +96,7 @@ class ArticlesController < ApplicationController
         article_pagination
     end
 
+    # This function will modify the status of the article 
     def modify_status
         # article = Article.friendly.find(params[:id])
         if params[:status]

@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20190424114833) do
+ActiveRecord::Schema.define(version: 20190425103753) do
 
   create_table "articles", force: :cascade do |t|
     t.string   "title",      limit: 255
@@ -144,9 +144,11 @@ ActiveRecord::Schema.define(version: 20190424114833) do
   add_index "rating_caches", ["cacheable_id", "cacheable_type"], name: "index_rating_caches_on_cacheable_id_and_cacheable_type", using: :btree
 
   create_table "reports", force: :cascade do |t|
-    t.text    "description", limit: 65535
-    t.integer "article_id",  limit: 4
-    t.integer "user_id",     limit: 4
+    t.text     "description", limit: 65535
+    t.integer  "article_id",  limit: 4
+    t.integer  "user_id",     limit: 4
+    t.datetime "created_at"
+    t.datetime "updated_at"
   end
 
   add_index "reports", ["article_id"], name: "index_reports_on_article_id", using: :btree
