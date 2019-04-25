@@ -1,4 +1,4 @@
-<div class="col-md-12 col-lg-12 main-content bottom10 menu-font">
+<div class="col-md-12 col-lg-12 main-content bottom10 menu-font" >
 
   <!-- START Article Status Modificatin Section -->
   <div class="row" >
@@ -67,7 +67,7 @@
       </ul>
     <% end %>
   </div>
-  <div class="mt-4 content-font"><%= raw @article.content %></div>
+  <div class="mt-4 content-font" id="article-content"><%= raw @article.content %></div>
   <!-- END Article Main Section -->
 
 </div>
@@ -76,7 +76,6 @@
 <!-- START Comment Section -->
 <div class= "comment-section comment-font">
   <% if signed_in? %>
-    <%#= link_to 'Report Article', new_article_report %>
     <div class="mb-5">
       <a data-toggle="modal" data-target="#report"><i class="fa fa-exclamation-circle text-danger icon2"></i> <span class="icon2">Report this article</span> </a>
     </div>

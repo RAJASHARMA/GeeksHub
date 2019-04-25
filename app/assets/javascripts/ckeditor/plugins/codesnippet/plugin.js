@@ -43,7 +43,7 @@
 
 				// We might escape special regex chars below, but we expect that there
 				// should be no crazy values used as lang keys.
-				editor._.codesnippet.langsRegex = new RegExp( '(?:^|\\s)language-(' +
+				editor._.codesnippet.langsRegex = new RegExp( '(?:^|\\s)language_(' +
 					CKEDITOR.tools.objectKeys( langs ).join( '|' ) + ')(?:\\s|$)' );
 			};
 
@@ -75,31 +75,46 @@
 			if ( !editor._.codesnippet.highlighter ) {
 				var hljsHighlighter = new CKEDITOR.plugins.codesnippet.highlighter( {
 					languages: {
-						apache: 'Apache',
-						bash: 'Bash',
-						coffeescript: 'CoffeeScript',
-						cpp: 'C++',
-						cs: 'C#',
-						css: 'CSS',
-						diff: 'Diff',
-						html: 'HTML',
-						http: 'HTTP',
-						ini: 'INI',
-						java: 'Java',
-						javascript: 'JavaScript',
-						json: 'JSON',
-						makefile: 'Makefile',
-						markdown: 'Markdown',
-						nginx: 'Nginx',
-						objectivec: 'Objective-C',
-						perl: 'Perl',
-						php: 'PHP',
-						python: 'Python',
-						ruby: 'Ruby',
-						sql: 'SQL',
-						vbscript: 'VBScript',
-						xhtml: 'XHTML',
-						xml: 'XML'
+						//// Default options 
+						// apache: 'Apache',
+						// bash: 'Bash',
+						// c: 'C',
+						// coffeescript: 'CoffeeScript',
+						// cpp: 'C++',
+						// cs: 'C#',
+						// css: 'CSS',
+						// diff: 'Diff',
+						// html: 'HTML',
+						// http: 'HTTP',
+						// ini: 'INI',
+						// java: 'Java',
+						// javascript: 'JavaScript',
+						// json: 'JSON',
+						// makefile: 'Makefile',
+						// markdown: 'Markdown',
+						// nginx: 'Nginx',
+						// objectivec: 'Objective-C',
+						// perl: 'Perl',
+						// php: 'PHP',
+						// python: 'Python',
+						// ruby: 'Ruby',
+						// sql: 'SQL',
+						// vbscript: 'VBScript',
+						// xhtml: 'XHTML',
+						// xml: 'XML'
+
+
+						//Options for Jdoodle and GeeksforGeeka....
+						c_2: 'C (GCC 7.2.0)',
+						cpp_2: 'C++ (GCC 7.2.0)',
+						cpp14_2: 'C++ 14 (GCC 7.2.0)',
+						csharp_1: 'C# (mono 5.0.0)',
+						java_0: 'Java (JDK 1.8.0_66)',
+						perl_0: 'Perl (5.22.0)',
+						php_1: 'PHP (7.1.11)',
+						python2_1: 'Python 2 (2.7.15)',
+						python3_3: 'Python 3 (3.6.5)',
+						scala_2: 'Scala (2.12.5)'
 					},
 
 					init: function( callback ) {
@@ -292,7 +307,7 @@
 			lang = editor.lang.codesnippet;
 
 		editor.widgets.add( 'codeSnippet', {
-			allowedContent: 'pre; code(language-*)',
+			allowedContent: 'pre; code(language_*)',
 			// Actually we need both - pre and code, but ACF does not make it possible
 			// to defire required content with "and" operator.
 			requiredContent: 'pre',
@@ -335,14 +350,14 @@
 				if ( newData.code )
 					this.parts.code.setHtml( CKEDITOR.tools.htmlEncode( newData.code ) );
 
-				// Remove old .language-* class.
+				// Remove old .language_* class.
 				if ( oldData && newData.lang != oldData.lang )
-					this.parts.code.removeClass( 'language-' + oldData.lang );
+					this.parts.code.removeClass( 'language_' + oldData.lang );
 
 				// Lang needs to be specified in order to apply formatting.
 				if ( newData.lang ) {
-					// Apply new .language-* class.
-					this.parts.code.addClass( 'language-' + newData.lang );
+					// Apply new .language_* class.
+					this.parts.code.addClass( 'language_' + newData.lang );
 
 					this.highlight();
 				}
@@ -351,7 +366,7 @@
 				this.oldData = CKEDITOR.tools.copy( newData );
 			},
 
-			// Upcasts <pre><code [class="language-*"]>...</code></pre>
+			// Upcasts <pre><code [class="language_*"]>...</code></pre>
 			upcast: function( el, data ) {
 				if ( el.name != 'pre' )
 					return;
@@ -366,7 +381,7 @@
 				if ( code.children.length != 1 || code.children[ 0 ].type != CKEDITOR.NODE_TEXT )
 					return;
 
-				// Read language-* from <code> class attribute.
+				// Read language_* from <code> class attribute.
 				var matchResult = editor._.codesnippet.langsRegex.exec( code.attributes[ 'class' ] );
 
 				if ( matchResult )
@@ -381,7 +396,7 @@
 				return el;
 			},
 
-			// Downcasts to <pre><code [class="language-*"]>...</code></pre>
+			// Downcasts to <pre><code [class="language_*"]>...</code></pre>
 			downcast: function( el ) {
 				var code = el.getFirst( 'code' );
 

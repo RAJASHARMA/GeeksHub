@@ -1,6 +1,6 @@
 
 <div class="col-md-12">
-  <!-- END Search bar -->
+  <!-- START Search bar -->
   <div class=" search-form-wrap bg-transparent left4 ">
     <%= form_tag articles_path, method: 'get', class: "search-form", id: 'search-form' do %> 
       <div class="form-group row ">
@@ -10,12 +10,12 @@
               <div class="input-group">
                 <div>
                   <%= autocomplete_field_tag 'search', '', autocomplete_article_title_articles_path, :size => 27 %>
-                  </div>
-                  <span class="input-group-btn">
-                    <%= button_tag(type: 'submit', class: 'btn btn-info btn-lg') do %>
-                        <i class="fa fa-search"></i>
-                    <% end %>
-                  </span>
+                </div>
+                <span class="input-group-btn">
+                  <%= button_tag(type: 'submit', class: 'btn btn-info btn-lg') do %>
+                    <i class="fa fa-search"></i>
+                  <% end %>
+                </span>
               </div>
             </div>
           </div>

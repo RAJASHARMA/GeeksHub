@@ -19,6 +19,9 @@ class ProfilesController < ApplicationController
   def update
       @profile.image.update(image: image_params)
       if @profile.update(profile_params)
+        if @profile.slug.nil?
+          @profile.update(slug: params[:profile][:name].split(" ")[0] + "_" + params[:id]).capitalize if params[:profile][:name])
+        end
         redirect_to @profile, :notice => 'Profile Updated Successfully'
       else
         render :show
@@ -54,9 +57,6 @@ class ProfilesController < ApplicationController
   end
 
   def profile_params
-    if @profile.slug.nil?
-      params[:profile][:slug] = (params[:profile][:name] + "_" + params[:id]).capitalize if params[:profile][:name]
-    end
     params.require(:profile).permit(:name, :public_email,
       :location, :country, :profession, :organization,
       :facebook, :twitter, :instagram, :linkedin, :youtube,

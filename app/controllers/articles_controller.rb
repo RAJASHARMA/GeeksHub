@@ -1,5 +1,9 @@
 class ArticlesController < ApplicationController
     include ArticlesHelper
+    require 'uri'
+    require 'net/http'
+    require 'net/https'
+
     before_action :set_article, only: [:show, :edit, :update, :destroy, :modify_status]
     before_action :authenticate_user!, except: [:index, :show]
     before_action :set_user, only: [:user_articles]
@@ -111,6 +115,15 @@ class ArticlesController < ApplicationController
         redirect_to(:back)
     end
 
+    def execute_code
+        @response = {:output => "", :cpuTime => "", :memory => "", :statusCode => ""}
+        puts "\n\nSever function called successfully\n"
+        puts params
+        # run_Jdoodle_API
+        run_GeeksforGeeks_API       
+        render json: @response  
+    end
+
     private
 
         def set_article
@@ -140,5 +153,67 @@ class ArticlesController < ApplicationController
         def set_user
             @user = User.find_by_id(params[:user_id])
         end
-end
 
+
+        def run_Jdoodle_API
+            puts "\nJdoodle API response\n"
+
+            begin
+                url = URI("https://api.jdoodle.com/v1/execute")
+
+                http = Net::HTTP.new(url.host, url.port)
+                http.use_ssl = true
+
+                request = Net::HTTP::Post.new(url.path)
+                request["Content-Type"] = 'application/json'
+                request.body = {
+                    "script" => params[:code],
+                    "language" => params[:lang],
+                    "versionIndex" => params[:version],
+                    "clientId" => "**************************************",
+                    "clientSecret" => "****************************************************************"
+                }.to_json
+                response = http.request(request)
+
+                res = JSON.parse(response.read_body)
+                if (res["memory"] == nil || res["cpuTime"] == nil) &&  res["statusCode"] == 200
+                    res["output"].slice!(1,7)
+                    res["output"].insert(1,"GeeksHub")
+                elsif res["statusCode"] != 200
+                   res.merge!("output" => "Oops Error in Ecxecution..")
+                end
+                @response = res
+                puts res
+            rescue => e
+                puts "Failed in calling Jdoodle: #{e}"
+            end
+        end
+
+
+        def run_GeeksforGeeks_API
+            puts "\nGeeksforGeeks_API response\n"
+            code = params[:code]
+            lang = params[:lang].capitalize
+            
+            begin
+                url = URI("https://ide.geeksforgeeks.org/main.php")
+
+                http = Net::HTTP.new(url.host, url.port)
+                http.use_ssl = true
+
+                request = Net::HTTP::Post.new(url)
+                request["Content-Type"] = 'application/json'
+                request["content-type"] = 'multipart/form-data; boundary=----WebKitFormBoundary7MA4YWxkTrZu0gW'
+                request.body = "------WebKitFormBoundary7MA4YWxkTrZu0gW\r\nContent-Disposition: form-data; name=\"code\"\r\n\r\n#{code}\r\n------WebKitFormBoundary7MA4YWxkTrZu0gW\r\nContent-Disposition: form-data; name=\"lang\"\r\n\r\n#{lang}\r\n------WebKitFormBoundary7MA4YWxkTrZu0gW--"
+                response = http.request(request)
+
+                res = JSON.parse(response.read_body)
+                @response[:output] = res["output"] + res["rntError"] + res["cmpError"]
+                @response[:cpuTime] = res["time"]
+                @response[:memory] = res["memory"]
+                puts res
+            rescue => e
+                puts "Failed in calling GeeksforGeeks: #{e}"
+            end
+        end
+end

@@ -22,3 +22,18 @@
 	padding: 10px;
 	background-color: lightgrey;
 }
+
+pre {
+	background-color: lightgrey;
+	color: black;
+	padding: 12px;
+}
+
+.output {
+	background-color: lightgrey;
+	color: black;
+}
+
+.output-padding{
+	padding: 12px;	
+}

@@ -26,7 +26,6 @@
 //= require article
 
 
-
 $(document).ready(function(){
 
 	$(".notice").delay(2000).slideUp();
