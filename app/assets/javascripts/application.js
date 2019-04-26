@@ -28,7 +28,7 @@
 
 $(document).ready(function(){
 
-	$(".notice").delay(2000).slideUp();
+	$(".notice").delay(3000).slideUp();
 
 
 	$("#search").keyup(function(event) {

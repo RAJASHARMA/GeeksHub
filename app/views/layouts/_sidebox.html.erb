@@ -25,23 +25,24 @@
   <!-- END Search bar -->
 
   <!-- Notice Section -->
-  <% if signed_in? && current_user.admin?  %>
+  <% if signed_in? && current_user.admin? && @total > 0  %>
     <div class="sidebar-box p-3" id="notification-div">
       <h3 class="heading">Notifications</h3>
-      <div class="text-center">
+      <div class="text-center" id="notification-counts">
         <span class="text-danger menu-font"><%= pluralize(@total, ' new Report') %></span>
       </div>  
-      <!-- <marquee behaviour="scroll" direction="up" onmouseover="this.stop();" onmouseout="this.start();"> -->
-        <div class="row">
-          <% @new_reports.each do |report| %>
-            <div class="col-md-7 text-truncate"><%= link_to report.article.title, article_reports_path(report.article), class: 'text-info' %>:</div> 
-            <div class="col-md-3"><%= pluralize( report.article.reports.count, 'Report') %></div>  <br>
-          <% end %>                      
-        </div>
-      <!-- </marquee>     -->
+      <div class="row" id="notification-items">
+        <% @new_reports.each do |report| %>
+          <div class="col-md-7 text-truncate">
+            <%= link_to report.article.title, article_reports_path(report.article), class: 'text-info' %>:
+          </div>
+          <div class="col-md-3">
+            <%= pluralize( report.article.reports.count, 'Report') %>
+          </div><br>
+        <% end %>                      
+      </div>
     </div>
   <% end %>
-
   <!-- End of Notice Section -->
 
   <!-- START Author Section -->
@@ -92,8 +93,9 @@
         <% @popular_articles.each do |article| %> 
           <li>
             <a href="<%=article_path(article)%>">
-              <% if article.image.present? && !article.image.image_file_name.nil?  %>
-                <%= image_tag article.image.image.url, height: '70', width: '100' %>
+              <% article_image = article.image %>
+              <% if article_image.present? && !article_image.image_file_name.nil?  %>
+                <%= image_tag article_image.image.url, height: '70', width: '100' %>
               <% else %>
                 <%= image_tag(image_path('default_article.jpg'), height: '70', width: '100') %>
               <% end %>
@@ -102,7 +104,8 @@
                 <h4><%= article.title %></h4>
                 <div class="post-meta">
                   <span class="mr-2">
-                    <%= article.user.profile.name.nil? ? (article.user.profile.public_email.nil? ? article.user.email.split('@')[0] : article.user.profile.public_email.split('@')[0]) : article.user.profile.name %>
+                    <% article_user = article.user %>
+                    <%= article_user.profile.name.nil? ? (article_user.profile.public_email.nil? ? article_user.email.split('@')[0] : article_user.profile.public_email.split('@')[0]) : article_user.profile.name %>
                   </span>
                 </div>
               </div>
@@ -115,9 +118,9 @@
   <!-- END Popular Aricle Section -->
 
   <!-- START Tag Section -->
-  <div class="sidebar-box padding3">
+  <div class="sidebar-box padding3" id="tag-section">
     <h3 class="heading">Tags</h3>
-    <ul class="tags">
+    <ul class="tags" id="tag-item">
       <%= raw ActsAsTaggableOn::Tag.order('taggings_count DESC').limit(40).map { |t| link_to t, tag_path(t.name), :class => "tag-text"}.join(' ') %>
     </ul>
   </div>

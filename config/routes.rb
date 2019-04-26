@@ -9,6 +9,8 @@ Rails.application.routes.draw do
   get '/articles/modify_status' => 'articles#modify_status'
   post '/articles/execute_code' => 'articles#execute_code'
 
+  get '/reports/update_notice_board' => 'reports#update_notice_board'
+
   get '/profiles/rank' => 'profiles#rank'
   get 'profiles/rank_request' => 'profiles#rank_request'
   get '/pages/*page' => 'pages#show', :as => 'page_show'
