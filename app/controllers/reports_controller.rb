@@ -1,7 +1,8 @@
 class ReportsController < ApplicationController
     before_action :authenticate_user!
-    before_action :find_article
+    before_action :find_article, except: [:update_notice_board]
     before_action :set_report, only: [:destroy]
+    # after_action :new_reports, only: [:destroy]
 
     def index
         @reports = @article.reports
@@ -32,6 +33,20 @@ class ReportsController < ApplicationController
         end    
     end
 
+    def update_notice_board
+        new_reports
+        data = {}
+        puts "Update report called Successfully.................."
+
+        data.merge!(:total => @total)
+        data.merge!(:new_reports => JSON.parse(@new_reports.to_json))
+        data[:new_reports].each do |report|
+            article = Article.find_by_id(report["article_id"])
+            report.merge!(:title => article.title, :slug => article.slug, :reports => article.reports.count)
+        end
+        render json: data
+    end
+
     private
 
         def set_report
@@ -46,3 +61,5 @@ class ReportsController < ApplicationController
           @article = Article.friendly.find(params[:article_id])
         end
 end 
+
+# {"total" => "3", "new_reports"{report_id = "nul", article_id = 11, title, slug}}

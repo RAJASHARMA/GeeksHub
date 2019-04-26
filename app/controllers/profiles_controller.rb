@@ -20,7 +20,7 @@ class ProfilesController < ApplicationController
       @profile.image.update(image: image_params)
       if @profile.update(profile_params)
         if @profile.slug.nil?
-          @profile.update( slug: @profile.name.split(" ")[0] + "_" + @profile.id).capitalize if !@profile.name.nil?
+          @profile.update(slug: @profile.name.split(" ")[0] + "_" + @profile.id).capitalize if !@profile.name.nil?
         end
         redirect_to @profile, :notice => 'Profile Updated Successfully'
       else

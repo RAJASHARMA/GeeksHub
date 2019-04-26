@@ -1,33 +1,29 @@
 $(document).ready(function(){
 	$("#report-<%=@report.id%>").remove();	
-	// $('#notification-div').load("", function(){
+	$.ajax({ 
+		type: "GET", 
+		url: '/reports/update_notice_board',
+		dataType: "json",
+		success: function(data) {
+			if(data["total"] > 0) {
+				pluralizeReport = "Reports";
+				if(data["total"] == 1) report = "Report";
 
-	// });
+				$("#notification-counts").html("<span class='text-danger menu-font'>" + data["total"] + " new " + pluralizeReport + "</span>");
+				$("#notification-items").html("");
+				data["new_reports"].forEach(append_list)
+			} else {
+				$("#notification-div").html("");
+			}
+						
+		}
+	});
 });
 
+function append_list(item) {
+	pluralizeReport = "Reports";
+	if(item["reports"] == 1) report = "Report";
 
-
-// $.ajax({ 
-// type: "POST", 
-// url: '/articles/execute_code',
-// beforeSend: function(xhr) {xhr.setRequestHeader('X-CSRF-Token', $('meta[name="csrf-token"]').attr('content'))}, 
-// data: {code: code, lang: lang, version: langVersion}, 
-// dataType: "script",
-// success: function(data) {
-// data = JSON.parse(data);
-// output = data["output"];
-// cpuTime = Math.round(data["cpuTime"] * 1000) / 1000;
-// memory = Math.round(data["memory"] * 1000) / 1000;
-// // debugger
-// output = output.replace("\n", "<br>");
-// $(output_div).html("<u>Output: </u>" + " Time: " + cpuTime + " Memory: " + memory + "<hr/>" + output);
-// $(run_button).html("Run"); 
-// $(output_div).addClass("output-padding"); 
-// },
-// error: function (data) { 
-// console.log('Error in Operation'); 
-// $(output_div).html("<u>Output:</u><br>" + output);
-// $(run_button).html("Run");
-// $(output_div).addClass("output-padding"); 
-// }
-// });
+	$("#notification-items").append("<div class='col-md-7 text-truncate'><a class='text-info' href='/articles/" + item["slug"] + "/reports'>" + item["title"] + "</a></div>");
+	$("#notification-items").append("<div class='col-md-3'>" + item["reports"] + " " + pluralizeReport + "</div><br>");
+}

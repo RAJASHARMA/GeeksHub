@@ -6,6 +6,15 @@ class ApplicationController < ActionController::Base
     before_action :popular_articles
     before_action :new_reports
 
+    def new_reports
+      @new_reports = Report.select(:article_id).distinct.last(5)
+      @total = 0
+
+      @new_reports.each do |report|
+        @total = @total + report.article.reports.count
+      end
+    end
+
     protected
     
     def configure_permitted_parameters
@@ -20,12 +29,4 @@ class ApplicationController < ActionController::Base
         .limit(5)
     end
 
-    def new_reports
-      @new_reports = Report.select(:article_id).distinct.last(5)
-      @total = 0
-
-      @new_reports.each do |report|
-        @total = @total + report.article.reports.count
-      end
-    end
 end
