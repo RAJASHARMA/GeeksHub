@@ -8,6 +8,8 @@
     <%= javascript_include_tag 'application' %>
     <%= csrf_meta_tags %>
 
+    <meta content="width=device-width, initial-scale=1" name="viewport" />
+
     <style type="text/css">
       @media only screen and (max-width: 768px) {
         /* For mobile phones: */
@@ -15,6 +17,13 @@
           width: 100%;
         }
       }
+      @media only screen and (min-width: 768px) and (max-width: 1048px) {
+        /* For mobile phones: */
+        [id*="single-article"] {
+          height: 140px;
+        }
+      }
+      
     </style>
   </head>
   <body>

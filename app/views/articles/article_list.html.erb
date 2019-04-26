@@ -34,7 +34,7 @@
 				<div class="users-font card">
 			   		<div class="card-header users-font">
 			   			<div class="float-left" id="article-title">
-			   				<%= link_to article.title, article, class: 'text-info' %>&nbsp;(<%= article.status.humanize %>)	
+			   				<%= link_to article.title, article, class: 'text-info', target: 'blank' %>&nbsp;(<%= article.status.humanize %>)	
 			   			</div>
 			   			<div class="float-left ml-3">
 					      	<% unless article.reports.empty? %>

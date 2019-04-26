@@ -18,22 +18,20 @@
                 <% end %>  
               </div>
 
-              <div class="blog-content-body" style="height: 100px;">
+              <div class="blog-content-body" id="single-article" style="height: 100px;">
                 <div class="post-meta">
-                  <div class="wrap-text row">
+                  <div class="row">
                       <div class="col-md-8 text-truncate">
                         <h2><%= article.title %></h2>
                       </div>
-                    
-                      <div class="col-md-4">
+                      <div class="col-md-4 text-truncate">
                         <div class="float-left"><i class="fa fa-star text-warning"></i></div>
-                        <div class="badge-pill float-left">
+                        <div class="float-left">
                           <%= article.content_average.nil? ? 0.0 : article.content_average.avg.floor(1) %>
                         </div>
-                        
                       </div>
                   </div>
-                  <div>
+                  <div class="text-truncate">
                     <div class="author mx-2 float-left">
 
                       <% if article.user.profile.image.present? && !article.user.profile.image.image_file_name.nil? %>

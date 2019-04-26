@@ -6,12 +6,12 @@
       <div class="form-group row ">
         <div id="test"></div>
           <div class="col-md-12">
-            <div id="custom-search-input" class="col-md-12">
+            <div id="custom-search-input">
               <div class="input-group">
                 <div>
-                  <%= autocomplete_field_tag 'search', '', autocomplete_article_title_articles_path, :size => 27 %>
+                  <%= autocomplete_field_tag 'search', '', autocomplete_article_title_articles_path, class: 'col-md-12' %>
                 </div>
-                <span class="input-group-btn">
+                <span class="input-group-btn ml-auto">
                   <%= button_tag(type: 'submit', class: 'btn btn-info btn-lg') do %>
                     <i class="fa fa-search"></i>
                   <% end %>

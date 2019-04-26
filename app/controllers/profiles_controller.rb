@@ -5,12 +5,12 @@ class ProfilesController < ApplicationController
 
   def index
     if params[:val].present?
-      @users = User.includes(:articles).where(role: params[:val])
+      @users = User.includes([profile: :image]).where(role: params[:val])
       unless @users.empty?
         @role = @users.first.role
       end
     else
-      @users = User.all
+      @users = User.includes([profile: :image]).all
       @role = 'user'
     end
     @users = @users.paginate(page: params[:page], per_page: 3)
@@ -20,7 +20,7 @@ class ProfilesController < ApplicationController
       @profile.image.update(image: image_params)
       if @profile.update(profile_params)
         if @profile.slug.nil?
-          @profile.update(slug: params[:profile][:name].split(" ")[0] + "_" + params[:id]).capitalize if params[:profile][:name])
+          @profile.update( slug: @profile.name.split(" ")[0] + "_" + @profile.id).capitalize if !@profile.name.nil?
         end
         redirect_to @profile, :notice => 'Profile Updated Successfully'
       else

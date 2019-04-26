@@ -57,7 +57,10 @@ GEM
       autoprefixer-rails (>= 5.2.1)
       sassc (>= 2.0.0)
     builder (3.2.3)
-    byebug (11.0.0)
+    bullet (6.0.0)
+      activesupport (>= 3.0.0)
+      uniform_notifier (~> 1.11)
+    byebug (11.0.1)
     ckeditor (4.3.0)
       orm_adapter (~> 0.5.0)
       terrapin
@@ -222,6 +225,7 @@ GEM
       thread_safe (~> 0.1)
     uglifier (4.1.20)
       execjs (>= 0.3.0, < 3)
+    uniform_notifier (1.12.1)
     warden (1.2.7)
       rack (>= 1.0)
     web-console (2.3.0)
@@ -242,6 +246,7 @@ DEPENDENCIES
   better_errors
   bootstrap
   bootstrap-sass
+  bullet
   byebug
   ckeditor
   client_side_validations

@@ -102,11 +102,8 @@
                         <% if @profile.youtube.present? %>
                             <span class="mx-2"><%=link_to '', @profile.youtube, class: 'fa fa-youtube', style: 'color:red' %></span>
                         <% end %>
-  
                     </div>
-                    
                 </div>
-                
               </div>
             </div>
           </div>
@@ -133,8 +130,6 @@
           <% end %>
         </div>
       </div>
-
-
     </div>
     <% if user == current_user %>
       <%= link_to 'Change Password', edit_user_registration_path, class: 'user-content text-info float-right' %>
@@ -353,7 +348,6 @@
           <% end %>
           <%= f.hidden_field :id %>  
           <%= f.file_field :image, required: true, autofocus: true, class: 'form-control ',  title: 'Choose Picture' %>
-          
           <p class='error' id="image-error"><%= show_errors(@profile , :image) %></p>
         </div>
       </div>
