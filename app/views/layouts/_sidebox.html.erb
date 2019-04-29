@@ -1,7 +1,7 @@
 
 <div class="col-md-12">
   <!-- START Search bar -->
-  <div class=" search-form-wrap bg-transparent left4 ">
+  <div class=" search-form-wrap bg-transparent">
     <%= form_tag articles_path, method: 'get', class: "search-form", id: 'search-form' do %> 
       <div class="form-group row ">
         <div id="test"></div>
@@ -86,7 +86,7 @@
   <!-- END Author Section -->
   
   <!-- START Popular Aricle Section -->
-  <div class="sidebar-box col-md-12 padding3">
+  <div class="sidebar-box col-md-12 p-3">
     <h3 class="heading">Popular Posts</h3>
     <div class="post-entry-sidebar">
       <ul id="popular-articles">
@@ -118,7 +118,7 @@
   <!-- END Popular Aricle Section -->
 
   <!-- START Tag Section -->
-  <div class="sidebar-box padding3" id="tag-section">
+  <div class="sidebar-box p-3" id="tag-section">
     <h3 class="heading">Tags</h3>
     <ul class="tags" id="tag-item">
       <%= raw ActsAsTaggableOn::Tag.order('taggings_count DESC').limit(40).map { |t| link_to t, tag_path(t.name), :class => "tag-text"}.join(' ') %>

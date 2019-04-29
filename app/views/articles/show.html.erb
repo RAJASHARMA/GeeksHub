@@ -76,12 +76,13 @@
 <!-- START Comment Section -->
 <div class= "comment-section comment-font">
   <% if signed_in? %>
-    <div class="mb-5">
-      <a data-toggle="modal" data-target="#report"><i class="fa fa-exclamation-circle text-danger icon2"></i> <span class="icon2">Report this article</span> </a>
-    </div>
+    
       
     <h5>Comment on Article</h5>
     <%= render 'comments/form' %>
+    <div class="float-right">
+      <a data-toggle="modal" data-target="#report"><i class="fa fa-exclamation-circle text-danger icon2"></i> <span class="icon2">Report this article</span> </a>
+    </div>
   <% else %>
     <%= link_to "Sign up/Log in to Comment..", new_user_session_path, class: "text-danger standard-link" %>
   <% end %>

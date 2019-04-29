@@ -7,7 +7,7 @@
           <%= image_tag(image_path('default.jpg'), class: 'img-fluid') %>
         </p>
 
-        <p>Lorem ipsum dolor sit amet sa ksal sk sa, consectetur adipisicing elit. Ipsa harum inventore reiciendis. <a href="about">Read More</a></p>
+        <p>Lorem ipsum dolor sit amet sa ksal sk sa, consectetur adipisicing elit. Ipsa harum inventore reiciendis. <%= link_to 'Read more...', page_show_path('about') %></p>
       </div>
       <div class="col-md-6 ml-5">
         <div class="row">
@@ -18,11 +18,10 @@
                 <li><a href="pages/contact"></a></li>
               </ul>
                 <span>
-                   Contact<br>
-                    Phone: 720.974.7878
-                    Toll Free: 1.877.929.7878
+                    Phone: 7209747878<br>
+                    Toll Free: 18779297878<br>
                     Email: info@choicescreening.com<br>
-                    <a href="contact">Contact us</a>
+                    <%= link_to 'Contact us', page_show_path('contact') %>
                 </span>
             </div>
           </div>
@@ -42,12 +41,5 @@
         </div>
       </div>
     </div>
-    <!-- <div class="row">
-      <div class="col-md-12 text-center">
-        <p class="small">
-      Copyright &copy; <script data-cfasync="false" src="/cdn-cgi/scripts/5c5dd728/cloudflare-static/email-decode.min.js"></script><script>document.write(new Date().getFullYear());</script> All Rights Reserved | This Project is made with <i class="fa fa-heart text-danger" aria-hidden="true"></i> by <a href="https://colorlib.com" target="_blank" >Sushant</a>
-      </p>
-      </div>
-    </div> -->
   </div>
 </footer>

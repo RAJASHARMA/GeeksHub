@@ -48,6 +48,7 @@ gem 'client_side_validations'
 gem 'jquery-validation-rails'
 gem 'bullet', group: 'development'
 
+
 # gem 'bullet'
 # gem 'ruby-growl'
 # Use ActiveModel has_secure_password

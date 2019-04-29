@@ -31,7 +31,7 @@
                         </div>
                       </div>
                   </div>
-                  <div class="text-truncate">
+                  <div class="text-truncate article-info">
                     <div class="author mx-2 float-left">
 
                       <% if article.user.profile.image.present? && !article.user.profile.image.image_file_name.nil? %>
@@ -64,7 +64,7 @@
       <% end %>
     </div>
 
-    <div class="top10">
+    <div class="mt-5 float-right">
       <%= will_paginate @articles, renderer: WillPaginate::ActionView::BootstrapLinkRenderer %>
     </div>
   </div>

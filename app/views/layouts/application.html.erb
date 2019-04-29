@@ -10,25 +10,10 @@
 
     <meta content="width=device-width, initial-scale=1" name="viewport" />
 
-    <style type="text/css">
-      @media only screen and (max-width: 768px) {
-        /* For mobile phones: */
-        [class*="col-"] {
-          width: 100%;
-        }
-      }
-      @media only screen and (min-width: 768px) and (max-width: 1048px) {
-        /* For mobile phones: */
-        [id*="single-article"] {
-          height: 140px;
-        }
-      }
-      
-    </style>
   </head>
   <body>
     <div>
-      
+
       <div>
         <%= render partial: 'layouts/header' %>  
       </div>
@@ -52,10 +37,10 @@
       <div class="site-section py-sm">
         <div class="container-fluid">
           <div class="row col-md-12 blog-entries">
-            <div class="col-md-8 bottom10 p-4" style="background-color: white;">
+            <div class="col-md-8 mb-5 p-4 bg-white h-auto">
               <%= yield %>  
             </div>
-            <div class="col-md-4">
+            <div class="col-md-4 h-auto">
               <%= render partial: 'layouts/sidebox' %>  
             </div>
             

@@ -1,8 +1,8 @@
 class ProfilesController < ApplicationController
-  include ProfilesHelper
   before_action :set_profile, only: [:edit, :show, :update, :destroy, :rank_request ]
 
-
+  rescue_from ActiveRecord::RecordNotFound, with: :record_not_found
+  
   def index
     if params[:val].present?
       @users = User.includes([profile: :image]).where(role: params[:val])
@@ -13,7 +13,7 @@ class ProfilesController < ApplicationController
       @users = User.includes([profile: :image]).all
       @role = 'user'
     end
-    @users = @users.paginate(page: params[:page], per_page: 3)
+    user_paginate
   end
 
   def update
@@ -29,11 +29,11 @@ class ProfilesController < ApplicationController
   end
 
   def rank
+    # byebug
     user = User.find_by_id(params[:id])
-    if user.user?{
+    if user.user? || user.moderator_request? 
       user.moderator!
       user.update(moderator_request: false)
-    }
     elsif user.moderator?
       user.user!
     end
@@ -71,4 +71,7 @@ class ProfilesController < ApplicationController
     params[:profile][:image]
   end
 
+  def user_paginate
+    @users = @users.paginate(page: params[:page], per_page: 20)
+  end
 end

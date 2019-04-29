@@ -121,11 +121,13 @@
           <% else %>
             <span class="user-detail-label ">No Articles Posted</span>
           <% end %>
+          <% #byebug %>
           <% if user.articles.count >= 10 && user.user? && user == current_user %>
+
             <% if user.moderator_request == true %>
               <br><span class="user-detail-label text-success"> Your have requested to be Moderator </span>
             <% else %>
-              <br><span class="user-detail-label text-danger" id="rank-request-link">You are now eligible to be a Moderator <%= link_to 'Request here',profiles_rank_request_path(id: @profile.id, user_id: user), class: 'text-info', remote: true %></span>
+              <br><span class="user-detail-label text-danger" id="rank-request-link">You are eligible to be a Moderator <%= link_to 'Request here',profiles_rank_request_path(id: @profile.id, user_id: user), class: 'text-info', remote: true %></span>
             <% end %>
           <% end %>
         </div>

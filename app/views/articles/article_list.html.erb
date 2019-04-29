@@ -1,3 +1,4 @@
+<% if signed_in? && !current_user.user? %>
 <div class="col-md-12">
 	<div class="float-left">
 		<span class="head-article">
@@ -95,6 +96,10 @@
 	<% end %>
 </div>
 
-<div class="top10">
+<div class="mt-5 float-right">
       <%= will_paginate @articles, renderer: WillPaginate::ActionView::BootstrapLinkRenderer %>
 </div>
+<% else %>
+	You are not authorized to visit this page
+	<%= link_to 'Go to Homeppage', root_path, class: 'btn btn-info' %>
+<% end %>

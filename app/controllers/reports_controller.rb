@@ -5,7 +5,10 @@ class ReportsController < ApplicationController
     # after_action :new_reports, only: [:destroy]
 
     def index
-        @reports = @article.reports
+        @reports = @article.reports.includes([user: :profile])
+        unless @reports.nil?
+            report_pagination
+        end
     end
 
     def new
@@ -59,6 +62,10 @@ class ReportsController < ApplicationController
 
         def find_article
           @article = Article.friendly.find(params[:article_id])
+        end
+
+        def report_pagination
+            @reports = @reports.paginate(page: params[:page], per_page: 20)
         end
 end 
 
