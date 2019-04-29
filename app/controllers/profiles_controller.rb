@@ -16,6 +16,9 @@ class ProfilesController < ApplicationController
     user_paginate
   end
 
+  def show
+  end
+
   def update
       @profile.image.update(image: image_params)
       if @profile.update(profile_params)

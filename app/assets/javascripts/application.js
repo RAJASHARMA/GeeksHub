@@ -18,6 +18,7 @@
 //= require jquery.validate
 //= require bootstrap
 //= require ckeditor/init
+//= require ckeditor/plugins/codesnippet/plugin
 //= require jquery.raty
 //= require ratyrate
 //= require rails.validations
@@ -25,6 +26,7 @@
 //= require tag
 //= require article
 
+	
 
 $(document).ready(function(){
 
