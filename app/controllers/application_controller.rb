@@ -8,11 +8,7 @@ class ApplicationController < ActionController::Base
 
     def new_reports
       @new_reports = Report.select(:article_id).distinct.last(5)
-      @total = 0
-
-      @new_reports.each do |report|
-        @total = @total + report.article.reports.count
-      end
+      @total = @new_reports.inject(0) {|total, report| total + report.article.reports.count }
     end
 
     protected

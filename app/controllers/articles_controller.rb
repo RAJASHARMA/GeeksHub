@@ -3,7 +3,7 @@ class ArticlesController < ApplicationController
   require 'net/https'
 
   before_action :set_article, only: [:edit, :update, :destroy, :modify_status]
-  before_action :authenticate_user!, except: [:index, :show]
+  before_action :authenticate_user!, except: [:index, :show, :execute_code]
   before_action :set_user, only: [:user_articles]
   # after_action :article_pagination, only: [:index, :user_articles, :article_list]
 
@@ -114,7 +114,6 @@ class ArticlesController < ApplicationController
 
   # This function will modify the status of the article 
   def modify_status
-      # article = Article.friendly.find(params[:id])
     if params[:status]
       @article.declined!
     else
@@ -131,8 +130,8 @@ class ArticlesController < ApplicationController
     @response = {:output => "", :cpuTime => "", :memory => "", :statusCode => ""}
     puts "\n\nSever function called successfully\n"
     puts params
-    # run_Jdoodle_API
-    run_GeeksforGeeks_API       
+    # jdoodle_api
+    geeks_for_geeks_api       
     render json: @response  
   end
 
@@ -167,7 +166,7 @@ class ArticlesController < ApplicationController
     end
 
 
-    def run_Jdoodle_API
+    def jdoodle_api
       puts "\nJdoodle API response\n"
 
       begin
@@ -202,7 +201,7 @@ class ArticlesController < ApplicationController
     end
 
 
-    def run_GeeksforGeeks_API
+    def geeks_for_geeks_api
       puts "\nGeeksforGeeks_API response\n"
       code = params[:code]
       lang = params[:lang].capitalize

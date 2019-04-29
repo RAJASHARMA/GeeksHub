@@ -36,7 +36,7 @@
 			  		<% if user.user? %>
 			  			
 			  			<div class="float-right"><%= link_to '', profiles_rank_path(:id => user.id), class: 'fa fa-hand-o-up icon2 text-success col-md-2', title: 'Make Moderator' %></div>
-			  			<% if user.moderator_request == true %>
+			  			<% if user.moderator_request %>
 			  				<div class="float-right text-primary">(Requested to be Moderator)</div>
 			  			<% end %>
 

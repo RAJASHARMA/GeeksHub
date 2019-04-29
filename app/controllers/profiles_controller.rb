@@ -16,6 +16,9 @@ class ProfilesController < ApplicationController
     @users = @users.paginate(page: params[:page], per_page: 3)
   end
 
+  def show
+  end
+
   def update
       @profile.image.update(image: image_params)
       if @profile.update(profile_params)

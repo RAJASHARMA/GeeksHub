@@ -1,5 +1,5 @@
 $(document).ready(function(){
-	$("#report-<%=@report.id%>").remove();	
+	$("#report-<%=@report.id%>").hide('fast');
 	$.ajax({ 
 		type: "GET", 
 		url: '/reports/update_notice_board',
@@ -25,5 +25,5 @@ function append_list(item) {
 	if(item["reports"] == 1) report = "Report";
 
 	$("#notification-items").append("<div class='col-md-7 text-truncate'><a class='text-info' href='/articles/" + item["slug"] + "/reports'>" + item["title"] + "</a></div>");
-	$("#notification-items").append("<div class='col-md-3'>" + item["reports"] + " " + pluralizeReport + "</div><br>");
+	$("#notification-items").append("<div class='col-md-4'>" + item["reports"] + " " + pluralizeReport + "</div><br>");
 }

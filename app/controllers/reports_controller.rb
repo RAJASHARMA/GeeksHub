@@ -5,7 +5,7 @@ class ReportsController < ApplicationController
     # after_action :new_reports, only: [:destroy]
 
     def index
-        @reports = @article.reports
+        @reports = @article.reports.includes([user: :profile])
     end
 
     def new
@@ -38,8 +38,8 @@ class ReportsController < ApplicationController
         data = {}
         puts "Update report called Successfully.................."
 
-        data.merge!(:total => @total)
-        data.merge!(:new_reports => JSON.parse(@new_reports.to_json))
+        data[:total] = @total
+        data[:new_reports] = JSON.parse(@new_reports.to_json)
         data[:new_reports].each do |report|
             article = Article.find_by_id(report["article_id"])
             report.merge!(:title => article.title, :slug => article.slug, :reports => article.reports.count)
