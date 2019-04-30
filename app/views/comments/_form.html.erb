@@ -1,5 +1,5 @@
 <%= form_for [@article, @comment = @article.comments.build], remote: true do |f| %> 
-	<%= f.text_area :content, class: "comment-field col-md-12", id: 'comment-text' %>
+	<%= f.text_area :content, class: "comment-field col-md-12", id: 'comment-text', maxlength: 500 %>
 	<p id="comment-length"></p>
 	<p class='error'><%= show_errors(@comment, :content) %></p>
 	<%= f.hidden_field :parent_id %> 

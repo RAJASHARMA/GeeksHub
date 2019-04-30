@@ -1,17 +1,17 @@
 $( document ).ready(function() {
-    $("#article-content").find("pre").after("<button onclick='send_code(this)' data-remote='true'>Run</button><br/><br/><div class='output'></div><br/>")
+    $("#article-content").find("pre").after("<button class='btn btn-default' onclick='send_code(this)' data-remote='true'>Run</button><br/><br/><div class='output'></div><br/>")
 });
 
 function send_code(run_button) {
-    $(run_button).html("<i class='fa fa-refresh fa-spin'></i>Loading");
+    $(run_button).html("<i class='fa fa-refresh fa-spin'></i> Loading");
     output_div = run_button.nextElementSibling.nextElementSibling.nextElementSibling
     code_div = run_button.previousElementSibling.childNodes[0];
     code = code_div.textContent;
     lang = code_div.className.split("_")[1];
     langVersion = code_div.className.split("_")[2];
 
-    $(output_div).removeClass("output-padding");
     $(output_div).html("");
+    $(output_div).removeClass("output-padding");
     
     $.ajax({ 
         type: "POST", 
@@ -26,12 +26,12 @@ function send_code(run_button) {
             memory = Math.round(data["memory"] * 1000) / 1000;
             // debugger
             output = output.replace("\n", "<br>");
-            $(output_div).html("<u>Output: </u>" + " Time: " + cpuTime + " Memory: " + memory + "<hr/>" + output);
+            $(output_div).addClass("output-padding");
+            $(output_div).html("<u>Output: </u>" + " Time: " + cpuTime + " Memory: " + memory + "<hr/>" + output).hide().slideDown(500);
             $(run_button).html("Run"); 
-            $(output_div).addClass("output-padding"); 
+             
         },
         error: function (data) {  
-            console.log('Error in Operation');  
             $(output_div).html("<u>Output:</u><br>" + output);
             $(run_button).html("Run");
             $(output_div).addClass("output-padding"); 
