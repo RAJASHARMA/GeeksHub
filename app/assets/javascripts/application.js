@@ -15,7 +15,6 @@
 //= require jquery-ui
 //= require autocomplete-rails
 //= require jquery-ui/widgets/autocomplete
-//= require popper
 //= require bootstrap
 //= require ckeditor/init
 //= require ckeditor/plugins/codesnippet/plugin

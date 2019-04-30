@@ -1,7 +1,7 @@
 
 <div class="col-md-12">
   <!-- START Search bar -->
-  <div class=" search-form-wrap bg-transparent">
+  <div class=" search-form-wrap bg-transparent shadow">
     <%= form_tag articles_path, method: 'get', class: "search-form", id: 'search-form' do %> 
       <div class="form-group row ">
         <div id="test"></div>
@@ -22,7 +22,7 @@
 
   <!-- Notice Section -->
   <% if signed_in? && current_user.admin? && @total > 0  %>
-    <div class="sidebar-box p-3 border" id="notification-div">
+    <div class="sidebar-box p-3 border shadow" id="notification-div">
       <h3 class="heading">Notifications</h3>
       <div class="text-center" id="notification-counts">
         <span class="text-danger menu-font"><%= pluralize(@total, ' new Report') %></span>
@@ -45,7 +45,7 @@
   <% if action_name == 'show' %>
     <% unless @article.nil? %>
       <% unless @author.profile.nil? %>
-        <div class="sidebar-box top10">
+        <div class="sidebar-box mt-5 shadow">
           <div class="bio text-center">
             <% if @author.profile.image.present? && !@author.profile.image.image_file_name.nil? %>
               <%= image_tag @author.profile.image.image.url %>
@@ -82,7 +82,7 @@
   <!-- END Author Section -->
   
   <!-- START Popular Aricle Section -->
-  <div class="sidebar-box col-md-12 p-3 border">
+  <div class="sidebar-box col-md-12 p-3 border shadow">
     <h3 class="heading">Popular Articles</h3>
     <div class="post-entry-sidebar">
       <ul id="popular-articles">
@@ -115,7 +115,7 @@
   <!-- END Popular Aricle Section -->
 
   <!-- START Tag Section -->
-  <div class="sidebar-box p-3 border" id="tag-section">
+  <div class="sidebar-box p-3 border shadow" id="tag-section">
     <h3 class="heading">Tags</h3>
     <ul class="tags" id="tag-item">
       <%= raw ActsAsTaggableOn::Tag.order('taggings_count DESC').limit(40).map { |t| link_to t, tag_path(t.name), :class => "tag-text"}.join(' ') %>

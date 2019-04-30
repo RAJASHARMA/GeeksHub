@@ -23,7 +23,7 @@
         <% if comment.ancestry.nil? || comment.parent.ancestry.nil? %>
             <a class="fa fa-reply text-info" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"> Reply</a> |
         <% end %>
-        <% if current_user == @article.user || current_user == comment.user %>
+        <% if current_user == @article.user || current_user == comment.user || current_user.admin? %>
             <%= link_to " Delete", article_comment_path(@article, comment), method: :delete, remote: true, class: "fa fa-trash-o text-danger" %> 
         <% end %>
 
@@ -34,7 +34,6 @@
                 <p class="comment-length"></p>
                 <%= f.hidden_field :parent_id %> 
                 <%= f.submit "Reply", class: "fa fa-reply btn btn-success btn-sm" %>
-                <!-- <a class="fa fa-cancel btn btn-info btn-sm" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Cancel</a> -->
             <% end %>
             </div> 
         <% end %>	

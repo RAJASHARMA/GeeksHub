@@ -11,10 +11,10 @@
     <meta content="width=device-width, initial-scale=1" name="viewport" />
 
   </head>
-  <body>
+  <body  class="bg-gradient">
     <div>
 
-      <div class="sticky-top border-bottom">
+      <div class="sticky-top border-bottom shadow">
         <%= render partial: 'layouts/header' %>  
       </div>
       
@@ -37,7 +37,7 @@
       <div class="site-section py-sm">
         <div class="container-fluid">
           <div class="row col-md-12 blog-entries">
-            <div class="col-md-8 mb-5 p-4 bg-white h-auto border">
+            <div class="col-md-8 mb-5 p-4 bg-white h-auto border shadow">
               <%= yield %>  
             </div>
             <div class="col-md-4 h-auto">

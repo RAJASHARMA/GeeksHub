@@ -45,7 +45,6 @@ gem 'friendly_id'
 gem 'rack-cors'
 gem 'rails4-autocomplete'
 gem 'bullet', group: 'development'
-gem 'popper_js'
 
 
 # gem 'bullet'
