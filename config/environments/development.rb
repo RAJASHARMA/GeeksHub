@@ -26,7 +26,7 @@ Rails.application.configure do
     domain: "railscasts.com",
     authentication: "plain",
     enable_starttls_auto: true,
-    user_name: "sushant9658070043@gmail.com",
+    user_name: "",
     password: ""
   }
 
