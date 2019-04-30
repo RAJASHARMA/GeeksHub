@@ -2,13 +2,9 @@ class ReportsController < ApplicationController
   before_action :authenticate_user!
   before_action :find_article, except: [:update_notice_board]
   before_action :set_report, only: [:destroy]
-  # after_action :new_reports, only: [:destroy]
 
   def index
     @reports = @article.reports.includes([user: :profile])
-    unless @reports.nil?
-      report_pagination
-    end
   end
 
   def new
@@ -61,9 +57,5 @@ class ReportsController < ApplicationController
 
     def find_article
       @article = Article.friendly.find(params[:article_id])
-    end
-
-    def report_pagination
-      @reports = @reports.paginate(page: params[:page], per_page: 20)
     end
 end 

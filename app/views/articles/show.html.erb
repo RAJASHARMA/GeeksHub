@@ -21,13 +21,15 @@
         
         <div class="col-md-2">
           <div class="row float-right">
-              <% if current_user == @article.user %>
-              <span class=""><%= link_to "", edit_article_path(@article), class: 'fa fa-pencil-square-o text-info icon2', title: 'Edit Article', style: 'vertical-align: middle;' %> </span>&nbsp;|&nbsp;
-              <% end %> 
-              <span class=""><%= link_to "", article_path, method: :delete, data: { confirm: 'Are you sure to delete ?'}, class: 'fa fa-trash-o text-danger icon2', title: 'Delete Article', style: 'vertical-align: text-bottom;' %> </span>
+            <% if current_user == @article.user %>
+            <span class=""><%= link_to "", edit_article_path(@article), class: 'fa fa-pencil-square-o text-info icon2', title: 'Edit Article', style: 'vertical-align: middle;' %> </span>&nbsp;|&nbsp;
+            <% elsif current_user.admin? %>
+              <span class=""><%= link_to "", articles_modify_status_path(:id => @article, :status => :declined), class: 'fa fa-ban text-warning icon2', title: 'Decline Article', style: 'vertical-align: middle;' %> </span>&nbsp;|&nbsp; 
+            <% end %> 
+            <span class=""><%= link_to "", article_path, method: :delete, data: { confirm: 'Are you sure to delete ?'}, class: 'fa fa-trash-o text-danger icon2', title: 'Delete Article', style: 'vertical-align: text-bottom;' %> </span>
           </div>
         </div>
-
+        
       <% end %> 
     <% end %>
   </div>
@@ -113,7 +115,7 @@
       <%= form_for [@article, @report = @article.reports.build],html: { id: :report_form } do |f| %>
         <div class="modal-body">
           <div class="form-group">
-            <label>If you find content on Medium which you consider to be spam, harassment, or which violates Medium's Rules, please report it to us in product or email us with details. </label>
+            <label>If you find any content in this article irrelevant or which you consider to be spam, harassment, please report it to us here or email us with details. </label>
             <%= f.text_area :description,
                               required: false,
                               class: 'form-control',

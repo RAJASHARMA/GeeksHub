@@ -26,9 +26,9 @@
               <div class="dropdown-divider"></div>
               <%= link_to 'My Articles', articles_user_articles_path(user_id: current_user.id), class: 'dropdown-item' %>
               <% if current_user.admin? || current_user.moderator? %>
-                <%= link_to 'View All Articles', articles_article_list_path, class: 'dropdown-item' %>
+                <%= link_to 'All Articles', articles_article_list_path, class: 'dropdown-item' %>
                 <% if current_user.admin? %>
-                  <%= link_to 'View All Users', profiles_path, class: 'dropdown-item' %>
+                  <%= link_to 'All Users', profiles_path, class: 'dropdown-item' %>
                 <% end %>
               <% end %>
               <%= link_to 'Sign out', destroy_user_session_path, method: :delete, class: 'dropdown-item' %>

@@ -7,7 +7,6 @@
           <%= f.text_field :title, class: 'form-control', wrapper: false, maxlength: 40 %>
           <p id="title-length"></p>
           <p class='error'><%= show_errors(@article, :title) %></p>
-
         </div>
         
       </div>
@@ -23,7 +22,7 @@
       <div class="form-group row">
         <div class="col-md-3"><%= f.label "Thumbnail Image", class: 'label', wrapper: false %></div>
         <div class="col-md-8">
-          <%= f.file_field :image, class: 'custom-files' %>
+          <%= f.file_field :image, class: 'form-control' %>
           <p class='error'><%= show_errors(@article, :image) %></p>
         </div>
       </div>
@@ -35,7 +34,7 @@
     </div>
 
     <div class="form-group">
-      <%= f.button :submit, class: 'btn btn-success'  %>
+      <%= f.submit 'Create Article', class: 'btn btn-success'  %>
     </div>
   <% end %>
   

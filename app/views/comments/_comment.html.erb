@@ -31,6 +31,7 @@
             <div class="dropdown-menu col-md-7 reply-form" aria-labelledby="navbarDropdown" >
             <%= form_for [@article, comment.children.build], remote: true do |f| %> 
                 <%= f.text_area :content,:placeholder => "Replay to.. " + (comment.user.profile.name.nil? ? (comment.user.profile.public_email.nil? ? comment.user.email.split('@')[0] : comment.user.profile.public_email.split('@')[0]) : comment.user.profile.name.split(" ")[0]), class: "comment-field col-md-12" %>
+                <p class="comment-length"></p>
                 <%= f.hidden_field :parent_id %> 
                 <%= f.submit "Reply", class: "fa fa-reply btn btn-success btn-sm" %>
                 <!-- <a class="fa fa-cancel btn btn-info btn-sm" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Cancel</a> -->

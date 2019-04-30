@@ -14,7 +14,7 @@
   <body>
     <div>
 
-      <div>
+      <div class="sticky-top border-bottom">
         <%= render partial: 'layouts/header' %>  
       </div>
       
@@ -37,7 +37,7 @@
       <div class="site-section py-sm">
         <div class="container-fluid">
           <div class="row col-md-12 blog-entries">
-            <div class="col-md-8 mb-5 p-4 bg-white h-auto">
+            <div class="col-md-8 mb-5 p-4 bg-white h-auto border">
               <%= yield %>  
             </div>
             <div class="col-md-4 h-auto">

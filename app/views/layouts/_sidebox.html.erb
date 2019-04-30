@@ -8,7 +8,7 @@
           <div class="col-md-12">
             <div id="custom-search-input">
               <div class="input-group">
-                  <%= autocomplete_field_tag 'search', '', autocomplete_article_title_articles_path, class: ' col-md-10' %>
+                  <%= autocomplete_field_tag 'search', '', autocomplete_article_title_articles_path, class: 'col-md-10' %>
                   <%= button_tag(type: 'submit', class: 'btn btn-info btn-lg col-md-2') do %>
                     <i class="fa fa-search"></i>
                   <% end %>
@@ -22,7 +22,7 @@
 
   <!-- Notice Section -->
   <% if signed_in? && current_user.admin? && @total > 0  %>
-    <div class="sidebar-box p-3" id="notification-div">
+    <div class="sidebar-box p-3 border" id="notification-div">
       <h3 class="heading">Notifications</h3>
       <div class="text-center" id="notification-counts">
         <span class="text-danger menu-font"><%= pluralize(@total, ' new Report') %></span>
@@ -82,26 +82,27 @@
   <!-- END Author Section -->
   
   <!-- START Popular Aricle Section -->
-  <div class="sidebar-box col-md-12 p-3">
-    <h3 class="heading">Popular Posts</h3>
+  <div class="sidebar-box col-md-12 p-3 border">
+    <h3 class="heading">Popular Articles</h3>
     <div class="post-entry-sidebar">
       <ul id="popular-articles">
         <% @popular_articles.each do |article| %> 
           <li>
             <a href="<%=article_path(article)%>">
-              <% article_image = article.image %>
-              <% if article_image.present? && !article_image.image_file_name.nil?  %>
-                <%= image_tag article_image.image.url, height: '70', width: '100' %>
-              <% else %>
-                <%= image_tag(image_path('default_article.jpg'), height: '70', width: '100') %>
-              <% end %>
-
-              <div class="text pd-l-5">
+              <div>
+                <% article_image = article.image %>
+                <% if article_image.present? && !article_image.image_file_name.nil?  %>
+                  <%= image_tag article_image.image.url, height: '70', width: '100' %>
+                <% else %>
+                  <%= image_tag(image_path('default_article.jpg'), height: '70', width: '100') %>
+                <% end %>
+              </div>
+              
+              <div class="text pl-3">
                 <h4><%= article.title %></h4>
                 <div class="post-meta">
                   <span class="mr-2">
-                    <% article_user = article.user %>
-                    <%= article_user.profile.name.nil? ? (article_user.profile.public_email.nil? ? article_user.email.split('@')[0] : article_user.profile.public_email.split('@')[0]) : article_user.profile.name %>
+                    <%= article.created_at.strftime("%b %d, %Y") %>
                   </span>
                 </div>
               </div>
@@ -114,7 +115,7 @@
   <!-- END Popular Aricle Section -->
 
   <!-- START Tag Section -->
-  <div class="sidebar-box p-3" id="tag-section">
+  <div class="sidebar-box p-3 border" id="tag-section">
     <h3 class="heading">Tags</h3>
     <ul class="tags" id="tag-item">
       <%= raw ActsAsTaggableOn::Tag.order('taggings_count DESC').limit(40).map { |t| link_to t, tag_path(t.name), :class => "tag-text"}.join(' ') %>

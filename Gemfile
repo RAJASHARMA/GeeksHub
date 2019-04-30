@@ -44,9 +44,8 @@ gem 'jquery-ui-rails'
 gem 'friendly_id'
 gem 'rack-cors'
 gem 'rails4-autocomplete'
-gem 'client_side_validations'
-gem 'jquery-validation-rails'
 gem 'bullet', group: 'development'
+gem 'popper_js'
 
 
 # gem 'bullet'

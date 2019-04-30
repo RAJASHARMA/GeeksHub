@@ -4,17 +4,11 @@
 
   <%= form_for(resource, :as => resource_name, :url => registration_path(resource_name), html: { method: :patch }) do |f| %>
 
-    <% if resource.errors.any? %>
-      <div id="error_explanation" class="alert" style="text-align: center; color: red;">
-        <h2><%= pluralize(resource.errors.count, "error") %> Prohibited this User from being saved:</h2>
-
-        <ul>
-          <% resource.errors.full_messages.each do |msg| %>
-            <li><%= msg %></li>
-            <% end %>
-        </ul>
-      </div>
-    <% end %>
+    <% #if resource.errors.any? %>
+      <!-- <div id="error_explanation" class="alert">
+        <h4><%= pluralize(resource.errors.count, "error") %> </h4>
+      </div> -->
+    <%# end %>
 
 
     <div class="form-inputs">

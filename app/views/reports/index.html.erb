@@ -45,11 +45,6 @@
         <div class="text-danger text-center mt-5">
             No Reports Found    
         </div>
-        
-    <% else %>
-        <div class="mt-5 float-right">
-            <%= will_paginate @reports, renderer: WillPaginate::ActionView::BootstrapLinkRenderer %>
-        </div>
     <% end %>
 </div>
 

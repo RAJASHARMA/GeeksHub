@@ -15,13 +15,12 @@
 //= require jquery-ui
 //= require autocomplete-rails
 //= require jquery-ui/widgets/autocomplete
-//= require jquery.validate
+//= require popper
 //= require bootstrap
 //= require ckeditor/init
 //= require ckeditor/plugins/codesnippet/plugin
 //= require jquery.raty
 //= require ratyrate
-//= require rails.validations
 //= require_tree .
 //= require tag
 //= require article
@@ -69,19 +68,10 @@ $(document).ready(function(){
 	});
 
 	$("#report-button").click(function(){
-		if(blankValidation($("#report_description"),$("#report-error")) == true)
+		if(blankValidation($("#report_description"),$("#report-error")))
 			$("#report_form").submit();
 
 	});
-
-	// $(".cancel").click(function(){
-	// 	$(this.parentElement.parentElement).hide();
-	// });
-
-	// $(".reply").click(function(){
-	// 	debugger
-	// 	$(this.parentElement.nextElementSibling).show();
-	// });
 
 });
 

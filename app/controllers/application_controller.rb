@@ -21,7 +21,7 @@ class ApplicationController < ActionController::Base
     def popular_articles
       @popular_articles  = Article.joins(:content_average)
         .approved.order('rating_caches.avg DESC')
-        .includes(:image, :user)
+        .includes(:image)
         .limit(5)
     end
 
