@@ -1,5 +1,6 @@
 $(document).ready(function(){
-	$("#report-<%=@report.id%>").hide('fast');
+	articleId = <%= @report.article.id %>
+	$("#report-<%=@report.id%>").hide("medium", function() { $(this).remove(); });
 	$.ajax({ 
 		type: "GET", 
 		url: '/reports/update_notice_board',
@@ -12,18 +13,29 @@ $(document).ready(function(){
 				$("#notification-counts").html("<span class='text-danger menu-font'>" + data["total"] + " new " + pluralizeReport + "</span>");
 				$("#notification-items").html("");
 				data["new_reports"].forEach(append_list)
+				no_reports(data, articleId);
 			} else {
-				$("#notification-div").html("");
+				$("#notification-div").hide("medium", function() { $(this).remove(); });
+				$("#article-reports").append("<div class='text-danger text-center mt-5'>No Reports Found</div>").hide().fadeIn(500);
 			}
-						
 		}
 	});
 });
 
-function append_list(item) {
+function append_list(article) {
 	pluralizeReport = "Reports";
-	if(item["reports"] == 1) report = "Report";
+	if(article["reports"] == 1) report = "Report";
 
-	$("#notification-items").append("<div class='col-md-7 text-truncate'><a class='text-info' href='/articles/" + item["slug"] + "/reports'>" + item["title"] + "</a></div>");
-	$("#notification-items").append("<div class='col-md-4'>" + item["reports"] + " " + pluralizeReport + "</div><br>");
+	$("#notification-items").append("<div class='col-md-7 text-truncate'><a class='text-info' href='/articles/" + article["slug"] + "/reports'>" + article["title"] + "</a></div>");
+	$("#notification-items").append("<div class='col-md-4'>" + article["reports"] + " " + pluralizeReport + "</div><br>");
+}
+
+
+function no_reports(data, articleId){
+	var found = data["new_reports"].find(function(article){
+		return article["article_id"] == articleId;
+	});
+	if(found == undefined) {
+		$("#article-reports").append("<div class='text-danger text-center mt-5'>No Reports Found</div>").hide().fadeIn(500);
+	}
 }

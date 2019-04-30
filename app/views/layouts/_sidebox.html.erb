@@ -32,7 +32,7 @@
           <div class="col-md-7 text-truncate">
             <%= link_to report.article.title, article_reports_path(report.article), class: 'text-info' %>:
           </div>
-          <div class="col-md-3">
+          <div class="col-md-4">
             <%= pluralize( report.article.reports.count, 'Report') %>
           </div><br>
         <% end %>                      
