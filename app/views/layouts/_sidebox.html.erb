@@ -54,7 +54,7 @@
             <% end %>
             <div class="bio-body">
                 <h2>Author</h2>
-                <%= @author.profile.name.nil? ? (@author.profile.public_email.nil? ? @author.email.split('@')[0] : @author.profile.public_email.split('@')[0]) : @author.profile.name %>
+                <%= get_user_name(@author.profile) %>
                 <p><%= link_to 'Read my bio', profile_path(@author.profile.slug ? @author.profile.slug : @author.profile.id), class: "btn btn-primary btn-sm rounded" %></p>
                 <div>
                   <% if @author.profile.facebook.present? %>

@@ -21,7 +21,7 @@
                     <div class="tabbable-line bg-light">
                         <div class="row">
                             <% report_user = report.user %>
-                            <span class="col-md-11">Reported By : <%= link_to (report_user.profile.name.nil? ? (report_user.profile.public_email.nil? ? report_user.email.split('@')[0] : report_user.profile.public_email.split('@')[0]) : report_user.profile.name), profile_path(report_user.profile.slug ? report_user.profile.slug : report_user.profile.id), target: '_blank', class: "standard-link text-info" %>
+                            <span class="col-md-11">Reported By : <%= link_to get_user_name(report_user.profile), profile_path(report_user.profile.slug ? report_user.profile.slug : report_user.profile.id), target: '_blank', class: "standard-link text-info" %>
                         </span>
                         <span class="icon2 col-md-1">
                             <%= link_to '', article_report_path(id: report.id), method: :delete, class: 'fa fa-trash text-danger delete-btn', style: 'vertical-align: middle;', data: { confirm: 'Are You sure to delete this report ?'}, title: 'Delete Report', remote: true %> 
@@ -47,4 +47,3 @@
         </div>
     <% end %>
 </div>
-

@@ -75,7 +75,7 @@
 					    	<div class="col-md-4">
 
 					    		<span class="sub-heading text-secondary">
-					    			By: <%= article.user.profile.name.nil? ? (article.user.profile.public_email.nil? ? article.user.email.split('@')[0] : article.user.profile.public_email.split('@')[0]) : article.user.profile.name %></i></span><br>
+					    			By: <%=  get_user_name(article.user.profile) %></i></span><br>
 					    		<span class="sub-heading text-muted">
 					    			On: <%= article.created_at.strftime("%b %d, %Y") %></span>
 					    	</div>

@@ -1,4 +1,4 @@
-debugger
+// debugger
 <% @popular_articles.each do |article| %>
  	$("#popular-articles").html("<li><a href='<%=article_path(article)%>'>")
   	<% if article.image.present? && !article.image.image_file_name.nil?  %>

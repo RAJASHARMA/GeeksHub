@@ -33,7 +33,7 @@
       <% @users.each do |user|%>
         <div class="users-font card" >
           <div class=" users-font card-header col-md-12" id="user-list">
-            <%= link_to (user.profile.name.nil? ? (user.profile.public_email.nil? ? user.email.split('@')[0] : user.profile.public_email.split('@')[0]) : user.profile.name), profile_path(user.profile.slug ? user.profile.slug : user.profile.id), target: 'blank', class: "standard-link text-info" %>
+            <%= link_to  get_user_name(user.profile), profile_path(user.profile.slug ? user.profile.slug : user.profile.id), target: 'blank', class: "standard-link text-info" %>
             (<%= user.role.humanize %>)
             <% if user.user? %>
               <div class="float-right">
